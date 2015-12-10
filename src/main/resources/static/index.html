@@ -1,12 +1,26 @@
 <!doctype html>
-<html ng-app>
+<html ng-app="membershipManagementApp">
 <head>
     <title>Index page</title>
-    <script type="text/javascript" src="/webjars/angularjs/1.4.7/angular.min.js"></script>
+    <script type="text/javascript" src="webjars/angularjs/1.4.7/angular.min.js"></script>
+    <script type="text/javascript" src="webjars/angular-ui-bootstrap/0.14.3/ui-bootstrap.min.js"></script>
+    <script type="text/javascript" src="webjars/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js"></script>
+    <script type="text/javascript" src="webjars/sockjs-client/1.0.3/dist/sockjs.min.js"></script>
+    <script type="text/javascript" src="webjars/stomp-websocket/2.3.4/lib/stomp.min.js"></script>
+    <script type="text/javascript" src="webjars/AngularStompDK/0.3.4/dist/angular-stomp.js"></script>
+    <script src="js/controllers.js"></script>
     <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.1.1/css/bootstrap.min.css"/>
 </head>
 <body>
-<p>Hello!</p>
-<p>2 + 3 = {{ 2 + 3 }}</p>
+<div class="container">
+    <h1>Sprawdzanie karnetów</h1>
+
+    <p>Przyłóż karnet do czytnika aby sprawdzić jego ważność</p>
+
+    <div ng-controller="IndexCtrl">
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+        </uib-alert>
+    </div>
+</div>
 </body>
 </html>
