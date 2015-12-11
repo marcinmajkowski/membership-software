@@ -1,0 +1,66 @@
+@font-face {
+    font-family: 'Capture Smallz Regular'; /*a name to be used later*/
+    src: url('../fonts/Capsmall.ttf'); /*URL to font*/
+}
+
+.col-centered {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card {
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    white-space: nowrap;
+    width: 500px;
+}
+
+.card h1 {
+    font-family: 'Capture Smallz Regular', sans-serif;
+    font-size: 82px;
+    margin-top: 0px;
+}
+
+.card p {
+    font-size: 18.5px;
+    letter-spacing: 1px;
+    padding-bottom: 25px;
+}
+
+.card input {
+    border-radius: 6px;
+    color: black;
+}
+
+div.barcode {
+    background-color: white;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+
+@media(min-width: 992px) {
+    div.barcode {
+        border-radius: 6px 6px 0 0;
+    }
+}
+
+.barcode input {
+    border-width: 0;
+    outline: 0;
+    box-shadow: none;
+    text-align: center;
+    border-radius: 0 0 6px 6px;
+}
+/*.barcode input:focus {*/
+    /*border-width: 0;*/
+    /*outline: 0;*/
+    /*!*box-shadow: none;*!*/
+/*}*/
+
+div.barcode:focus {
+    background-color: aqua;
+}
