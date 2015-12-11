@@ -82,17 +82,18 @@
 }
 
 .sidebar-nav > .sidebar-brand {
+    font-family: 'Capture Smallz Regular', sans-serif;
     height: 65px;
-    font-size: 18px;
+    font-size: 35px;
     line-height: 60px;
 }
 
 .sidebar-nav > .sidebar-brand a {
-    color: #999999;
+    color: white;
 }
 
 .sidebar-nav > .sidebar-brand a:hover {
-    color: #fff;
+    text-shadow: 0 0 5px #FFFFFF;
     background: none;
 }
 
