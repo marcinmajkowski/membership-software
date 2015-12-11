@@ -34,4 +34,6 @@ membershipManagementApp.controller('IndexCtrl', function ($scope, ngstomp) {
     $scope.closeAlert = function(index) {
         $scope.alerts.splice(-index - 1, 1);
     };
+
+    $scope.menuVisible = true;
 });

@@ -11,48 +11,95 @@
     <script src="js/controllers.js"></script>
     <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.1.1/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/simple-sidebar.css"/>
     <link href='https://fonts.googleapis.com/css?family=Rubik+One' rel='stylesheet' type='text/css'>
 </head>
-<body>
-<div class="container-fluid">
-    <h1>Sprawdzanie karnetów</h1>
+<body ng-controller="IndexCtrl">
+<div id="wrapper" ng-class="menuVisible ? '' : 'toggled'">
 
-    <p>Przyłóż karnet do czytnika aby sprawdzić jego ważność</p>
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                    Start Bootstrap
+                </a>
+            </li>
+            <li>
+                <a href="#">Dashboard</a>
+            </li>
+            <li>
+                <a href="#">Shortcuts</a>
+            </li>
+            <li>
+                <a href="#">Overview</a>
+            </li>
+            <li>
+                <a href="#">Events</a>
+            </li>
+            <li>
+                <a href="#">About</a>
+            </li>
+            <li>
+                <a href="#">Services</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
 
-
-    <div class="panel card col-centered">
-        <div class="panel-body">
-            <div class="row text-center">
-                <div>
-                    <h1>Lepszy Klub</h1>
-
-                    <p>ul. Wrzosowa 13, 25-211 Kielce, tel. 606 313 314</p>
-                </div>
-            </div>
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
             <div class="row">
-                <form>
-                    <div class="form-group col-xs-8">
-                        <label for="fullName">Imię i Nazwisko</label>
-                        <input type="text" class="form-control col-md-8" id="fullName"
-                               placeholder="Imię i Nazwisko">
-                    </div>
-                    <div class="form-group col-xs-4">
-                        <div class="barcode text-center">
-                            <label for="code">| ||||| ||| || | ||||| ||||</label>
-                            <input type="text" class="form-control col-md-4" id="code" placeholder="Kod">
+                <div class="col-lg-12">
+                    <h1>Sprawdzanie karnetów</h1>
+
+                    <p>Przyłóż karnet do czytnika aby sprawdzić jego ważność</p>
+
+                    <a ng-click="menuVisible = !menuVisible" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+
+                    <div class="panel card col-centered">
+                        <div class="panel-body">
+                            <div class="row text-center">
+                                <div>
+                                    <h1>Lepszy Klub</h1>
+
+                                    <p>ul. Wrzosowa 13, 25-211 Kielce, tel. 606 313 314</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <form>
+                                    <div class="form-group col-xs-8">
+                                        <label for="fullName">Imię i Nazwisko</label>
+                                        <input type="text" class="form-control col-md-8" id="fullName"
+                                               placeholder="Imię i Nazwisko">
+                                    </div>
+                                    <div class="form-group col-xs-4">
+                                        <div class="barcode text-center">
+                                            <label for="code">| ||||| ||| || | ||||| ||||</label>
+                                            <input type="text" class="form-control col-md-4" id="code"
+                                                   placeholder="Kod">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </form>
+
+
+                    <div>
+                        <uib-alert ng-repeat="alert in alerts | orderBy: '-'" type="{{alert.type}}"
+                                   close="closeAlert($index)">
+                            {{alert.msg}}
+                        </uib-alert>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-
-    <div ng-controller="IndexCtrl">
-        <uib-alert ng-repeat="alert in alerts | orderBy: '-'" type="{{alert.type}}" close="closeAlert($index)">
-            {{alert.msg}}
-        </uib-alert>
-    </div>
 </div>
 </body>
 </html>
