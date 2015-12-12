@@ -1,6 +1,8 @@
 package com.marcinmajkowski.membership.scanner;
 
 import com.google.common.base.Joiner;
+import com.marcinmajkowski.membership.checkin.CheckIn;
+import com.marcinmajkowski.membership.checkin.CheckInRepository;
 import jssc.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -23,6 +25,8 @@ public class ScannerService {
 
     private SimpMessagingTemplate template;
 
+    private CheckInRepository checkInRepository;
+
     private static SerialPort serialPort;
 
     private static SerialNativeInterface serialNativeInterface = new SerialNativeInterface();
@@ -31,8 +35,9 @@ public class ScannerService {
     private String portName;
 
     @Autowired
-    public ScannerService(SimpMessagingTemplate template) {
+    public ScannerService(SimpMessagingTemplate template, CheckInRepository checkInRepository) {
         this.template = template;
+        this.checkInRepository = checkInRepository;
     }
 
     @Scheduled(fixedRate = 10000)
@@ -91,7 +96,7 @@ public class ScannerService {
 
     class SerialPortReader implements SerialPortEventListener {
 
-        private StringBuilder code = new StringBuilder();
+        private StringBuilder receivedCharacters = new StringBuilder();
 
         @Override
         public void serialEvent(SerialPortEvent serialPortEvent) {
@@ -102,13 +107,15 @@ public class ScannerService {
                 try {
                     byte[] bytes = serialPort.readBytes(serialPortEvent.getEventValue());
                     logger.info("Received: '" + new String(bytes) + "'");
-                    code.append(new String(bytes));
-                    int lineTerminatorIndex = code.indexOf("\r\n");
+                    receivedCharacters.append(new String(bytes));
+                    int lineTerminatorIndex = receivedCharacters.indexOf("\r\n");
                     if (lineTerminatorIndex != -1) {
-                        String payload = toJsonPayload(code.substring(0, lineTerminatorIndex));
+                        String code = receivedCharacters.substring(0, lineTerminatorIndex);
+                        String payload = toJsonPayload(code);
                         logger.info("Sending: " + payload);
                         template.convertAndSend("/scanner/check-in", payload);
-                        code = new StringBuilder();
+                        checkInRepository.checkIn(code, CheckIn.CodeSource.SCANNER);
+                        receivedCharacters = new StringBuilder(); //FIXME put the rest of the buffer into builder
                     }
                 } catch (SerialPortException e) {
                     e.printStackTrace();
@@ -125,7 +132,7 @@ public class ScannerService {
     }
 
     //TODO replace with proper json serialization
-    private static String toJsonPayload(String jsonString) {
-        return "{\"number\": \"" + jsonString + "\"}";
+    private static String toJsonPayload(String code) {
+        return "{\"number\": \"" + code + "\"}";
     }
 }

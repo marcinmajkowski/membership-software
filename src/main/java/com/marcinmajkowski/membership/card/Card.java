@@ -2,7 +2,9 @@ package com.marcinmajkowski.membership.card;
 
 import com.marcinmajkowski.membership.person.Person;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Date;
 
 /**
