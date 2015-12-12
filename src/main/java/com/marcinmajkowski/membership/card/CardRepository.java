@@ -11,7 +11,5 @@ import java.util.List;
  * Created by Marcin on 08/12/2015.
  */
 @RepositoryRestResource
-public interface CardRepository extends PagingAndSortingRepository<Card, Long> {
-
-    List<Person> findByCode(@Param("code") String code);
+public interface CardRepository extends PagingAndSortingRepository<Card, String> {
 }

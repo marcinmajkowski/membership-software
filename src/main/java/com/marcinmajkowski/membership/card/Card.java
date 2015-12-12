@@ -1,9 +1,8 @@
 package com.marcinmajkowski.membership.card;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.marcinmajkowski.membership.person.Person;
+
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -13,11 +12,11 @@ import java.util.Date;
 public class Card {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
     private String code;
     private Date issueTimestamp;
+
+    @ManyToOne
+    private Person owner;
 
     public String getCode() {
         return code;
@@ -33,5 +32,13 @@ public class Card {
 
     public void setIssueTimestamp(Date issueTimestamp) {
         this.issueTimestamp = issueTimestamp;
+    }
+
+    public Person getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Person owner) {
+        this.owner = owner;
     }
 }
