@@ -8,4 +8,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  */
 @RepositoryRestResource
 public interface CheckInRepository extends PagingAndSortingRepository<CheckIn, Long>, CheckInRepositoryCustom {
+
+    // finding last visit for a card
+    CheckIn findFirstByCardCodeOrderByTimestampDesc(String code);
 }
