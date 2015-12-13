@@ -6,6 +6,26 @@
             <p>Przyłóż karnet do czytnika aby sprawdzić jego ważność</p>
 
             <mm-card full-name="fullName" code="code"></mm-card>
+
+            <table class="table" ng-cloak>
+                <caption>Zarejestrowane wejścia.</caption>
+                <thead>
+                <tr>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Identyfikator</th>
+                    <th>Data i godzina</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="checkIn in checkIns">
+                    <td>{{checkIn.firstName}}</td>
+                    <td>{{checkIn.lastName}}</td>
+                    <td>{{checkIn.code}}</td>
+                    <td>{{checkIn.timestamp | date : 'short'}}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
