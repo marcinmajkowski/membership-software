@@ -6,13 +6,6 @@
             <p>Przyłóż karnet do czytnika aby sprawdzić jego ważność</p>
 
             <mm-card full-name="fullName" code="code"></mm-card>
-
-            <div>
-                <uib-alert ng-repeat="alert in alerts | orderBy: '-'" type="{{alert.type}}"
-                           close="closeAlert($index)">
-                    {{alert.msg}}
-                </uib-alert>
-            </div>
         </div>
     </div>
 </div>

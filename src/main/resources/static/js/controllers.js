@@ -10,42 +10,28 @@ angular.module('membershipManagementControllers', [])
     })
 
     .controller('CheckInCtrl', function ($scope, $http) {
-        $scope.message = {
-            'number': '-'
-        };
+        $scope.code = null;
+        $scope.firstName = null;
+        $scope.lastName = null;
+        $scope.fullName = null;
 
-        var items = [];
+        $scope.$on('scanEvent', function (event, message) {
+            $scope.code = angular.fromJson(message.body);
 
-        function whatToDoWhenMessageComing(event, message) {
-            $scope.message = angular.fromJson(message.body);
-            $scope.addAlert($scope.message);
-
-            $scope.code = $scope.message;
-
-            $http.get('api/v1/cards/search/findByCode?code=' + $scope.message).then(function (response) {
+            $http.get('api/v1/cards/search/findByCode?code=' + $scope.code).then(function (response) {
                 $http.get(response.data._links.owner.href).then(function (response) {
                     $scope.firstName = response.data.firstName;
                     $scope.lastName = response.data.lastName;
-                    $scope.fullName = response.data.firstName + ' ' + response.data.lastName;
+                    $scope.fullName = $scope.firstName + ' ' + $scope.lastName;
                 }, function (error) {
                     $scope.fullName = null;
                 });
             }, function (error) {
+                $scope.firstName = null;
+                $scope.lastName = null;
                 $scope.fullName = null;
             });
-        }
-
-        $scope.$on('scanEvent', whatToDoWhenMessageComing);
-
-        $scope.alerts = [];
-
-        $scope.addAlert = function (message) {
-            $scope.alerts.push({type: message === '000000001519' ? 'success' : 'danger', msg: message});
-        };
-
-        $scope.closeAlert = function (index) {
-            $scope.alerts.splice(-index - 1, 1);
-        };
+        });
     })
 
     .controller('PaymentCtrl', function ($scope) {
