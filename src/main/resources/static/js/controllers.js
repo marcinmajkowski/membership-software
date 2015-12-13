@@ -4,26 +4,35 @@ var membershipManagementApp = angular.module('membershipManagementApp', [
     'ui.bootstrap.tpls'
 ]);
 
+membershipManagementApp.run(function(ngstomp, $rootScope) {
+    var webSocketEndPoint = '/scanner/check-in';
+
+    function whatToDoWhenMessageComing(message) {
+        $rootScope.$broadcast('scanEvent', message);
+    }
+
+    ngstomp.subscribe(webSocketEndPoint, whatToDoWhenMessageComing);
+});
+
 membershipManagementApp.config(function(ngstompProvider) {
    ngstompProvider
        .url('/front-endpoint')
        .class(SockJS);
 });
 
-membershipManagementApp.controller('IndexCtrl', function ($scope, ngstomp) {
+membershipManagementApp.controller('IndexCtrl', function ($scope) {
     $scope.message = {
         'number': '-'
     }
 
-    var webSocketEndPoint = '/scanner/check-in';
     var items = [];
 
-    ngstomp.subscribe(webSocketEndPoint, whatToDoWhenMessageComing);
-
-    function whatToDoWhenMessageComing(message) {
+    function whatToDoWhenMessageComing(event, message) {
         $scope.message = angular.fromJson(angular.fromJson(message.body));
         $scope.addAlert($scope.message.number);
     }
+
+    $scope.$on('scanEvent', whatToDoWhenMessageComing);
 
     $scope.alerts = [];
 
