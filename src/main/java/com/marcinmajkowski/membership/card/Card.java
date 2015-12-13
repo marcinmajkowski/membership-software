@@ -2,9 +2,7 @@ package com.marcinmajkowski.membership.card;
 
 import com.marcinmajkowski.membership.person.Person;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -14,7 +12,12 @@ import java.util.Date;
 public class Card {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    @Column(unique = true)
     private String code;
+
     private Date issueTimestamp;
 
     @ManyToOne
