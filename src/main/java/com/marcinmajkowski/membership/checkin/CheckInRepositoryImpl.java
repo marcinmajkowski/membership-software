@@ -2,6 +2,8 @@ package com.marcinmajkowski.membership.checkin;
 
 import com.marcinmajkowski.membership.card.Card;
 import com.marcinmajkowski.membership.card.CardRepository;
+import com.marcinmajkowski.membership.enumeration.Channel;
+import com.marcinmajkowski.membership.enumeration.CodeSource;
 import com.marcinmajkowski.membership.person.Person;
 import com.marcinmajkowski.membership.person.PersonRepository;
 import org.apache.commons.logging.Log;
@@ -28,8 +30,8 @@ public class CheckInRepositoryImpl implements CheckInRepositoryCustom {
     private PersonRepository personRepository;
 
     @Override
-    public CheckIn checkIn(String code, CheckIn.CodeSource codeSource) {
-        Card card = cardRepository.findOne(code);
+    public CheckIn checkIn(String code, CodeSource codeSource) {
+        Card card = cardRepository.findByCode(code);
 
         List<Person> people = personRepository.findByLastName("Tokarski");
         Person staffMember = people.isEmpty() ? null : people.get(0);
@@ -37,7 +39,7 @@ public class CheckInRepositoryImpl implements CheckInRepositoryCustom {
         CheckIn checkIn = new CheckIn();
         checkIn.setCard(card);
         checkIn.setTimestamp(new Date());
-        checkIn.setChannel(CheckIn.Channel.DESKTOP);
+        checkIn.setChannel(Channel.DESKTOP);
         checkIn.setCodeSource(codeSource);
         checkIn.setStaffMember(staffMember);
 

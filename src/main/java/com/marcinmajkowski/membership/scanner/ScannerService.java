@@ -1,8 +1,8 @@
 package com.marcinmajkowski.membership.scanner;
 
 import com.google.common.base.Joiner;
-import com.marcinmajkowski.membership.checkin.CheckIn;
 import com.marcinmajkowski.membership.checkin.CheckInRepository;
+import com.marcinmajkowski.membership.enumeration.CodeSource;
 import jssc.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -114,7 +114,7 @@ public class ScannerService {
                         String payload = toJsonPayload(code);
                         logger.info("Sending: " + payload);
                         template.convertAndSend("/scanner/check-in", payload);
-                        checkInRepository.checkIn(code, CheckIn.CodeSource.SCANNER);
+                        checkInRepository.checkIn(code, CodeSource.SCANNER);
                         receivedCharacters = new StringBuilder(); //FIXME put the rest of the buffer into builder
                     }
                 } catch (SerialPortException e) {

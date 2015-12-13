@@ -1,6 +1,8 @@
 package com.marcinmajkowski.membership.checkin;
 
 import com.marcinmajkowski.membership.card.Card;
+import com.marcinmajkowski.membership.enumeration.Channel;
+import com.marcinmajkowski.membership.enumeration.CodeSource;
 import com.marcinmajkowski.membership.person.Person;
 
 import javax.persistence.*;
@@ -30,16 +32,8 @@ public class CheckIn {
     @ManyToOne
     private Person staffMember;
 
-    public enum CodeSource {
-        SCANNER,
-        INPUT
-    }
 
-    public enum Channel {
-        WEB,
-        MOBILE,
-        DESKTOP
-    }
+
 
     public Date getTimestamp() {
         return timestamp;
