@@ -111,9 +111,8 @@ public class ScannerService {
                     int lineTerminatorIndex = receivedCharacters.indexOf("\r\n");
                     if (lineTerminatorIndex != -1) {
                         String code = receivedCharacters.substring(0, lineTerminatorIndex);
-                        String payload = toJsonPayload(code);
-                        logger.info("Sending: " + payload);
-                        template.convertAndSend("/scanner/check-in", payload);
+                        logger.info("Sending: " + code);
+                        template.convertAndSend("/scanner/check-in", code);
                         checkInRepository.checkIn(code, CodeSource.SCANNER);
                         receivedCharacters = new StringBuilder(); //FIXME put the rest of the buffer into builder
                     }
@@ -129,10 +128,5 @@ public class ScannerService {
                 }
             }
         }
-    }
-
-    //TODO replace with proper json serialization
-    private static String toJsonPayload(String code) {
-        return "{\"number\": \"" + code + "\"}";
     }
 }
