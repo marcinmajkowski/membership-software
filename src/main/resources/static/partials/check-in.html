@@ -5,34 +5,7 @@
 
             <p>Przyłóż karnet do czytnika aby sprawdzić jego ważność</p>
 
-            <div class="panel card col-centered">
-                <div class="panel-body">
-                    <div class="row text-center">
-                        <div>
-                            <h1>Lepszy Klub</h1>
-
-                            <p>ul. Wrzosowa 13, 25-211 Kielce, tel. 606 313 314</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <form>
-                            <div class="form-group col-xs-8">
-                                <label for="fullName">Imię i Nazwisko</label>
-                                <input type="text" class="form-control col-md-8" id="fullName"
-                                       placeholder="Imię i Nazwisko" ng-model="fullName">
-                            </div>
-                            <div class="form-group col-xs-4">
-                                <div class="barcode text-center">
-                                    <label for="code">| ||||| ||| || | ||||| ||||</label>
-                                    <input type="text" class="form-control col-md-4" id="code"
-                                           placeholder="Kod" ng-model="code">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
+            <mm-card full-name="fullName" code="code"></mm-card>
 
             <div>
                 <uib-alert ng-repeat="alert in alerts | orderBy: '-'" type="{{alert.type}}"
