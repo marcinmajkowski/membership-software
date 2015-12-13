@@ -17,6 +17,12 @@
     <link href='https://fonts.googleapis.com/css?family=Rubik+One' rel='stylesheet' type='text/css'>
 </head>
 <body ng-controller="IndexCtrl">
+<!-- TODO: add danger-like style to this -->
+<nav class="navbar navbar-default navbar-fixed-bottom" ng-hide="stompConnectionStatus">
+    <div class="container-fluid">
+        <p class="navbar-text">Utracono połączenie z serwerem</p>
+    </div>
+</nav>
 <div id="wrapper" ng-class="menuVisible ? '' : 'toggled'">
 
     <!-- Sidebar -->

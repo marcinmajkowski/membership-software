@@ -1,7 +1,12 @@
 var membershipManagementControllers = angular.module('membershipManagementControllers', []);
 
-membershipManagementControllers.controller('IndexCtrl', function ($scope) {
+membershipManagementControllers.controller('IndexCtrl', function ($scope, ngstomp) {
     $scope.menuVisible = true;
+    $scope.stompConnectionStatus = true;
+
+    $scope.$on('stompConnectionStatusEvent', function (event, status) {
+       $scope.stompConnectionStatus = status;
+    });
 });
 
 membershipManagementControllers.controller('CheckInCtrl', function ($scope, $http) {

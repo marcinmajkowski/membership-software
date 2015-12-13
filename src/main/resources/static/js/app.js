@@ -26,7 +26,7 @@ membershipManagementApp.config(['$routeProvider', 'ngstompProvider',
             .class(SockJS);
     }]);
 
-membershipManagementApp.run(function (ngstomp, $rootScope) {
+membershipManagementApp.run(function (ngstomp, $rootScope, $interval) {
     var webSocketEndPoint = '/scanner/check-in';
 
     function whatToDoWhenMessageComing(message) {
@@ -34,4 +34,11 @@ membershipManagementApp.run(function (ngstomp, $rootScope) {
     }
 
     ngstomp.subscribe(webSocketEndPoint, whatToDoWhenMessageComing);
+
+    //FIXME use real hearbeat
+    //TODO add reconnection
+    $interval(function () {
+        console.log(ngstomp.stompClient.connected);
+        $rootScope.$broadcast('stompConnectionStatusEvent', ngstomp.stompClient.connected);
+    }, 1000);
 });
