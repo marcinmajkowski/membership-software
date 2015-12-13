@@ -1,29 +1,13 @@
-var membershipManagementApp = angular.module('membershipManagementApp', [
-    'AngularStompDK',
-    'ui.bootstrap',
-    'ui.bootstrap.tpls'
-]);
+var membershipManagementControllers = angular.module('membershipManagementControllers', []);
 
-membershipManagementApp.run(function(ngstomp, $rootScope) {
-    var webSocketEndPoint = '/scanner/check-in';
-
-    function whatToDoWhenMessageComing(message) {
-        $rootScope.$broadcast('scanEvent', message);
-    }
-
-    ngstomp.subscribe(webSocketEndPoint, whatToDoWhenMessageComing);
+membershipManagementControllers.controller('IndexCtrl', function ($scope) {
+    $scope.menuVisible = true;
 });
 
-membershipManagementApp.config(function(ngstompProvider) {
-   ngstompProvider
-       .url('/front-endpoint')
-       .class(SockJS);
-});
-
-membershipManagementApp.controller('IndexCtrl', function ($scope) {
+membershipManagementControllers.controller('CheckInCtrl', function ($scope) {
     $scope.message = {
         'number': '-'
-    }
+    };
 
     var items = [];
 
@@ -43,6 +27,8 @@ membershipManagementApp.controller('IndexCtrl', function ($scope) {
     $scope.closeAlert = function(index) {
         $scope.alerts.splice(-index - 1, 1);
     };
+});
 
-    $scope.menuVisible = true;
+membershipManagementControllers.controller('PaymentCtrl', function ($scope) {
+   $scope.payment = 'to be done';
 });

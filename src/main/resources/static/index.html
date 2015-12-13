@@ -3,11 +3,13 @@
 <head>
     <title>Sprawdzanie karnetów</title>
     <script type="text/javascript" src="webjars/angularjs/1.4.7/angular.min.js"></script>
+    <script type="text/javascript" src="webjars/angular-route/1.5.0-rc.0/angular-route.min.js"></script>
     <script type="text/javascript" src="webjars/angular-ui-bootstrap/0.14.3/ui-bootstrap.min.js"></script>
     <script type="text/javascript" src="webjars/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js"></script>
     <script type="text/javascript" src="webjars/sockjs-client/1.0.3/dist/sockjs.min.js"></script>
     <script type="text/javascript" src="webjars/stomp-websocket/2.3.4/lib/stomp.min.js"></script>
     <script type="text/javascript" src="webjars/AngularStompDK/0.3.4/dist/angular-stomp.js"></script>
+    <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.1.1/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
@@ -26,81 +28,37 @@
                 </a>
             </li>
             <li>
-                <a href="#">Dashboard</a>
+                <a href="#/check-in">Wejścia</a>
             </li>
             <li>
-                <a href="#">Shortcuts</a>
+                <a href="#/payment">Płatności</a>
             </li>
             <li>
-                <a href="#">Overview</a>
+                <a href="#/card">Karnety</a>
             </li>
             <li>
-                <a href="#">Events</a>
+                <a href="#/people">Klienci</a>
             </li>
             <li>
-                <a href="#">About</a>
+                <a href="#/membership">Oferta</a>
             </li>
             <li>
-                <a href="#">Services</a>
+                <a href="#/statistics">Statystyki</a>
             </li>
             <li>
-                <a href="#">Contact</a>
+                <a href="#/settings">Ustawienia</a>
             </li>
         </ul>
     </div>
     <!-- /#sidebar-wrapper -->
 
     <div id="page-content-wrapper">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1>Sprawdzanie karnetów</h1>
-
-                    <p>Przyłóż karnet do czytnika aby sprawdzić jego ważność</p>
-
-                    <p>
-                        <a ng-click="menuVisible = !menuVisible" class="btn btn-default" id="menu-toggle">Toggle
-                            Menu</a>
-                    </p>
-
-                    <div class="panel card col-centered">
-                        <div class="panel-body">
-                            <div class="row text-center">
-                                <div>
-                                    <h1>Lepszy Klub</h1>
-
-                                    <p>ul. Wrzosowa 13, 25-211 Kielce, tel. 606 313 314</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <form>
-                                    <div class="form-group col-xs-8">
-                                        <label for="fullName">Imię i Nazwisko</label>
-                                        <input type="text" class="form-control col-md-8" id="fullName"
-                                               placeholder="Imię i Nazwisko">
-                                    </div>
-                                    <div class="form-group col-xs-4">
-                                        <div class="barcode text-center">
-                                            <label for="code">| ||||| ||| || | ||||| ||||</label>
-                                            <input type="text" class="form-control col-md-4" id="code"
-                                                   placeholder="Kod">
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div>
-                        <uib-alert ng-repeat="alert in alerts | orderBy: '-'" type="{{alert.type}}"
-                                   close="closeAlert($index)">
-                            {{alert.msg}}
-                        </uib-alert>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div ng-view></div>
+        <p>
+            <a ng-click="menuVisible = !menuVisible" class="btn btn-default" id="menu-toggle">
+                Menu
+            </a>
+        </p>
     </div>
 
 </div>
