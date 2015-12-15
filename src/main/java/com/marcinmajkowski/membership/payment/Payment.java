@@ -19,17 +19,19 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column(nullable = false)
     private Date timestamp;
 
+    @Column(nullable = false)
     private Date membershipStartDate;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Membership membership;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Card card;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Person staffMember;
 
     @Enumerated(EnumType.STRING)

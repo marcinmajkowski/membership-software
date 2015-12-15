@@ -1,9 +1,6 @@
 package com.marcinmajkowski.membership.membership;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 /**
@@ -16,9 +13,17 @@ public class Membership {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column(nullable = false)
     private BigDecimal price;
+
+    @Column(nullable = false)
     private Integer duration;
+
+    @Column
     private Integer timesPerWeek;
+
+    @Column(nullable = false)
+    private Boolean isOpen;
 
     public BigDecimal getPrice() {
         return price;
@@ -42,5 +47,13 @@ public class Membership {
 
     public void setTimesPerWeek(Integer timesPerWeek) {
         this.timesPerWeek = timesPerWeek;
+    }
+
+    public Boolean getOpen() {
+        return isOpen;
+    }
+
+    public void setOpen(Boolean open) {
+        isOpen = open;
     }
 }

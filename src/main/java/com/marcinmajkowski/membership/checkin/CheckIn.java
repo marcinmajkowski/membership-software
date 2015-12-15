@@ -18,9 +18,10 @@ public class CheckIn {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column(nullable = false)
     private Date timestamp;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Card card;
 
     @Enumerated(EnumType.STRING)
@@ -29,11 +30,8 @@ public class CheckIn {
     @Enumerated(EnumType.STRING)
     private Channel channel;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Person staffMember;
-
-
-
 
     public Date getTimestamp() {
         return timestamp;
