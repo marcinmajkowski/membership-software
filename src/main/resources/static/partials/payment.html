@@ -1,9 +1,20 @@
-<form novalidate>
-    Identyfikator: <input type="text" ng-model="code" /><br/>
-    Rodzaj karnetu: {{localMembership}}
-    <ul>
-        <li ng-repeat="membership in memberships"><input name="test" type="radio" ng-model="localMembership" value="membership._links.self.href" />{{membership.price}} PLN</li>
-    </ul>
-    Pierwszy dzień ważności: TBD<br/>
-    <input type="submit" ng-click="newPayment()" value="Zapisz"/><br/>
-</form>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>Płatności</h1>
+
+            <form novalidate>
+                Identyfikator: <input type="text" ng-model="code"/><br/>
+                Rodzaj karnetu: {{localMembership}}
+                <ul>
+                    <li ng-repeat="membership in memberships"><input name="test" type="radio" ng-model="localMembership"
+                                                                     value="membership._links.self.href"/>{{membership.price}}
+                        PLN
+                    </li>
+                </ul>
+                Pierwszy dzień ważności: TBD<br/>
+                <input type="submit" ng-click="newPayment()" value="Zapisz"/><br/>
+            </form>
+        </div>
+    </div>
+</div>

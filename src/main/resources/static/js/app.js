@@ -19,9 +19,21 @@ angular.module('membershipManagementApp', [
                 templateUrl: 'partials/payment.html',
                 controller: 'PaymentCtrl'
             }).
+            when('/card', {
+                templateUrl: 'partials/card.html'
+            }).
             when('/people', {
                 templateUrl: 'partials/people.html',
                 controller: 'PeopleCtrl'
+            }).
+            when('/membership', {
+                templateUrl: 'partials/membership.html'
+            }).
+            when('/statistics', {
+                templateUrl: 'partials/statistics.html'
+            }).
+            when('/settings', {
+                templateUrl: 'partials/settings.html'
             }).
             otherwise({
                 redirectTo: '/check-in'
