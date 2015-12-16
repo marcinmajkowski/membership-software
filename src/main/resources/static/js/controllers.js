@@ -9,7 +9,7 @@ angular.module('membershipManagementControllers', [])
         });
     })
 
-    .controller('CheckInCtrl', function ($scope, $http) {
+    .controller('CheckInCtrl', function ($scope, $http, CheckIn, Card) {
         //FIXME this is hell
         $scope.$on('scanEvent', function (event, message) {
             $scope.code = angular.fromJson(message.body);
@@ -32,30 +32,60 @@ angular.module('membershipManagementControllers', [])
         });
 
         var updateCheckIns = function () {
-            $http.get('api/v1/checkIns?sort=timestamp,desc').then(function (response) {
-                $scope.checkIns = response.data._embedded.checkIns;
-
-                for (var i = 0; i < $scope.checkIns.length; i++) {
-                    (function (i) {
-                        $http.get($scope.checkIns[i]._links.card.href).then(function (response) {
-                            $scope.checkIns[i].code = response.data.code;
-                            $http.get(response.data._links.owner.href).then(function (response) {
-                                $scope.checkIns[i].firstName = response.data.firstName;
-                                $scope.checkIns[i].lastName = response.data.lastName;
-                            }, function (error) {
-                            })
-                        }, function (error) {
-                        });
-                    })(i);
-                }
-            }, function (error) {
-                $scope.checkIns = null;
-            });
+            $scope.checkIns = CheckIn.query({sort: 'timestamp,desc'});
         };
 
         updateCheckIns();
+
+        $scope.checkIn = function (code) {
+            var data = {
+                timestamp: Date.now(),
+                codeSource: 'SCANNER',
+                channel: 'WEB',
+                card: 'cards/1',
+                staffMember: 'people/1'
+            }
+            $http.post('api/v1/checkIns', data).then(function (response) {
+                console.log(response);
+            })
+        };
+
+        $scope.card = Card.get({cardId: '1'}, function () {
+            console.log($scope.card);
+        });
     })
 
-    .controller('PaymentCtrl', function ($scope) {
-        $scope.payment = 'to be done';
-    });
+    .controller('PaymentCtrl', function ($scope, $http) {
+        $http.get('api/v1/memberships').then(function (response) {
+            $scope.memberships = response.data._embedded.memberships;
+        }, function (error) {
+        });
+
+        $scope.$on('scanEvent', function (event, message) {
+            $scope.code = angular.fromJson(message.body);
+        });
+
+        $scope.newPayment = function () {
+            $scope.payment = {
+                channel: 'WEB',
+                codeSource: 'SCANNER',
+                membershipStartDate: Date.now(),
+                timestamp: Date.now(),
+                card: null,
+                membership: $scope.localMembership,
+                staffMember: 'people/1'
+            };
+
+            $http.get('api/v1/cards/search/findByCode?code=' + $scope.code).then(function (response) {
+                $scope.payment.card = response.data._links.self;
+                console.log($scope.payment.card);
+                console.log($scope.payment.membership);
+                $http.post('api/v1/payments', $scope.payment);
+            }, function (error) {
+            });
+        };
+    })
+
+    .controller('PeopleCtrl', ['$scope', 'People', function ($scope, People) {
+        $scope.people = People.query();
+    }]);

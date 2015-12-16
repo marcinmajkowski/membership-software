@@ -1,1 +1,9 @@
-TBD ({{payment}})!
+<form novalidate>
+    Identyfikator: <input type="text" ng-model="code" /><br/>
+    Rodzaj karnetu: {{localMembership}}
+    <ul>
+        <li ng-repeat="membership in memberships"><input name="test" type="radio" ng-model="localMembership" value="membership._links.self.href" />{{membership.price}} PLN</li>
+    </ul>
+    Pierwszy dzień ważności: TBD<br/>
+    <input type="submit" ng-click="newPayment()" value="Zapisz"/><br/>
+</form>

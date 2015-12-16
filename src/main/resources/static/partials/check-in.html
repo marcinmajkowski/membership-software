@@ -7,6 +7,8 @@
 
             <mm-card full-name="fullName" code="code"></mm-card>
 
+            <a ng-click="checkIn(code)" class="btn btn-primary">Zarejestruj Wejście</a>
+
             <table class="table" ng-cloak>
                 <caption>Zarejestrowane wejścia.</caption>
                 <thead>
@@ -19,9 +21,9 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="checkIn in checkIns">
-                    <td>{{checkIn.firstName}}</td>
-                    <td>{{checkIn.lastName}}</td>
-                    <td>{{checkIn.code}}</td>
+                    <td>{{checkIn._embedded.card.owner.firstName}}</td>
+                    <td>{{checkIn._embedded.card.owner.lastName}}</td>
+                    <td>{{checkIn._embedded.card.code}}</td>
                     <td>{{checkIn.timestamp | date : 'short'}}</td>
                 </tr>
                 </tbody>

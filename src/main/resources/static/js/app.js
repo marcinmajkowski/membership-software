@@ -4,7 +4,8 @@ angular.module('membershipManagementApp', [
         'ui.bootstrap',
         'ui.bootstrap.tpls',
         'membershipManagementControllers',
-        'membershipManagementDirectives'
+        'membershipManagementDirectives',
+        'membershipManagementServices'
     ])
 
     .config(['$routeProvider', 'ngstompProvider',
@@ -17,6 +18,10 @@ angular.module('membershipManagementApp', [
             when('/payment', {
                 templateUrl: 'partials/payment.html',
                 controller: 'PaymentCtrl'
+            }).
+            when('/people', {
+                templateUrl: 'partials/people.html',
+                controller: 'PeopleCtrl'
             }).
             otherwise({
                 redirectTo: '/check-in'

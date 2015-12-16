@@ -7,7 +7,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 /**
  * Created by Marcin on 08/12/2015.
  */
-@RepositoryRestResource
+@RepositoryRestResource(excerptProjection = CardProjection.class)
 public interface CardRepository extends PagingAndSortingRepository<Card, Long> {
 
     Card findByCode(@Param("code") String code);

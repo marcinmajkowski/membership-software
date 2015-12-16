@@ -43,6 +43,7 @@ public class ScannerService {
     @Scheduled(fixedRate = 10000)
     public void checkConnectionStatus() {
         logger.debug("Checking serial port connection status");
+        //TODO check if listener is still up
 
         if (serialPort == null || !serialPort.isOpened()) {
             logger.debug("Barcode scanner is not connected");
@@ -113,7 +114,7 @@ public class ScannerService {
                         String code = receivedCharacters.substring(0, lineTerminatorIndex);
                         logger.info("Sending: " + code);
                         template.convertAndSend("/scanner/check-in", code);
-                        checkInRepository.checkIn(code, CodeSource.SCANNER);
+                        checkInRepository.checkIn(code, CodeSource.SCANNER); //FIXME exception here causes Listener death
                         receivedCharacters = new StringBuilder(); //FIXME put the rest of the buffer into builder
                     }
                 } catch (SerialPortException e) {
