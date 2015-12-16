@@ -49,6 +49,13 @@
     margin-right: -250px;
 }
 
+#menu-toggle {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 1001;
+}
+
 /* Sidebar Styles */
 
 .sidebar-nav {
@@ -74,7 +81,7 @@
 .sidebar-nav li a:hover {
     text-decoration: none;
     color: #fff;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .sidebar-nav li a:active,
@@ -97,7 +104,7 @@
     background: none;
 }
 
-@media(min-width:768px) {
+@media (min-width: 768px) {
     #wrapper {
         padding-left: 250px;
     }
