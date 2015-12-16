@@ -86,6 +86,21 @@ angular.module('membershipManagementControllers', [])
         };
     })
 
-    .controller('PeopleCtrl', ['$scope', 'People', function ($scope, People) {
-        $scope.people = People.query();
+    .controller('PeopleCtrl', ['$scope', 'People', '$http', function ($scope, People, $http) {
+        $scope.loadPeopleList = function () {
+            $scope.people = People.query();
+        };
+
+        $scope.loadPeopleList();
+
+        $scope.person = {};
+
+        $scope.add = function (person) {
+            People.save(person, $scope.loadPeopleList);
+        };
+
+        $scope.remove = function (person) {
+            $http.delete(person._links.person.href).success($scope.loadPeopleList);
+            //TODO notify when 409: conflict - cannot delete
+        };
     }]);
