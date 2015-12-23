@@ -121,12 +121,12 @@ angular.module('membershipManagementControllers', [])
             //TODO notify when 409: conflict - cannot delete
         };
 
-        $scope.$on('scanEvent', function (event, code) {
+        $scope.$on('scanEvent', function (event, code, card) {
             $scope.clear();
             $scope.code = code;
-            Card.byCode({code: $scope.code}, function (data) {
-                $scope.fullName = data.owner.firstName + ' ' + data.owner.lastName;
-            });
+            if (card) {
+                $scope.fullName = card.owner.firstName + ' ' + card.owner.lastName;
+            }
             $scope.loadCards();
         });
 

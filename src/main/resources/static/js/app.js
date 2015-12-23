@@ -45,12 +45,16 @@ angular.module('membershipManagementApp', [
                 .class(SockJS);
         }])
 
-    .run(function (ngstomp, $rootScope, $interval) {
+    .run(function (ngstomp, $rootScope, $interval, Card) {
         var webSocketEndPoint = '/scanner/check-in';
 
         function whatToDoWhenMessageComing(message) {
             var code = angular.fromJson(message.body);
-            $rootScope.$broadcast('scanEvent', code);
+            Card.byCode({code: code}, function (card) {
+                $rootScope.$broadcast('scanEvent', code, card);
+            }, function (error) {
+                $rootScope.$broadcast('scanEvent', code, null);
+            });
         }
 
         ngstomp.subscribe(webSocketEndPoint, whatToDoWhenMessageComing);
