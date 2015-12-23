@@ -114,7 +114,7 @@ public class ScannerService {
                         String code = receivedCharacters.substring(0, lineTerminatorIndex);
                         logger.info("Sending: " + code);
                         template.convertAndSend("/scanner/check-in", code);
-                        checkInRepository.checkIn(code, CodeSource.SCANNER); //FIXME exception here causes Listener death
+//                        checkInRepository.checkIn(code, CodeSource.SCANNER); //FIXME exception here causes Listener death
                         receivedCharacters = new StringBuilder(); //FIXME put the rest of the buffer into builder
                     }
                 } catch (SerialPortException e) {
