@@ -3,6 +3,10 @@
     src: url('../fonts/Capsmall.ttf'); /*URL to font*/
 }
 
+html {
+    overflow-y: scroll;
+}
+
 .col-centered {
     float: none;
     margin-left: auto;
