@@ -8,6 +8,13 @@ angular.module('membershipManagementServices', ['ngResource'])
                 transformResponse: function (data, headersGetter) {
                     return angular.fromJson(data)._embedded.cards;
                 }
+            },
+            'byCode': {
+                method: 'GET',
+                url: '/api/v1/cards/search/findByCode',
+                params: {
+                    projection: 'cardProjection'
+                }
             }
         });
     }])
@@ -17,6 +24,14 @@ angular.module('membershipManagementServices', ['ngResource'])
             'query': {
                 method: 'GET',
                 isArray: true,
+                transformResponse: function (data, headersGetter) {
+                    return angular.fromJson(data)._embedded.people;
+                }
+            },
+            'byFirstNameAndLastName': {
+                method: 'GET',
+                isArray: true,
+                url: '/api/v1/people/search/findByFirstNameAndLastNameAllIgnoreCase',
                 transformResponse: function (data, headersGetter) {
                     return angular.fromJson(data)._embedded.people;
                 }

@@ -13,5 +13,7 @@ interface CardProjection {
 
     String getCode();
 
+    Date getIssueTimestamp();
+
     Person getOwner();
 }

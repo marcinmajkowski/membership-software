@@ -20,7 +20,8 @@ angular.module('membershipManagementApp', [
                 controller: 'PaymentCtrl'
             }).
             when('/card', {
-                templateUrl: 'partials/card.html'
+                templateUrl: 'partials/card.html',
+                controller: 'CardCtrl'
             }).
             when('/people', {
                 templateUrl: 'partials/people.html',
@@ -48,7 +49,8 @@ angular.module('membershipManagementApp', [
         var webSocketEndPoint = '/scanner/check-in';
 
         function whatToDoWhenMessageComing(message) {
-            $rootScope.$broadcast('scanEvent', message);
+            var code = angular.fromJson(message.body);
+            $rootScope.$broadcast('scanEvent', code);
         }
 
         ngstomp.subscribe(webSocketEndPoint, whatToDoWhenMessageComing);
