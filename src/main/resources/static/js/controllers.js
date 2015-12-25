@@ -10,23 +10,19 @@ angular.module('membershipManagementControllers', [])
     })
 
     .controller('CheckInCtrl', function ($scope, $http, CheckIn, Card) {
-        //FIXME this is hell
-        $scope.$on('scanEvent', function (event, code) {
+        $scope.$on('scanEvent', function (event, code, card) {
             $scope.code = code;
 
-            $http.get('api/v1/cards/search/findByCode?code=' + $scope.code).then(function (response) {
-                $http.get(response.data._links.owner.href).then(function (response) {
-                    $scope.firstName = response.data.firstName;
-                    $scope.lastName = response.data.lastName;
-                    $scope.fullName = $scope.firstName + ' ' + $scope.lastName;
-                }, function (error) {
-                    $scope.fullName = null;
-                });
-            }, function (error) {
+            if (card) {
+                $scope.firstName = card.owner.firstName;
+                $scope.lastName = card.owner.lastName;
+                $scope.fullName = $scope.firstName + ' ' + $scope.lastName;
+                //TODO check-in here
+            } else {
                 $scope.firstName = null;
                 $scope.lastName = null;
                 $scope.fullName = null;
-            });
+            }
 
             updateCheckIns();
         });
@@ -49,10 +45,6 @@ angular.module('membershipManagementControllers', [])
                 console.log(response);
             });
         };
-
-        $scope.card = Card.get({cardId: '1'}, function () {
-            console.log($scope.card);
-        });
     })
 
     .controller('PaymentCtrl', function ($scope, $http) {
