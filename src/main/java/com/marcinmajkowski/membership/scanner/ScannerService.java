@@ -2,7 +2,6 @@ package com.marcinmajkowski.membership.scanner;
 
 import com.google.common.base.Joiner;
 import com.marcinmajkowski.membership.checkin.CheckInRepository;
-import com.marcinmajkowski.membership.enumeration.CodeSource;
 import jssc.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.util.Optional;
 
 /**
  * Created by Marcin on 10/12/2015.
@@ -46,9 +46,8 @@ public class ScannerService {
         //TODO check if listener is still up
 
         if (serialPort == null || !serialPort.isOpened()) {
-            logger.debug("Barcode scanner is not connected");
-            String[] ports = serialNativeInterface.getSerialPortNames();
-            logger.debug("COM ports available: " + Joiner.on(", ").join(ports));
+            String[] ports = Optional.ofNullable(serialNativeInterface.getSerialPortNames()).orElse(new String[]{});
+            logger.info("Barcode scanner is not connected. COM ports available: " + Joiner.on(", ").join(ports));
 
             //TODO reconnection based on runtime application settings or looking for barcode scanner on every port (how?)
             for (String port : ports) {
@@ -77,7 +76,13 @@ public class ScannerService {
             serialPort.setEventsMask(mask);
             serialPort.addEventListener(new SerialPortReader());
         } catch (SerialPortException e) {
-            e.printStackTrace(); //FIXME remove print stack trace if it works
+            switch (e.getExceptionType()) {
+                case SerialPortException.TYPE_PORT_NOT_FOUND:
+                    logger.error("Port " + portName + " not found! Check scanner.defaultPortName settings in application.properties");
+                    break;
+                default:
+                    e.printStackTrace(); //FIXME remove print stack trace if it works
+            }
         }
     }
 
