@@ -100,6 +100,13 @@ angular.module('membershipManagementControllers', [])
         };
     }])
 
+    .controller('PersonCtrl', ['$scope', '$routeParams', 'People', function ($scope, $routeParams, People) {
+        var person = People.get({personId: $routeParams.personId}, function (person) {
+            $scope.firstName = person.firstName;
+            $scope.lastName = person.lastName;
+        });
+    }])
+
     .controller('CardCtrl', ['$scope', 'Card', 'People', '$http', function ($scope, Card, People, $http) {
         $scope.loadCards = function () {
             $scope.cards = Card.query({}, function (data) {

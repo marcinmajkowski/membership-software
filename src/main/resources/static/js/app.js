@@ -27,6 +27,10 @@ angular.module('membershipManagementApp', [
                 templateUrl: 'partials/people.html',
                 controller: 'PeopleCtrl'
             }).
+            when('/people/:personId', {
+                templateUrl: 'partials/person.html',
+                controller: 'PersonCtrl'
+            }).
             when('/membership', {
                 templateUrl: 'partials/membership.html'
             }).
