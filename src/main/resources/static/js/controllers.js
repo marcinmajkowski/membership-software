@@ -86,6 +86,10 @@ angular.module('membershipManagementControllers', [])
             $scope.people = People.query();
         };
 
+        $scope.getPersonId = function (person) {
+            return person._links.self.href.split('/').pop();
+        };
+
         $scope.loadPeople();
 
         $scope.person = {};

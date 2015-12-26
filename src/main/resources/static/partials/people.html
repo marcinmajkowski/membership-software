@@ -24,7 +24,7 @@
             </form>
             <ol>
                 <li ng-repeat="person in people">
-                    {{person.firstName + ' ' + person.lastName}}
+                    <a href="{{'#/people/' + getPersonId(person)}}">{{person.firstName + ' ' + person.lastName}}</a>
                     <a ng-click="remove(person)" href class="pull-right text-danger">Usuń</a>
                 </li>
             </ol>
