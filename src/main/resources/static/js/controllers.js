@@ -24,25 +24,28 @@ angular.module('membershipManagementControllers', [])
                 $scope.fullName = null;
             }
 
-            updateCheckIns();
+            $scope.checkIn(card);
         });
 
         var updateCheckIns = function () {
+            //TODO add new checkIn to array on client side
             $scope.checkIns = CheckIn.query({sort: 'timestamp,desc'});
         };
 
         updateCheckIns();
 
-        $scope.checkIn = function (code) {
+        $scope.checkIn = function (card) {
             var data = {
                 timestamp: Date.now(),
                 codeSource: 'SCANNER',
                 channel: 'WEB',
-                card: 'cards/1',
-                staffMember: 'people/1'
+                card: card._links.self.href,
+                staffMember: 'people/1' //TODO get logged user
             };
+
             $http.post('api/v1/checkIns', data).then(function (response) {
                 console.log(response);
+                updateCheckIns();
             });
         };
     })
