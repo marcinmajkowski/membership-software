@@ -40,7 +40,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Lepszy Klub</a>
+            <a class="navbar-brand" id="navbar-logo" href="#">Lepszy Klub</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse" uib-collapse="navCollapsed">
             <ul class="nav navbar-nav navbar-right">
@@ -59,7 +59,7 @@
 <div class="container-fluid">
     <div class="row">
         <!-- TODO fixed width sidebar -->
-        <div class="col-sm-3 col-md-2 sidebar">
+        <div class="col-sm-4 col-md-3 sidebar">
             <!-- TODO separate ul for each alphabet letter and sorting -->
             <h4 ng-show="search">Wyniki wyszukiwania</h4>
             <p ng-show="search && (people | filter:search).length === 0" class="text-muted">Brak wyników</p>
@@ -82,7 +82,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-view/>
+        <div class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main" ng-view/>
     </div>
 </div>
 

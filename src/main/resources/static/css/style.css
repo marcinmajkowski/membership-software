@@ -11,6 +11,12 @@ html {
     overflow-y: hidden;
 }
 
+#navbar-logo {
+    font-family: 'Capture Smallz Regular', sans-serif;
+    color: #ffffff;
+    font-size: 30px;
+}
+
 .col-centered {
     float: none;
     margin-left: auto;

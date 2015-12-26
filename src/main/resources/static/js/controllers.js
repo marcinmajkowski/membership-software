@@ -11,6 +11,10 @@ angular.module('membershipManagementControllers', [])
             }
         };
 
+        $scope.$on('scanEvent', function (event, code) {
+            //TODO redirect to profile or to new profile form
+        });
+
         $scope.$on('stompConnectionStatusEvent', function (event, status) {
             $scope.stompConnectionStatus = status;
         });
