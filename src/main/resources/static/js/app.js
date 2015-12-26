@@ -1,5 +1,6 @@
 angular.module('membershipManagementApp', [
         'ngRoute',
+        'ngAnimate',
         'AngularStompDK',
         'ui.bootstrap',
         'ui.bootstrap.tpls',

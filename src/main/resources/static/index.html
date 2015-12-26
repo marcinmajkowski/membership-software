@@ -1,11 +1,15 @@
-<!doctype html>
+<!DOCTYPE html>
 <html ng-app="membershipManagementApp">
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Lepszy Klub</title>
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon/lepszy-klub-rounded-corners.ico"/>
     <script type="text/javascript" src="webjars/angularjs/1.4.7/angular.min.js"></script>
     <script type="text/javascript" src="webjars/angular-route/1.4.7/angular-route.min.js"></script>
     <script type="text/javascript" src="webjars/angular-resource/1.4.7/angular-resource.min.js"></script>
+    <script type="text/javascript" src="webjars/angular-animate/1.4.7/angular-animate.min.js"></script>
     <script type="text/javascript" src="webjars/angular-ui-bootstrap/0.14.3/ui-bootstrap.min.js"></script>
     <script type="text/javascript" src="webjars/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js"></script>
     <script type="text/javascript" src="webjars/sockjs-client/1.0.3/dist/sockjs.min.js"></script>
@@ -17,7 +21,7 @@
     <script type="text/javascript" src="js/services.js"></script>
     <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.1.1/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
-    <link rel="stylesheet" type="text/css" href="css/simple-sidebar.css"/>
+    <link rel="stylesheet" type="text/css" href="css/dashboard.css"/>
 </head>
 <body ng-controller="IndexCtrl">
 <!-- TODO: add danger-like style to this -->
@@ -26,48 +30,61 @@
         <p class="navbar-text">Utracono połączenie z serwerem</p>
     </div>
 </nav>
-<div id="wrapper" ng-class="menuVisible ? '' : 'toggled'">
 
-    <!-- Sidebar -->
-    <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <li class="sidebar-brand">
-                <a href="#/home">
-                    Lepszy Klub
-                </a>
-            </li>
-            <li>
-                <a href="#/check-in">Wejścia</a>
-            </li>
-            <li>
-                <a href="#/payment">Płatności</a>
-            </li>
-            <li>
-                <a href="#/card">Karnety</a>
-            </li>
-            <li>
-                <a href="#/people">Klienci</a>
-            </li>
-            <li>
-                <a href="#/membership">Oferta</a>
-            </li>
-            <li>
-                <a href="#/statistics">Statystyki</a>
-            </li>
-            <li>
-                <a href="#/settings">Ustawienia</a>
-            </li>
-        </ul>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid" ng-init="navCollapsed = true">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" ng-click="navCollapsed = !navCollapsed">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Lepszy Klub</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse" uib-collapse="navCollapsed">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#/check-in">Wejścia</a></li>
+                <li><a href="#/payment">Płatności</a></li>
+                <li><a href="#/settings">Ustawienia</a></li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" ng-model="search" placeholder="Wyszukaj osoby..."
+                       ng-change="doSomething()">
+            </form>
+        </div>
     </div>
-    <!-- /#sidebar-wrapper -->
+</nav>
 
-    <div id="page-content-wrapper">
-        <div ng-view></div>
-        <a ng-click="menuVisible = !menuVisible" class="btn btn-default btn-xs" id="menu-toggle">
-            Menu
-        </a>
+<div class="container-fluid">
+    <div class="row">
+        <!-- TODO fixed width sidebar -->
+        <div class="col-sm-3 col-md-2 sidebar">
+            <!-- TODO separate ul for each alphabet letter and sorting -->
+            <h4 ng-show="search">Wyniki wyszukiwania</h4>
+            <p ng-show="search && (people | filter:search).length === 0" class="text-muted">Brak wyników</p>
+            <ul class="nav nav-sidebar" ng-show="search">
+                <!-- FIXME filters _links -->
+                <li ng-repeat="person in people | filter:search" ng-class="isActive(person) ? 'active' : ''">
+                    <a href="{{'#/people/' + getPersonId(person)}}">
+                        {{person.firstName + ' ' + person.lastName}}
+                    </a>
+                </li>
+            </ul>
+            <hr ng-show="search"/>
+            <ul class="nav nav-sidebar">
+                <!-- TODO refactor! -->
+                <li ng-repeat="person in people" ng-class="isActive(person) && (!search || (people | filter:search).length === 0) ? 'active' : ''">
+                    <!-- TODO $parent is not a good solution -->
+                    <a ng-href="{{'#/people/' + getPersonId(person)}}" ng-click="$parent.search = null">
+                        {{person.firstName + ' ' + person.lastName}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-view/>
     </div>
-
 </div>
+
 </body>
 </html>

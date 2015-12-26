@@ -25,6 +25,7 @@
         <jssc.version>2.8.0</jssc.version>
         <angularjs.version>1.4.7</angularjs.version>
         <angular-route.version>1.4.7</angular-route.version>
+        <angular-animate.version>1.4.7</angular-animate.version>
         <angular-resource.version>1.4.7</angular-resource.version>
         <bootstrap.version>3.1.1</bootstrap.version>
         <angular-ui-bootstrap.version>0.14.3</angular-ui-bootstrap.version>
@@ -98,6 +99,11 @@
             <groupId>org.webjars.bower</groupId>
             <artifactId>angular-route</artifactId>
             <version>${angular-route.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-animate</artifactId>
+            <version>${angular-animate.version}</version>
         </dependency>
         <dependency>
             <groupId>org.webjars.bower</groupId>

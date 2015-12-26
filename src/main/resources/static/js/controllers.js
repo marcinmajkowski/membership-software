@@ -1,12 +1,30 @@
 angular.module('membershipManagementControllers', [])
 
-    .controller('IndexCtrl', function ($scope, ngstomp) {
+    .controller('IndexCtrl', function ($scope, ngstomp, People, $location, $filter) {
         $scope.menuVisible = true;
         $scope.stompConnectionStatus = true;
+
+        $scope.doSomething = function () {
+            var person = $filter('filter')($scope.people, $scope.search)[0];
+            if (person) {
+                $location.path('/people/' + $scope.getPersonId(person));
+            }
+        };
 
         $scope.$on('stompConnectionStatusEvent', function (event, status) {
             $scope.stompConnectionStatus = status;
         });
+
+        $scope.getPersonId = function (person) {
+            return person._links.self.href.split('/').pop();
+        };
+
+        $scope.isActive = function (person) { //FIXME performance
+            var pathUserId = $location.path().split('/').pop(); //FIXME this does not check if id is of a person or something else
+            return pathUserId === $scope.getPersonId(person);
+        };
+
+        $scope.people = People.query();
     })
 
     .controller('CheckInCtrl', function ($scope, $http, CheckIn, Card) {
@@ -96,6 +114,7 @@ angular.module('membershipManagementControllers', [])
 
         $scope.add = function (person) {
             People.save(person, $scope.loadPeople);
+            //FIXME reload sidebar
         };
 
         $scope.remove = function (person) {

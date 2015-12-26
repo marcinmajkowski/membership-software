@@ -1,33 +1,29 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1>Wejścia</h1>
+<h1 class="page-header">Wejścia</h1>
 
-            <p>Przyłóż karnet do czytnika aby sprawdzić jego ważność</p>
+<p>Przyłóż karnet do czytnika aby sprawdzić jego ważność</p>
 
-            <mm-card full-name="fullName" code="code"></mm-card>
+<mm-card full-name="fullName" code="code"></mm-card>
 
-            <a ng-click="checkIn(code)" class="btn btn-primary">Zarejestruj Wejście</a>
+<a ng-click="checkIn(code)" class="btn btn-primary">Zarejestruj Wejście</a>
 
-            <table class="table">
-                <caption>Zarejestrowane wejścia.</caption>
-                <thead>
-                <tr>
-                    <th>Imię</th>
-                    <th>Nazwisko</th>
-                    <th>Identyfikator</th>
-                    <th>Data i godzina</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="checkIn in checkIns">
-                    <td>{{checkIn._embedded.card.owner.firstName}}</td>
-                    <td>{{checkIn._embedded.card.owner.lastName}}</td>
-                    <td>{{checkIn._embedded.card.code}}</td>
-                    <td>{{checkIn.timestamp | date : 'short'}}</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+<h2 class="sub-header">Zarejestrowane wejścia</h2>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Identyfikator</th>
+            <th>Data i godzina</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="checkIn in checkIns">
+            <td>{{checkIn._embedded.card.owner.firstName}}</td>
+            <td>{{checkIn._embedded.card.owner.lastName}}</td>
+            <td>{{checkIn._embedded.card.code}}</td>
+            <td>{{checkIn.timestamp | date : 'short'}}</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
