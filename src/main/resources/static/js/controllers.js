@@ -1,13 +1,17 @@
 angular.module('membershipManagementControllers', [])
 
     .controller('IndexCtrl', function ($scope, ngstomp, People, $location, $filter) {
-        $scope.menuVisible = true;
         $scope.stompConnectionStatus = true;
 
-        $scope.doSomething = function () {
-            var person = $filter('filter')($scope.people, $scope.search)[0];
+        $scope.performSearch = function () {
+            $scope.peopleFiltered = $filter('filter')($scope.people, function (item) {
+                var fullName = item.firstName + ' ' + item.lastName;
+                //TODO check against cards codes
+                return fullName.toLowerCase().indexOf($scope.search.toLowerCase()) !== -1;
+            });
+            var person = $scope.peopleFiltered[0];
             if (person) {
-                $location.path('/people/' + $scope.getPersonId(person));
+                $location.path(person.profileUrl);
             }
         };
 
@@ -24,11 +28,24 @@ angular.module('membershipManagementControllers', [])
         };
 
         $scope.isActive = function (person) { //FIXME performance
-            var pathUserId = $location.path().split('/').pop(); //FIXME this does not check if id is of a person or something else
-            return pathUserId === $scope.getPersonId(person);
+            return $location.path() === person.profileUrl;
         };
 
-        $scope.people = People.query();
+        var querySidebarPeopleList = function () {
+            $scope.people = [];
+            People.query({}, function (people) {
+                for (var i = 0; i < people.length; i++) {
+                    $scope.people[i] = {
+                        firstName: people[i].firstName,
+                        lastName: people[i].lastName,
+                        profileUrl: '/people/' + $scope.getPersonId(people[i])
+                        //TODO all card codes (for filtering)
+                    };
+                }
+            });
+        };
+
+        querySidebarPeopleList();
     })
 
     .controller('CheckInCtrl', function ($scope, $http, CheckIn, Card) {
