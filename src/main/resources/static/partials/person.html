@@ -1,1 +1,26 @@
 <h1 class="page-header">{{firstName + ' ' + lastName}}</h1>
+<p>Email:</p>
+<p>Data urodzenia:</p>
+<p>Numer telefonu:</p>
+<h2 class="sub-header">Karnety</h2>
+<ul>
+    <li ng-repeat="card in cards">{{card.code}}</li>
+</ul>
+<h2 class="sub-header">Płatności</h2>
+<h2 class="sub-header">Wejścia</h2>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Karnet</th>
+            <th>Data i godzina</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="checkIn in checkIns">
+            <td>{{checkIn._embedded.card.code}}</td>
+            <td>{{checkIn.timestamp | date : 'short'}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

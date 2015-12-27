@@ -62,6 +62,7 @@
         <div class="col-sm-4 col-md-3 sidebar">
             <!-- TODO separate ul for each alphabet letter and sorting -->
             <h4 ng-show="search">Wyniki wyszukiwania</h4>
+
             <p ng-show="search && (people | filter:search).length === 0" class="text-muted">Brak wyników</p>
             <ul class="nav nav-sidebar" ng-show="search">
                 <!-- FIXME filters _links -->
@@ -74,7 +75,8 @@
             <hr ng-show="search"/>
             <ul class="nav nav-sidebar">
                 <!-- TODO refactor! -->
-                <li ng-repeat="person in people" ng-class="isActive(person) && (!search || (people | filter:search).length === 0) ? 'active' : ''">
+                <li ng-repeat="person in people"
+                    ng-class="isActive(person) && (!search || (people | filter:search).length === 0) ? 'active' : ''">
                     <!-- TODO $parent is not a good solution -->
                     <a ng-href="{{'#/people/' + getPersonId(person)}}" ng-click="$parent.search = null">
                         {{person.firstName + ' ' + person.lastName}}

@@ -127,10 +127,12 @@ angular.module('membershipManagementControllers', [])
         };
     }])
 
-    .controller('PersonCtrl', ['$scope', '$routeParams', 'People', function ($scope, $routeParams, People) {
+    .controller('PersonCtrl', ['$scope', '$routeParams', 'People', 'Card', 'CheckIn', function ($scope, $routeParams, People, Card, CheckIn) {
         var person = People.get({personId: $routeParams.personId}, function (person) {
             $scope.firstName = person.firstName;
             $scope.lastName = person.lastName;
+            $scope.cards = Card.byOwner({owner: person._links.self.href});
+            $scope.checkIns = CheckIn.byCardOwner({owner: person._links.self.href});
         });
     }])
 

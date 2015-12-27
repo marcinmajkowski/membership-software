@@ -15,7 +15,16 @@ angular.module('membershipManagementServices', ['ngResource'])
                 params: {
                     projection: 'cardProjection'
                 }
+            },
+            'byOwner': {
+                method: 'GET',
+                url: '/api/v1/cards/search/findByOwner',
+                isArray: true,
+                transformResponse: function (data, headersGetter) {
+                    return angular.fromJson(data)._embedded.cards;
+                }
             }
+
         });
     }])
 
@@ -44,6 +53,14 @@ angular.module('membershipManagementServices', ['ngResource'])
             'query': {
                 method: 'GET',
                 isArray: true,
+                transformResponse: function (data, headersGetter) {
+                    return angular.fromJson(data)._embedded.checkIns;
+                }
+            },
+            'byCardOwner': {
+                method: 'GET',
+                isArray: true,
+                url: '/api/v1/checkIns/search/findByCardOwnerOrderByTimestampDesc',
                 transformResponse: function (data, headersGetter) {
                     return angular.fromJson(data)._embedded.checkIns;
                 }
