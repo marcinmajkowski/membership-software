@@ -41,8 +41,11 @@ angular.module('membershipManagementApp', [
             when('/settings', {
                 templateUrl: 'partials/settings.html'
             }).
+            when('/', {
+                templateUrl: 'partials/home.html'
+            }).
             otherwise({
-                redirectTo: '/check-in'
+                redirectTo: '/'
             });
 
             ngstompProvider
