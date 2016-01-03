@@ -20,7 +20,7 @@ public class Person {
     private String lastName;
 
     @Column
-    private Date birthDate;
+    private Date birthday;
 
     public String getFirstName() {
         return firstName;
@@ -38,11 +38,11 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 }

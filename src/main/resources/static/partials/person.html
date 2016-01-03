@@ -1,7 +1,26 @@
+<button type="button" class="btn btn-link">
+    <span class="glyphicon glyphicon-chevron-left"></span> Powrót
+</button>
+<button type="button" class="btn btn-link pull-right">
+    Edycja
+</button>
+<hr/>
 <h1 class="page-header">{{firstName + ' ' + lastName}}</h1>
-<p>Email:</p>
-<p>Data urodzenia: {{ birthDate | date:'yyyy-MM-dd' }}</p>
-<p>Numer telefonu:</p>
+<form>
+    <div class="form-group">
+        <label for="email">email</label>
+        <input type="email" class="form-control" id="email" placeholder="email" ng-model="email">
+    </div>
+    <div class="form-group">
+        <label for="phone">telefon</label>
+        <input type="text" class="form-control" id="phone" placeholder="telefon" ng-model="phone">
+    </div>
+    <div class="form-group">
+        <label for="birthday">urodziny</label>
+        <input type="text" class="form-control" id="birthday" placeholder="urodziny" ng-model="birthday">
+    </div>
+</form>
+<p>Data urodzenia: {{ birthday | date:'yyyy-MM-dd' }}</p>
 <h2 class="sub-header">Karnety</h2>
 <ul>
     <li ng-repeat="card in cards">{{card.code}}</li>

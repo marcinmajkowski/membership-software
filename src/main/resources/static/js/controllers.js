@@ -150,7 +150,7 @@ angular.module('membershipManagementControllers', [])
             $scope.lastName = person.lastName;
             $scope.cards = Card.byOwner({owner: person._links.self.href});
             $scope.checkIns = CheckIn.byCardOwner({owner: person._links.self.href});
-            $scope.birthDate = person.birthDate;
+            $scope.birthday = person.birthday;
         });
     }])
 
