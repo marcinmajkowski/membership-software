@@ -1,6 +1,6 @@
 <h1 class="page-header">{{firstName + ' ' + lastName}}</h1>
 <p>Email:</p>
-<p>Data urodzenia:</p>
+<p>Data urodzenia: {{ birthDate | date:'yyyy-MM-dd' }}</p>
 <p>Numer telefonu:</p>
 <h2 class="sub-header">Karnety</h2>
 <ul>
@@ -19,7 +19,7 @@
         <tbody>
         <tr ng-repeat="checkIn in checkIns">
             <td>{{checkIn._embedded.card.code}}</td>
-            <td>{{checkIn.timestamp | date : 'short'}}</td>
+            <td>{{checkIn.timestamp | date:'yyyy-MM-dd HH:mm'}}</td>
         </tr>
         </tbody>
     </table>

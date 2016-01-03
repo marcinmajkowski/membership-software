@@ -1,6 +1,7 @@
 package com.marcinmajkowski.membership.person;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by Marcin on 08/12/2015.
@@ -18,6 +19,9 @@ public class Person {
     @Column(nullable = false)
     private String lastName;
 
+    @Column
+    private Date birthDate;
+
     public String getFirstName() {
         return firstName;
     }
@@ -32,5 +36,13 @@ public class Person {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 }
