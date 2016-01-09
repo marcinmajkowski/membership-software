@@ -144,13 +144,38 @@ angular.module('membershipManagementControllers', [])
         };
     }])
 
-    .controller('PersonCtrl', ['$scope', '$routeParams', 'People', 'Card', 'CheckIn', function ($scope, $routeParams, People, Card, CheckIn) {
+    .controller('PersonCtrl', ['$scope', '$routeParams', 'People', 'Card', 'CheckIn', 'GROUPS', function ($scope, $routeParams, People, Card, CheckIn, GROUPS) {
+        $scope.editing = false;
+
+        $scope.groups =  GROUPS;
+
+        $scope.showGroup = function (user) {
+            var selected = [];
+            angular.forEach($scope.groups, function(s) {
+                if (user.group.indexOf(s.value) >= 0) {
+                    selected.push(s.text);
+                }
+            });
+            return selected.length ? selected.join(', ') : 'Brak';
+        };
+
+        $scope.save = function() {
+            $scope.editing = false;
+            //TODO
+        };
+
+        $scope.cancel = function() {
+            $scope.editing = false;
+            //TODO reload user
+        };
+
         var person = People.get({personId: $routeParams.personId}, function (person) {
-            $scope.firstName = person.firstName;
-            $scope.lastName = person.lastName;
+            $scope.person = person;
             $scope.cards = Card.byOwner({owner: person._links.self.href});
             $scope.checkIns = CheckIn.byCardOwner({owner: person._links.self.href});
-            $scope.birthday = person.birthday;
+
+            //FIXME temporary mocks
+            $scope.person.group = ['BJJ', 'CROSSFIT_PRO'];
         });
     }])
 

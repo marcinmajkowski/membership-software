@@ -4,6 +4,7 @@ angular.module('membershipManagementApp', [
         'AngularStompDK',
         'ui.bootstrap',
         'ui.bootstrap.tpls',
+        'checklist-model',
         'membershipManagementControllers',
         'membershipManagementDirectives',
         'membershipManagementServices'
@@ -72,4 +73,12 @@ angular.module('membershipManagementApp', [
         $interval(function () {
             $rootScope.$broadcast('stompConnectionStatusEvent', ngstomp.stompClient.connected);
         }, 1000);
-    });
+    })
+
+    //TODO get it from back-end
+    .constant('GROUPS', [
+        { value: 'BJJ', text: 'BJJ' },
+        { value: 'BJJ_PRO', text: 'BJJ (zaawansowana)' },
+        { value: 'CROSSFIT', text: 'Crossfit' },
+        { value: 'CROSSFIT_PRO', text: 'Crossfit (zaawansowana)' }
+    ]);

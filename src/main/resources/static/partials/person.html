@@ -1,26 +1,66 @@
-<button type="button" class="btn btn-link">
-    <span class="glyphicon glyphicon-chevron-left"></span> Powrót
-</button>
-<button type="button" class="btn btn-link pull-right">
-    Edycja
-</button>
-<hr/>
-<h1 class="page-header">{{firstName + ' ' + lastName}}</h1>
-<form>
+<form class="form-horizontal">
     <div class="form-group">
-        <label for="email">email</label>
-        <input type="email" class="form-control" id="email" placeholder="email" ng-model="email">
+        <div class="col-sm-12 text-right">
+            <button type="button" class="btn btn-default" ng-click="editing = !editing" ng-hide="editing">Edytuj profil</button>
+            <button type="button" class="btn btn-default" ng-show="editing" ng-click="cancel()">Anuluj</button>
+            <button type="submit" class="btn btn-primary" ng-show="editing" ng-click="save()">Zapisz zmiany</button>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="phone">telefon</label>
-        <input type="text" class="form-control" id="phone" placeholder="telefon" ng-model="phone">
+    <hr/>
+    <h1 ng-bind="person.firstName + ' ' + person.lastName"></h1>
+    <div class="form-group input-text-min-height">
+        <label class="col-sm-3 control-label" for="firstName">Imię</label>
+        <div class="col-sm-9">
+            <p class="form-control-static user-profile-form-control-static" ng-hide="editing" ng-bind="person.firstName"></p>
+            <input type="text" class="form-control" id="firstName" placeholder="Imię" ng-model="person.firstName" ng-show="editing">
+        </div>
     </div>
-    <div class="form-group">
-        <label for="birthday">urodziny</label>
-        <input type="text" class="form-control" id="birthday" placeholder="urodziny" ng-model="birthday">
+    <div class="form-group input-text-min-height">
+        <label class="col-sm-3 control-label">Nazwisko</label>
+        <div class="col-sm-9">
+            <p class="form-control-static user-profile-form-control-static" ng-hide="editing" ng-bind="person.lastName"></p>
+            <input type="text" class="form-control" id="lastName" placeholder="Nazwisko" ng-model="person.lastName" ng-show="editing">
+        </div>
+    </div>
+    <div class="form-group input-text-min-height">
+        <label class="col-sm-3 control-label">Data urodzenia</label>
+        <div class="col-sm-9">
+            <p class="form-control-static user-profile-form-control-static" ng-hide="editing">{{ person.birthdate || " " | date:'dd/MM/yyyy' }}</p>
+            <input type="date" class="form-control" id="birthdate" placeholder="Data urodzenia" ng-model="person.birthdate" ng-show="editing">
+        </div>
+    </div>
+    <div class="form-group input-text-min-height">
+        <label class="col-sm-3 control-label">Email</label>
+        <div class="col-sm-9">
+            <p class="form-control-static user-profile-form-control-static" ng-hide="editing">{{ person.email }}</p>
+            <input type="email" class="form-control" id="email" placeholder="Email" ng-model="person.email" ng-show="editing">
+        </div>
+    </div>
+    <div class="form-group input-text-min-height">
+        <label class="col-sm-3 control-label">Telefon</label>
+        <div class="col-sm-9">
+            <p class="form-control-static user-profile-form-control-static" ng-hide="editing">{{ person.phone }}</p>
+            <input type="tel" pattern="[+ \-0-9]+" class="form-control" id="email" placeholder="Telefon" ng-model="person.phone" ng-show="editing">
+        </div>
+    </div>
+    <div class="form-group input-text-min-height">
+        <label class="col-sm-3 control-label">Grupy</label>
+        <div class="col-sm-9">
+            <p class="form-control-static user-profile-form-control-static" ng-hide="editing" ng-bind="showGroup(person)"></p>
+            <label class="checkbox-inline" ng-show="editing" ng-repeat="group in groups">
+                <input type="checkbox" checklist-model="person.group" checklist-value="group.value"> {{ group.text }}
+            </label>
+        </div>
+    </div>
+    <div class="form-group input-text-min-height">
+        <label class="col-sm-3 control-label">Notatka</label>
+        <div class="col-sm-9">
+            <p class="form-control-static user-profile-form-control-static preserve-white-spaces" ng-hide="editing">{{ person.note }}</p>
+            <textarea class="form-control" rows="5" id="note" placeholder="Notatka" ng-model="person.note" ng-show="editing"></textarea>
+        </div>
     </div>
 </form>
-<p>Data urodzenia: {{ birthday | date:'yyyy-MM-dd' }}</p>
+</hr>
 <h2 class="sub-header">Karnety</h2>
 <ul>
     <li ng-repeat="card in cards">{{card.code}}</li>

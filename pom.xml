@@ -32,6 +32,7 @@
         <angularstompdk.version>0.3.4</angularstompdk.version>
         <stomp-websocket.version>2.3.4</stomp-websocket.version>
         <sockjs-client.version>1.0.3</sockjs-client.version>
+        <angular-checklist-model.version>0.6.0</angular-checklist-model.version>
     </properties>
 
     <dependencies>
@@ -135,6 +136,11 @@
             <groupId>org.webjars.bower</groupId>
             <artifactId>stomp-websocket</artifactId>
             <version>${stomp-websocket.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-checklist-model</artifactId>
+            <version>${angular-checklist-model.version}</version>
         </dependency>
     </dependencies>
 

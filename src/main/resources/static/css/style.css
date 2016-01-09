@@ -78,3 +78,15 @@ div.barcode {
 div.barcode:focus {
     background-color: aqua;
 }
+
+.input-text-min-height { /* TODO the same for small screens */
+    min-height: 34px;
+}
+
+.user-profile-form-control-static {
+    padding-left: 13px;
+}
+
+.preserve-white-spaces {
+    white-space: pre-wrap;
+}
