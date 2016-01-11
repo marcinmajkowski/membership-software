@@ -57,6 +57,22 @@ angular.module('membershipManagementControllers', [])
         querySidebarPeopleList();
     })
 
+    .controller('HomeCtrl', ['$scope', '$location', '$http', 'People', function ($scope, $location, $http, People) {
+        $scope.$on('scanEvent', function (event, code, card) {
+            if (!card) {
+                // if card with scanned code does not exist,
+                // then redirect to a new person creation form, filled with the code
+                $location.path('/new-person').search({code: code});
+            } else {
+                // if this code is already registered,
+                // then get the owner and redirect to his profile
+                $http.get(card._links.owner.href).then(function (response) {
+                    $location.path(People.personProfileUrl(response.data));
+                });
+            }
+        });
+    }])
+
     .controller('CheckInCtrl', function ($scope, $http, CheckIn, Card) {
         $scope.$on('scanEvent', function (event, code, card) {
             $scope.code = code;
@@ -162,10 +178,10 @@ angular.module('membershipManagementControllers', [])
             var selected = [];
             angular.forEach($scope.allGroups, function (group) {
                 angular.forEach($scope.person.trainingGroups, function (trainingGroup) {
-                   if (trainingGroup === group._links.self.href) {
-                       //TODO break loop
-                       selected.push(group.name);
-                   }
+                    if (trainingGroup === group._links.self.href) {
+                        //TODO break loop
+                        selected.push(group.name);
+                    }
                 });
             });
             return selected.length ? selected.join(', ') : '';
@@ -212,9 +228,9 @@ angular.module('membershipManagementControllers', [])
         });
     }])
 
-    .controller('NewPersonCtrl', ['$scope', '$http', '$location', 'People', function ($scope, $http, $location, People) {
+    .controller('NewPersonCtrl', ['$scope', '$http', '$location', '$routeParams', 'People', function ($scope, $http, $location, $routeParams, People) {
         $scope.card = {
-            code: null
+            code: $routeParams.code
         };
 
         $scope.addPerson = function (person) {

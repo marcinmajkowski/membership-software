@@ -94,3 +94,8 @@ div.barcode:focus {
 .align-with-header {
     margin-bottom: 8px;
 }
+
+.home-top-bottom-margin {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}

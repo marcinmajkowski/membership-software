@@ -36,7 +36,8 @@ angular.module('membershipManagementRoute', ['ngRoute'])
                 templateUrl: 'partials/settings.html'
             })
             .when('/', {
-                templateUrl: 'partials/home.html'
+                templateUrl: 'partials/home.html',
+                controller: 'HomeCtrl'
             })
             .otherwise({
                 redirectTo: '/'
