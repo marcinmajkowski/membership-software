@@ -169,8 +169,12 @@ angular.module('membershipManagementControllers', [])
         };
     }])
 
-    .controller('PersonCtrl', ['$scope', '$routeParams', 'People', 'Card', 'CheckIn', 'Groups', '$http', function ($scope, $routeParams, People, Card, CheckIn, Groups, $http) {
-        $scope.editing = false;
+    .controller('PersonCtrl', ['$scope', '$routeParams', 'People', 'Card', 'CheckIn', 'Groups', '$http', '$location', function ($scope, $routeParams, People, Card, CheckIn, Groups, $http, $location) {
+        if ($routeParams.editing) {
+            $scope.editing = true;
+        } else {
+            $scope.editing = false;
+        }
 
         $scope.allGroups = Groups.query();
 
@@ -228,16 +232,19 @@ angular.module('membershipManagementControllers', [])
         });
     }])
 
-    .controller('NewPersonCtrl', ['$scope', '$http', '$location', '$routeParams', 'People', function ($scope, $http, $location, $routeParams, People) {
+    .controller('NewPersonCtrl', ['$scope', '$http', '$location', '$routeParams', 'People', 'Card', function ($scope, $http, $location, $routeParams, People, Card) {
         $scope.card = {
             code: $routeParams.code
         };
 
         $scope.addPerson = function (person) {
-            //TODO add card
             People.create(person, function (response) {
-                //TODO use resource to page url converter service
-                $location.path(People.personProfileUrl(response.data));
+                if ($scope.card.code) {
+                    $scope.card.issueTimestamp = new Date();
+                    $scope.card.owner = response.data._links.self.href;
+                    Card.save($scope.card);
+                }
+                $location.path(People.personProfileUrl(response.data)).search({editing: true});
             }); //TODO handle errors
         };
 
