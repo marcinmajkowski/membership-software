@@ -1,6 +1,10 @@
 package com.marcinmajkowski.membership.person;
 
+import com.marcinmajkowski.membership.card.Card;
+import com.marcinmajkowski.membership.group.TrainingGroup;
+
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -21,6 +25,21 @@ public class Person {
 
     @Column
     private Date birthday;
+
+    @Column
+    private String email;
+
+    @Column
+    private String phone;
+
+    @ManyToMany
+    private Collection<TrainingGroup> trainingGroups;
+
+    @Column
+    private String note;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    private Collection<Card> cards;
 
     public String getFirstName() {
         return firstName;
@@ -44,5 +63,45 @@ public class Person {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Collection<TrainingGroup> getTrainingGroups() {
+        return trainingGroups;
+    }
+
+    public void setTrainingGroups(Collection<TrainingGroup> trainingGroups) {
+        this.trainingGroups = trainingGroups;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public Collection<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(Collection<Card> cards) {
+        this.cards = cards;
     }
 }

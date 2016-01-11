@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Marcin on 08/12/2015.
  */
-@RepositoryRestResource(excerptProjection = CardProjection.class)
+@RepositoryRestResource
 public interface CardRepository extends PagingAndSortingRepository<Card, Long> {
 
     Card findByCode(@Param("code") String code);

@@ -90,3 +90,7 @@ div.barcode:focus {
 .preserve-white-spaces {
     white-space: pre-wrap;
 }
+
+.align-with-header {
+    margin-bottom: 8px;
+}

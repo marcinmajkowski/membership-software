@@ -1,0 +1,29 @@
+<h1 class="page-header">
+    Grupy
+    <div class="pull-right text-right">
+        <button type="button" class="btn btn-default align-with-header" ng-click="editing = !editing" ng-hide="editing">Edytuj grupy</button>
+        <button type="button" class="btn btn-default align-with-header" ng-show="editing" ng-click="cancel()">Anuluj</button>
+        <button type="submit" class="btn btn-primary align-with-header" ng-show="editing">Zapisz zmiany</button>
+    </div>
+</h1>
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="form-group" ng-repeat="group in groups">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="group.name">
+
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-default btn-block">
+                <span class="glyphicon glyphicon-plus"></span> Nowa grupa
+            </button>
+        </div>
+    </div>
+</div>
+

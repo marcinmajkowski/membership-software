@@ -6,12 +6,27 @@ angular.module('membershipManagementControllers', [])
         $scope.performSearch = function () {
             $scope.peopleFiltered = $filter('filter')($scope.people, function (item) {
                 var fullName = item.firstName + ' ' + item.lastName;
-                //TODO check against cards codes
-                return fullName.toLowerCase().indexOf($scope.search.toLowerCase()) !== -1;
+
+                // filter by full name
+                if (fullName.toLowerCase().indexOf($scope.search.toLowerCase()) !== -1) {
+                    return true;
+                }
+
+                // filter by card code
+                for (var i = 0; i < item.cards.length; i++) {
+                    var cardCode = item.cards[i].code;
+                    if (cardCode.indexOf($scope.search) !== -1) {
+                        return true;
+                    }
+                }
+
+                return false;
             });
+
+            // load profile for first result
             var person = $scope.peopleFiltered[0];
             if (person) {
-                $location.path(person.profileUrl);
+                $location.path($scope.profileUrlOf(person));
             }
         };
 
@@ -27,22 +42,16 @@ angular.module('membershipManagementControllers', [])
             return person._links.self.href.split('/').pop();
         };
 
-        $scope.isActive = function (person) { //FIXME performance
-            return $location.path() === person.profileUrl;
+        $scope.isActive = function (url) { //FIXME performance
+            return $location.path() === url;
+        };
+
+        $scope.profileUrlOf = function (person) {
+            return '/people/' + $scope.getPersonId(person);
         };
 
         var querySidebarPeopleList = function () {
-            $scope.people = [];
-            People.query({}, function (people) {
-                for (var i = 0; i < people.length; i++) {
-                    $scope.people[i] = {
-                        firstName: people[i].firstName,
-                        lastName: people[i].lastName,
-                        profileUrl: '/people/' + $scope.getPersonId(people[i])
-                        //TODO all card codes (for filtering)
-                    };
-                }
-            });
+            $scope.people = People.query({projection: 'firstNameAndLastNameAndCards'});
         };
 
         querySidebarPeopleList();
@@ -144,110 +153,94 @@ angular.module('membershipManagementControllers', [])
         };
     }])
 
-    .controller('PersonCtrl', ['$scope', '$routeParams', 'People', 'Card', 'CheckIn', 'GROUPS', function ($scope, $routeParams, People, Card, CheckIn, GROUPS) {
+    .controller('PersonCtrl', ['$scope', '$routeParams', 'People', 'Card', 'CheckIn', 'Groups', '$http', function ($scope, $routeParams, People, Card, CheckIn, Groups, $http) {
         $scope.editing = false;
 
-        $scope.groups =  GROUPS;
+        $scope.allGroups = Groups.query();
 
-        $scope.showGroup = function (user) {
+        $scope.showGroup = function () {
             var selected = [];
-            angular.forEach($scope.groups, function(s) {
-                if (user.group.indexOf(s.value) >= 0) {
-                    selected.push(s.text);
-                }
+            angular.forEach($scope.allGroups, function (group) {
+                angular.forEach($scope.person.trainingGroups, function (trainingGroup) {
+                   if (trainingGroup === group._links.self.href) {
+                       //TODO break loop
+                       selected.push(group.name);
+                   }
+                });
             });
-            return selected.length ? selected.join(', ') : 'Brak';
+            return selected.length ? selected.join(', ') : '';
         };
 
-        $scope.save = function() {
+        $scope.save = function () {
             $scope.editing = false;
-            //TODO
+            $http.put($scope.person._links.self.href, $scope.person).then(function (response) {
+                $scope.person = response.data;
+                if ($scope.person.birthday) {
+                    $scope.person.birthday = new Date($scope.person.birthday);
+                }
+                $http.get($scope.person._links.trainingGroups.href).then(function (response) {
+                    $scope.person.trainingGroups = [];
+                    angular.forEach(response.data._embedded.trainingGroups, function (trainingGroup) {
+                        $scope.person.trainingGroups.push(trainingGroup._links.self.href);
+                    });
+                });
+            });
         };
 
-        $scope.cancel = function() {
+        $scope.cancel = function () {
             $scope.editing = false;
             //TODO reload user
         };
 
-        var person = People.get({personId: $routeParams.personId}, function (person) {
+        $scope.person = People.get({personId: $routeParams.personId}, function (person) {
             $scope.person = person;
-            $scope.cards = Card.byOwner({owner: person._links.self.href});
-            $scope.checkIns = CheckIn.byCardOwner({owner: person._links.self.href});
+            if (person.birthday) {
+                $scope.person.birthday = new Date(person.birthday);
+            }
+            $http.get(person._links.cards.href).then(function (response) {
+                $scope.cards = response.data._embedded.cards;
+            });
+            var owner = person._links.self.href;
+            $scope.checkIns = CheckIn.byCardOwner({owner: owner});
 
-            //FIXME temporary mocks
-            $scope.person.group = ['BJJ', 'CROSSFIT_PRO'];
+            $http.get($scope.person._links.trainingGroups.href).then(function (response) {
+                $scope.person.trainingGroups = [];
+                angular.forEach(response.data._embedded.trainingGroups, function (trainingGroup) {
+                    $scope.person.trainingGroups.push(trainingGroup._links.self.href);
+                });
+            });
         });
     }])
 
-    .controller('CardCtrl', ['$scope', 'Card', 'People', '$http', function ($scope, Card, People, $http) {
-        $scope.loadCards = function () {
-            $scope.cards = Card.query({}, function (data) {
-                for (var i = 0; i < $scope.cards.length; i++) {
-                    $scope.cards[i].ownerFullName = $scope.cards[i].owner.firstName + ' ' + $scope.cards[i].owner.lastName;
-                }
-            });
+    .controller('NewPersonCtrl', ['$scope', '$http', '$location', 'People', function ($scope, $http, $location, People) {
+        $scope.card = {
+            code: null
         };
 
-        $scope.loadCards();
-
-        $scope.remove = function (card) {
-            $http.delete(card._links.self.href).success($scope.loadCards);
-            //TODO notify when 409: conflict - cannot delete
+        $scope.addPerson = function (person) {
+            //TODO add card
+            People.create(person, function (response) {
+                //TODO use resource to page url converter service
+                $location.path(People.personProfileUrl(response.data));
+            }); //TODO handle errors
         };
+
+        $scope.isCardInUse = false;
 
         $scope.$on('scanEvent', function (event, code, card) {
-            $scope.clear();
-            $scope.code = code;
+            $scope.card.code = code;
+
             if (card) {
-                $scope.fullName = card.owner.firstName + ' ' + card.owner.lastName;
+                $scope.card = card;
+                console.info(card);
+                $http.get(card._links.owner.href).then(function (response) {
+                    $scope.cardOwnerProfileUrl = People.personProfileUrl(response.data);
+                });
+                $scope.isCardInUse = true;
             }
-            $scope.loadCards();
         });
+    }])
 
-        $scope.add = function (fullName, code) {
-            if (typeof fullName === 'undefined' || typeof code === 'undefined') {
-                return;
-            }
-            var tokens = fullName.split(" ");
-            var firstName = tokens.shift();
-            var lastName = tokens.join(" ");
-            console.log('firstName: ' + firstName);
-            console.log('lastName: ' + lastName);
-            var people = People.byFirstNameAndLastName({firstName: firstName, lastName: lastName}, function (data) {
-                if (data.length === 1) {
-                    //TODO ask for confirmation to reuse user
-                    var card = {
-                        code: code,
-                        owner: data[0]._links.self.href,
-                        issueTimestamp: new Date()
-                    };
-                    console.log(card);
-                    //TODO save card
-                    Card.save(card, function () {
-                        $scope.loadCards();
-                    });
-                } else if (data.length === 0) {
-                    //TODO new user need to be created
-                    People.save({firstName: firstName, lastName: lastName}, function (data) {
-                        console.log(data);
-                        //FIXME refactor
-                        var card = {
-                            code: code,
-                            owner: data._links.self.href,
-                            issueTimestamp: new Date()
-                        };
-                        Card.save(card, function () {
-                            $scope.loadCards();
-                        });
-                    });
-                } else {
-                    //TODO pop-up to select user
-                }
-            });
-        };
-
-        $scope.clear = function () {
-            $scope.fullName = '';
-            $scope.code = '';
-        }
+    .controller('TrainingGroupsCtrl', ['$scope', 'Groups', function ($scope, Groups) {
+        $scope.groups = Groups.query();
     }]);

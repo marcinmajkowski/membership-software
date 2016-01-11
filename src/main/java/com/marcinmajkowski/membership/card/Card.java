@@ -21,7 +21,7 @@ public class Card {
     @Column(nullable = false)
     private Date issueTimestamp;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private Person owner;
 
     public String getCode() {

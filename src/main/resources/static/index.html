@@ -17,6 +17,7 @@
     <script type="text/javascript" src="webjars/AngularStompDK/0.3.4/dist/angular-stomp.js"></script>
     <script type="text/javascript" src="webjars/angular-checklist-model/0.6.0/checklist-model.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/route.js"></script>
     <script type="text/javascript" src="js/controllers.js"></script>
     <script type="text/javascript" src="js/directives.js"></script>
     <script type="text/javascript" src="js/services.js"></script>
@@ -61,14 +62,22 @@
     <div class="row">
         <!-- TODO fixed width sidebar -->
         <div class="col-sm-4 col-md-3 sidebar">
+            <ul class="nav nav-sidebar">
+                <li ng-class="{ active: isActive('/new-person') }">
+                    <a ng-href="#/new-person" class="text-muted" ng-click="search = null">
+                        <span class="glyphicon glyphicon-plus"></span> Nowy klient<span class="glyphicon glyphicon-chevron-right pull-right" ng-show="isActive('/new-person')"></span>
+                    </a>
+                </li>
+            </ul>
+            <hr />
             <!-- TODO separate ul for each alphabet letter and sorting -->
             <h4 ng-show="search">Wyniki wyszukiwania</h4>
 
             <p ng-show="search && peopleFiltered.length === 0" class="text-muted">Brak wyników</p>
             <ul class="nav nav-sidebar" ng-show="search">
                 <!-- FIXME filters _links -->
-                <li ng-repeat="person in peopleFiltered" ng-class="isActive(person) ? 'active' : ''">
-                    <a ng-href="#{{person.profileUrl}}">
+                <li ng-repeat="person in peopleFiltered" ng-class="isActive(profileUrlOf(person)) ? 'active' : ''">
+                    <a ng-href="#{{profileUrlOf(person)}}">
                         {{person.firstName + ' ' + person.lastName}}
                     </a>
                 </li>
@@ -77,10 +86,10 @@
             <ul class="nav nav-sidebar">
                 <!-- TODO refactor! -->
                 <li ng-repeat="person in people"
-                    ng-class="isActive(person) && (!search || peopleFiltered.length === 0) ? 'active' : ''">
+                    ng-class="isActive(profileUrlOf(person)) && (!search || peopleFiltered.length === 0) ? 'active' : ''">
                     <!-- TODO $parent is not a good solution -->
-                    <a ng-href="#{{person.profileUrl}}" ng-click="$parent.search = null">
-                        {{person.firstName + ' ' + person.lastName}}
+                    <a ng-href="#{{profileUrlOf(person)}}" ng-click="$parent.search = null">
+                        {{person.firstName + ' ' + person.lastName}}<span class="glyphicon glyphicon-chevron-right pull-right" ng-show="isActive(profileUrlOf(person))"></span>
                     </a>
                 </li>
             </ul>

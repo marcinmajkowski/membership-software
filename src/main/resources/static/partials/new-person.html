@@ -1,0 +1,31 @@
+<form class="form-horizontal" ng-submit="addPerson(person)">
+    <h1 class="page-header">
+        Nowy klient
+        <div class="pull-right text-right">
+            <!-- TODO go to new profile and enter editing -->
+            <button type="submit" class="btn btn-primary align-with-header">Zapisz</button>
+        </div>
+    </h1>
+    <div class="form-group input-text-min-height">
+        <label class="col-sm-3 control-label" for="firstName">Imię</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" id="firstName" placeholder="Imię" ng-model="person.firstName">
+        </div>
+    </div>
+    <div class="form-group input-text-min-height">
+        <label class="col-sm-3 control-label">Nazwisko</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" id="lastName" placeholder="Nazwisko" ng-model="person.lastName">
+        </div>
+    </div>
+    <!-- TODO allow only digits in this input, fill with zeros from left -->
+    <div class="form-group input-text-min-height" ng-class="{ 'has-error' : isCardInUse, 'has-feedback': isCardInUse, 'has-success' : card.code.length > 0 && !isCardInUse }">
+        <label class="col-sm-3 control-label">Karnet</label>
+        <div class="col-sm-6">
+            <!-- TODO walidacja - karnet nie moze byc zajety -->
+            <input type="text" class="form-control" id="code" placeholder="Zeskanuj kod aby dodać" ng-model="card.code">
+            <span class="glyphicon glyphicon-remove form-control-feedback" ng-show="isCardInUse"></span>
+            <span class="help-block" ng-show="isCardInUse">Właścicielem tego karnetu jest <a ng-href="#{{cardOwnerProfileUrl}}" ng-bind="card.owner.firstName + ' ' + card.owner.lastName"></a></span>
+        </div>
+    </div>
+</form>
