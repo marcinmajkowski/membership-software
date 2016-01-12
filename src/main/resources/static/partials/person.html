@@ -92,15 +92,30 @@
 <div class="row">
     <div class="col-sm-4">
         <h2 class="sub-header">Wejścia</h2>
+        <p>
+            <button type="button" class="btn btn-default btn-sm btn-block">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </p>
         <ul ng-repeat="checkIn in checkIns">
             <li>{{checkIn.timestamp | date:'dd/MM/yyyy - HH:mm'}}</li>
         </ul>
     </div>
     <div class="col-sm-4">
         <h2 class="sub-header">Płatności</h2>
+        <p>
+            <button type="button" class="btn btn-default btn-sm btn-block">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </p>
     </div>
     <div class="col-sm-4">
         <h2 class="sub-header">Karnety</h2>
+        <p>
+            <button type="button" class="btn btn-default btn-sm btn-block">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </p>
         <ul>
             <li ng-repeat="card in cards">{{card.code}}</li>
         </ul>
