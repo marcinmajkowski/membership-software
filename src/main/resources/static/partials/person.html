@@ -2,60 +2,82 @@
     <h1 class="page-header">
         {{person.firstName + ' ' + person.lastName}}
         <div class="pull-right text-right">
-            <button type="button" class="btn btn-default align-with-header" ng-click="editing = !editing" ng-hide="editing">Edytuj profil</button>
-            <button type="button" class="btn btn-default align-with-header" ng-show="editing" ng-click="cancel()">Anuluj</button>
+            <button type="button" class="btn btn-default align-with-header" ng-click="editing = !editing"
+                    ng-hide="editing">Edytuj profil
+            </button>
+            <button type="button" class="btn btn-default align-with-header" ng-show="editing" ng-click="cancel()">
+                Anuluj
+            </button>
             <button type="submit" class="btn btn-primary align-with-header" ng-show="editing">Zapisz zmiany</button>
         </div>
     </h1>
     <div class="form-group input-text-min-height">
         <label class="col-sm-3 control-label" for="firstName">Imię</label>
+
         <div class="col-sm-6">
-            <p class="form-control-static user-profile-form-control-static" ng-hide="editing" ng-bind="person.firstName"></p>
-            <input type="text" class="form-control" id="firstName" placeholder="Imię" ng-model="person.firstName" ng-show="editing">
+            <p class="form-control-static user-profile-form-control-static" ng-hide="editing"
+               ng-bind="person.firstName"></p>
+            <input type="text" class="form-control" id="firstName" placeholder="Imię" ng-model="person.firstName"
+                   ng-show="editing">
         </div>
     </div>
     <div class="form-group input-text-min-height">
         <label class="col-sm-3 control-label">Nazwisko</label>
+
         <div class="col-sm-6">
-            <p class="form-control-static user-profile-form-control-static" ng-hide="editing" ng-bind="person.lastName"></p>
-            <input type="text" class="form-control" id="lastName" placeholder="Nazwisko" ng-model="person.lastName" ng-show="editing">
+            <p class="form-control-static user-profile-form-control-static" ng-hide="editing"
+               ng-bind="person.lastName"></p>
+            <input type="text" class="form-control" id="lastName" placeholder="Nazwisko" ng-model="person.lastName"
+                   ng-show="editing">
         </div>
     </div>
     <div class="form-group input-text-min-height">
         <label class="col-sm-3 control-label">Data urodzenia</label>
+
         <div class="col-sm-6">
-            <p class="form-control-static user-profile-form-control-static" ng-hide="editing">{{ person.birthday || " " | date:'dd/MM/yyyy' }}</p>
-            <input type="date" class="form-control" id="birthday" placeholder="Data urodzenia" ng-model="person.birthday" ng-show="editing">
+            <p class="form-control-static user-profile-form-control-static" ng-hide="editing">{{ person.birthday || " "
+                | date:'dd/MM/yyyy' }}</p>
+            <input type="date" class="form-control" id="birthday" placeholder="Data urodzenia"
+                   ng-model="person.birthday" ng-show="editing">
         </div>
     </div>
     <div class="form-group input-text-min-height">
         <label class="col-sm-3 control-label">Email</label>
+
         <div class="col-sm-6">
             <p class="form-control-static user-profile-form-control-static" ng-hide="editing">{{ person.email }}</p>
-            <input type="email" class="form-control" id="email" placeholder="Email" ng-model="person.email" ng-show="editing">
+            <input type="email" class="form-control" id="email" placeholder="Email" ng-model="person.email"
+                   ng-show="editing">
         </div>
     </div>
     <div class="form-group input-text-min-height">
         <label class="col-sm-3 control-label">Telefon</label>
+
         <div class="col-sm-6">
             <p class="form-control-static user-profile-form-control-static" ng-hide="editing">{{ person.phone }}</p>
-            <input type="tel" pattern="[+ \-0-9]+" class="form-control" id="phone" placeholder="Telefon" ng-model="person.phone" ng-show="editing">
+            <input type="tel" pattern="[+ \-0-9]+" class="form-control" id="phone" placeholder="Telefon"
+                   ng-model="person.phone" ng-show="editing">
         </div>
     </div>
     <div class="form-group input-text-min-height">
         <label class="col-sm-3 control-label">Grupy</label>
+
         <div class="col-sm-6">
             <p class="form-control-static user-profile-form-control-static" ng-hide="editing" ng-bind="showGroup()"></p>
             <label class="checkbox-inline" ng-show="editing" ng-repeat="group in allGroups">
-                <input type="checkbox" checklist-model="person.trainingGroups" checklist-value="group._links.self.href"> {{ group.name }}
+                <input type="checkbox" checklist-model="person.trainingGroups" checklist-value="group._links.self.href">
+                {{ group.name }}
             </label>
         </div>
     </div>
     <div class="form-group input-text-min-height">
         <label class="col-sm-3 control-label">Notatka</label>
+
         <div class="col-sm-6">
-            <p class="form-control-static user-profile-form-control-static preserve-white-spaces" ng-hide="editing">{{ person.note }}</p>
-            <textarea class="form-control" rows="5" id="note" placeholder="Notatka" ng-model="person.note" ng-show="editing"></textarea>
+            <p class="form-control-static user-profile-form-control-static preserve-white-spaces" ng-hide="editing">{{
+                person.note }}</p>
+            <textarea class="form-control" rows="5" id="note" placeholder="Notatka" ng-model="person.note"
+                      ng-show="editing"></textarea>
         </div>
     </div>
     <div class="form-group" ng-show="editing">
@@ -67,26 +89,22 @@
         </div>
     </div>
 </form>
-</hr>
-<h2 class="sub-header">Karnety</h2>
-<ul>
-    <li ng-repeat="card in cards">{{card.code}}</li>
-</ul>
-<h2 class="sub-header">Płatności</h2>
-<h2 class="sub-header">Wejścia</h2>
-<div class="table-responsive">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Karnet</th>
-            <th>Data i godzina</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="checkIn in checkIns">
-            <td>{{checkIn._embedded.card.code}}</td>
-            <td>{{checkIn.timestamp | date:'yyyy-MM-dd HH:mm'}}</td>
-        </tr>
-        </tbody>
-    </table>
+<div class="row">
+    <div class="col-sm-4">
+        <h2 class="sub-header">Wejścia</h2>
+        <ul ng-repeat="checkIn in checkIns">
+            <li>{{checkIn.timestamp | date:'dd/MM/yyyy - HH:mm'}}</li>
+        </ul>
+    </div>
+    <div class="col-sm-4">
+        <h2 class="sub-header">Płatności</h2>
+    </div>
+    <div class="col-sm-4">
+        <h2 class="sub-header">Karnety</h2>
+        <ul>
+            <li ng-repeat="card in cards">{{card.code}}</li>
+        </ul>
+    </div>
 </div>
+
+
