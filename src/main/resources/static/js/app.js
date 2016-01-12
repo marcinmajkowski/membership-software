@@ -16,15 +16,18 @@ angular.module('membershipManagementApp', [
             .class(SockJS);
     }])
 
-    .run(function (ngstomp, $rootScope, $interval, Card) {
+    .run(function (ngstomp, $rootScope, $interval, $http, Card) {
         var webSocketEndPoint = '/scanner/check-in';
 
         function whatToDoWhenMessageComing(message) {
             var code = angular.fromJson(message.body);
             Card.byCode({code: code}, function (card) {
-                $rootScope.$broadcast('scanEvent', code, card);
+                $http.get(card._links.owner.href).then(function (response) {
+                    var owner = response.data;
+                    $rootScope.$broadcast('scanEvent', code, card, owner);
+                });
             }, function (error) {
-                $rootScope.$broadcast('scanEvent', code, null);
+                $rootScope.$broadcast('scanEvent', code, null, null);
             });
         }
 

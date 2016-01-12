@@ -11,10 +11,7 @@ angular.module('membershipManagementServices', ['ngResource'])
             },
             'byCode': {
                 method: 'GET',
-                url: '/api/v1/cards/search/findByCode',
-                params: {
-                    projection: 'cardProjection'
-                }
+                url: '/api/v1/cards/search/findByCode'
             },
             'byOwner': {
                 method: 'GET',

@@ -1,29 +1,32 @@
 <h1 class="page-header">Wejścia</h1>
 
-<p>Przyłóż karnet do czytnika aby sprawdzić jego ważność</p>
+<div class="row">
+    <div class="panel panel-default text-center col-sm-12">
+        <p class="lead home-top-bottom-margin">
+            Skanuj karnet aby zarejestrować wejście.
+        </p>
+    </div>
+</div>
 
-<mm-card full-name="fullName" code="code"></mm-card>
+<mm-card full-name="owner.firstName + ' ' + owner.lastName" code="card.code"></mm-card>
 
-<a ng-click="checkIn(code)" class="btn btn-primary">Zarejestruj Wejście</a>
-
-<h2 class="sub-header">Zarejestrowane wejścia</h2>
-<div class="table-responsive">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Imię</th>
-            <th>Nazwisko</th>
-            <th>Identyfikator</th>
-            <th>Data i godzina</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="checkIn in checkIns">
-            <td>{{checkIn._embedded.card.owner.firstName}}</td>
-            <td>{{checkIn._embedded.card.owner.lastName}}</td>
-            <td>{{checkIn._embedded.card.code}}</td>
-            <td>{{checkIn.timestamp | date : 'short'}}</td>
-        </tr>
-        </tbody>
-    </table>
+<div class="row">
+    <div class="table-responsive col-sm-6 col-sm-offset-3">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Data i godzina</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="checkIn in checkIns">
+                <td>{{checkIn.person.firstName}}</td>
+                <td>{{checkIn.person.lastName}}</td>
+                <td>{{checkIn.timestamp | date : 'dd/MM/yyyy - HH:mm'}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

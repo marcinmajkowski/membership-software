@@ -21,8 +21,11 @@ public class CheckIn {
     @Column(nullable = false)
     private Date timestamp;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private Card card;
+
+    @ManyToOne(optional = false)
+    private Person person;
 
     @Enumerated(EnumType.STRING)
     private CodeSource codeSource;
@@ -43,6 +46,14 @@ public class CheckIn {
 
     public Card getCard() {
         return card;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     public void setCard(Card card) {

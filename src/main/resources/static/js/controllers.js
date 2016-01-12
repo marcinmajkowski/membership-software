@@ -74,41 +74,45 @@ angular.module('membershipManagementControllers', [])
     }])
 
     .controller('CheckInCtrl', function ($scope, $http, CheckIn, Card) {
-        $scope.$on('scanEvent', function (event, code, card) {
-            $scope.code = code;
+        $scope.card = {
+            code: null
+        };
+
+        $scope.$on('scanEvent', function (event, code, card, owner) {
+            $scope.card.code = code;
 
             if (card) {
-                $scope.firstName = card.owner.firstName;
-                $scope.lastName = card.owner.lastName;
-                $scope.fullName = $scope.firstName + ' ' + $scope.lastName;
-                //TODO check-in here
+                $scope.owner = owner;
+                $scope.checkIn(card, owner);
             } else {
-                $scope.firstName = null;
-                $scope.lastName = null;
-                $scope.fullName = null;
+                $scope.owner = {
+                    firstName: '',
+                    lastName: ''
+                };
             }
 
-            $scope.checkIn(card);
         });
 
         var updateCheckIns = function () {
             //TODO add new checkIn to array on client side
-            $scope.checkIns = CheckIn.query({sort: 'timestamp,desc'});
+            $scope.checkIns = CheckIn.query({sort: 'timestamp,desc', projection: 'personAndTimestamp'});
         };
 
         updateCheckIns();
 
-        $scope.checkIn = function (card) {
+        $scope.checkIn = function (card, owner) {
             var data = {
                 timestamp: Date.now(),
-                codeSource: 'SCANNER',
+                codeSource: 'SCANNER', //TODO
                 channel: 'WEB',
                 card: card._links.self.href,
+                person: owner._links.self.href,
                 staffMember: 'people/1' //TODO get logged user
             };
 
+            console.info(data);
+
             $http.post('api/v1/checkIns', data).then(function (response) {
-                console.log(response);
                 updateCheckIns();
             });
         };
