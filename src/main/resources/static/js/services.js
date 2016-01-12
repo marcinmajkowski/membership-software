@@ -109,4 +109,18 @@ angular.module('membershipManagementServices', ['ngResource'])
                 }
             }
         });
-    }]);
+    }])
+
+    .service('SidebarPeopleList', function (People) {
+        this.people = People.query({projection: 'firstNameAndLastNameAndCards'});
+        var that = this;
+        this.update = function () {
+            People.query({projection: 'firstNameAndLastNameAndCards'}, function (people) {
+                that.people.length = 0;
+                for (var i = 0; i < people.length; i++) {
+                    that.people.push(people[i]);
+                }
+            });
+            console.log(that.people);
+        }
+    });

@@ -1,6 +1,6 @@
 angular.module('membershipManagementControllers', [])
 
-    .controller('IndexCtrl', function ($scope, ngstomp, People, $location, $filter) {
+    .controller('IndexCtrl', function ($scope, ngstomp, People, $location, $filter, SidebarPeopleList) {
         $scope.stompConnectionStatus = true;
 
         $scope.performSearch = function () {
@@ -50,11 +50,7 @@ angular.module('membershipManagementControllers', [])
             return '/people/' + $scope.getPersonId(person);
         };
 
-        var querySidebarPeopleList = function () {
-            $scope.people = People.query({projection: 'firstNameAndLastNameAndCards'});
-        };
-
-        querySidebarPeopleList();
+        $scope.people = SidebarPeopleList.people;
     })
 
     .controller('HomeCtrl', ['$scope', '$location', '$http', 'People', function ($scope, $location, $http, People) {
@@ -173,7 +169,7 @@ angular.module('membershipManagementControllers', [])
         };
     }])
 
-    .controller('PersonCtrl', ['$scope', '$routeParams', 'People', 'Card', 'CheckIn', 'Groups', '$http', '$location', function ($scope, $routeParams, People, Card, CheckIn, Groups, $http, $location) {
+    .controller('PersonCtrl', ['SidebarPeopleList', '$scope', '$routeParams', 'People', 'Card', 'CheckIn', 'Groups', '$http', '$location', function (SidebarPeopleList, $scope, $routeParams, People, Card, CheckIn, Groups, $http, $location) {
         if ($routeParams.editing) {
             $scope.editing = true;
         } else {
@@ -198,6 +194,7 @@ angular.module('membershipManagementControllers', [])
         $scope.save = function () {
             $scope.editing = false;
             $http.put($scope.person._links.self.href, $scope.person).then(function (response) {
+                SidebarPeopleList.update();
                 $scope.person = response.data;
                 if ($scope.person.birthday) {
                     $scope.person.birthday = new Date($scope.person.birthday);
@@ -236,7 +233,7 @@ angular.module('membershipManagementControllers', [])
         });
     }])
 
-    .controller('NewPersonCtrl', ['$scope', '$http', '$location', '$routeParams', 'People', 'Card', function ($scope, $http, $location, $routeParams, People, Card) {
+    .controller('NewPersonCtrl', ['$scope', '$http', '$location', '$routeParams', 'People', 'Card', 'SidebarPeopleList', function ($scope, $http, $location, $routeParams, People, Card, SidebarPeopleList) {
         $scope.card = {
             code: $routeParams.code
         };
@@ -248,6 +245,7 @@ angular.module('membershipManagementControllers', [])
                     $scope.card.owner = response.data._links.self.href;
                     Card.save($scope.card);
                 }
+                SidebarPeopleList.update();
                 $location.path(People.personProfileUrl(response.data)).search({editing: true});
             }); //TODO handle errors
         };
