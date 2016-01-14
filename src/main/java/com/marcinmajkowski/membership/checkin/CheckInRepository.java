@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Marcin on 12/12/2015.
  */
 @RepositoryRestResource
-public interface CheckInRepository extends PagingAndSortingRepository<CheckIn, Long>, CheckInRepositoryCustom {
+public interface CheckInRepository extends PagingAndSortingRepository<CheckIn, Long> {
 
     // finding last visit for a card
     CheckIn findFirstByCardCodeOrderByTimestampDesc(String code);
