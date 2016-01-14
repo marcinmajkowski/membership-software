@@ -1,6 +1,6 @@
 angular.module('membershipManagementControllers', [])
 
-    .controller('IndexCtrl', function ($scope, ngstomp, People, $location, $filter, SidebarPeopleList) {
+    .controller('IndexCtrl', function ($scope, ngstomp, People, User, $location, $filter, SidebarPeopleList) {
         $scope.stompConnectionStatus = true;
 
         $scope.performSearch = function () {
@@ -51,9 +51,25 @@ angular.module('membershipManagementControllers', [])
         };
 
         $scope.people = SidebarPeopleList.people;
+
+        $scope.users = User.getAll();
+
+        $scope.getLoggedUser = User.getLogged;
+
+        $scope.setLoggedUser = User.setLogged;
+
+        $scope.status = {
+            isopen: false
+        };
+
+        $scope.toggleDropdown = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.status.isopen = !$scope.status.isopen;
+        };
     })
 
-    .controller('HomeCtrl', ['$scope', '$location', '$http', 'People', function ($scope, $location, $http, People) {
+    .controller('HomeCtrl', ['$scope', '$location', '$http', 'People', 'User', function ($scope, $location, $http, People, User) {
         $scope.$on('scanEvent', function (event, code, card) {
             if (!card) {
                 // if card with scanned code does not exist,
@@ -67,6 +83,8 @@ angular.module('membershipManagementControllers', [])
                 });
             }
         });
+
+        $scope.getLoggedUser = User.getLogged;
     }])
 
     .controller('CheckInCtrl', function ($scope, $http, CheckIn, Card) {

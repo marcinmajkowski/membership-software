@@ -111,6 +111,32 @@ angular.module('membershipManagementServices', ['ngResource'])
         });
     }])
 
+    .factory('User', ['$http', '$log', function ($http, $log) {
+        var usersUrl = '/api/v1/users';
+        var all = [];
+        var logged = {};
+
+        $http.get(usersUrl).then(function (response) {
+            all.push.apply(all, response.data._embedded.users);
+            if (all.length === 0) {
+                $log.error('There are no users in the database');
+            }
+            logged = all[0];
+        });
+
+        return User = {
+            getAll: function () {
+                return all;
+            },
+            getLogged: function () {
+                return logged;
+            },
+            setLogged: function (user) {
+                logged = user;
+            }
+        };
+    }])
+
     .service('SidebarPeopleList', function (People) {
         this.people = People.query({projection: 'firstNameAndLastNameAndCards'});
         var that = this;

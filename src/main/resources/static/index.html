@@ -48,11 +48,16 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#/check-in">Wejścia</a></li>
                 <li><a href="#/payment">Płatności</a></li>
-                <li><a href="#/settings">Ustawienia</a></li>
+                <li><a href="#/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
+                <li class="dropdown" uib-dropdown is-open="status.isopen">
+                    <a href class="dropdown-toggle" uib-dropdown-toggle><span class="glyphicon glyphicon-user"></span> {{ getLoggedUser().firstName + ' ' + getLoggedUser().lastName }} <span class="caret"></span></a>
+                    <ul class="uib-dropdown-menu" aria-labelledby="simple-dropdown">
+                        <li ng-repeat="user in users" ng-hide="user === $parent.getLoggedUser()"><a href ng-bind="user.firstName + ' ' + user.lastName" ng-click="$parent.setLoggedUser(user)"></a></li>
+                    </ul>
+                </li>
             </ul>
             <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" ng-model="search" placeholder="Wyszukaj osoby..."
-                       ng-change="performSearch()">
+                <input type="text" class="form-control" ng-model="search" placeholder="Wyszukaj osoby..." ng-change="performSearch()">
             </form>
         </div>
     </div>
