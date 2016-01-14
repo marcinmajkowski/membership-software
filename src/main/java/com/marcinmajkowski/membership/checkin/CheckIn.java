@@ -4,6 +4,7 @@ import com.marcinmajkowski.membership.card.Card;
 import com.marcinmajkowski.membership.enumeration.Channel;
 import com.marcinmajkowski.membership.enumeration.CodeSource;
 import com.marcinmajkowski.membership.person.Person;
+import com.marcinmajkowski.membership.user.User;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -34,7 +35,7 @@ public class CheckIn {
     private Channel channel;
 
     @ManyToOne(optional = false)
-    private Person staffMember;
+    private User staffMember;
 
     public Date getTimestamp() {
         return timestamp;
@@ -76,11 +77,11 @@ public class CheckIn {
         this.channel = channel;
     }
 
-    public Person getStaffMember() {
+    public User getStaffMember() {
         return staffMember;
     }
 
-    public void setStaffMember(Person staffMember) {
+    public void setStaffMember(User staffMember) {
         this.staffMember = staffMember;
     }
 }

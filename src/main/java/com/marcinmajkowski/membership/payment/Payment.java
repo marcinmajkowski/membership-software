@@ -5,6 +5,7 @@ import com.marcinmajkowski.membership.enumeration.Channel;
 import com.marcinmajkowski.membership.enumeration.CodeSource;
 import com.marcinmajkowski.membership.membership.Membership;
 import com.marcinmajkowski.membership.person.Person;
+import com.marcinmajkowski.membership.user.User;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -32,7 +33,7 @@ public class Payment {
     private Card card;
 
     @ManyToOne(optional = false)
-    private Person staffMember;
+    private User staffMember;
 
     @Enumerated(EnumType.STRING)
     private CodeSource codeSource;
@@ -72,11 +73,11 @@ public class Payment {
         this.card = card;
     }
 
-    public Person getStaffMember() {
+    public User getStaffMember() {
         return staffMember;
     }
 
-    public void setStaffMember(Person staffMember) {
+    public void setStaffMember(User staffMember) {
         this.staffMember = staffMember;
     }
 

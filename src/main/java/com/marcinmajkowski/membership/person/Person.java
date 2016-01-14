@@ -2,6 +2,7 @@ package com.marcinmajkowski.membership.person;
 
 import com.marcinmajkowski.membership.card.Card;
 import com.marcinmajkowski.membership.group.TrainingGroup;
+import com.marcinmajkowski.membership.user.User;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -40,6 +41,9 @@ public class Person {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Collection<Card> cards;
+
+    @ManyToOne(optional = false)
+    private User staffMember;
 
     public String getFirstName() {
         return firstName;
@@ -103,5 +107,13 @@ public class Person {
 
     public void setCards(Collection<Card> cards) {
         this.cards = cards;
+    }
+
+    public User getStaffMember() {
+        return staffMember;
+    }
+
+    public void setStaffMember(User staffMember) {
+        this.staffMember = staffMember;
     }
 }

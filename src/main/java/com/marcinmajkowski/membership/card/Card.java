@@ -1,6 +1,7 @@
 package com.marcinmajkowski.membership.card;
 
 import com.marcinmajkowski.membership.person.Person;
+import com.marcinmajkowski.membership.user.User;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -24,6 +25,9 @@ public class Card {
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private Person owner;
 
+    @ManyToOne(optional = false)
+    private User staffMember;
+
     public String getCode() {
         return code;
     }
@@ -46,5 +50,13 @@ public class Card {
 
     public void setOwner(Person owner) {
         this.owner = owner;
+    }
+
+    public User getStaffMember() {
+        return staffMember;
+    }
+
+    public void setStaffMember(User staffMember) {
+        this.staffMember = staffMember;
     }
 }
