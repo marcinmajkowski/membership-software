@@ -252,15 +252,12 @@ angular.module('membershipManagementControllers', [])
 
         $scope.isCardInUse = false;
 
-        $scope.$on('scanEvent', function (event, code, card) {
+        $scope.$on('scanEvent', function (event, code, card, owner) {
             $scope.card.code = code;
 
-            if (card) {
-                $scope.card = card;
-                console.info(card);
-                $http.get(card._links.owner.href).then(function (response) {
-                    $scope.cardOwnerProfileUrl = People.personProfileUrl(response.data);
-                });
+            if (owner) {
+                $scope.owner = owner;
+                $scope.cardOwnerProfileUrl = People.personProfileUrl(owner);
                 $scope.isCardInUse = true;
             }
         });

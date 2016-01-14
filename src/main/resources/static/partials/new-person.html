@@ -25,7 +25,7 @@
             <!-- TODO walidacja - karnet nie moze byc zajety -->
             <input type="text" class="form-control" id="code" placeholder="Zeskanuj kod aby dodać" ng-model="card.code">
             <span class="glyphicon glyphicon-remove form-control-feedback" ng-show="isCardInUse"></span>
-            <span class="help-block" ng-show="isCardInUse">Właścicielem tego karnetu jest <a ng-href="#{{cardOwnerProfileUrl}}" ng-bind="card.owner.firstName + ' ' + card.owner.lastName"></a></span>
+            <span class="help-block" ng-show="isCardInUse">Właścicielem tego karnetu jest <a ng-href="#{{cardOwnerProfileUrl}}" ng-bind="owner.firstName + ' ' + owner.lastName"></a></span>
         </div>
     </div>
 </form>
