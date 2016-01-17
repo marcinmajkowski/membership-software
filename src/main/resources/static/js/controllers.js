@@ -259,9 +259,8 @@ angular.module('membershipManagementControllers', [])
         $scope.addPerson = function (person) {
             People.create(person, function (response) {
                 if ($scope.card.code) {
-                    $scope.card.issueTimestamp = new Date();
                     $scope.card.owner = response.data._links.self.href;
-                    Card.save($scope.card);
+                    Card.create($scope.card);
                 }
                 SidebarPeopleList.update();
                 $location.path(People.personProfileUrl(response.data)).search({editing: true});

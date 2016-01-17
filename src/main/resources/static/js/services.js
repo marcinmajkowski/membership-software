@@ -1,7 +1,9 @@
 angular.module('membershipManagementServices', ['ngResource'])
 
-    .factory('Card', ['$resource', function ($resource) {
-        return $resource('/api/v1/cards/:cardId', {}, { //TODO pagination
+    .factory('Card', ['$resource', '$http', 'User', function ($resource, $http, User) {
+        var cardsUrl = '/api/v1/cards';
+
+        var Card = $resource(cardsUrl + '/:cardId', {}, { //TODO pagination
             'query': {
                 method: 'GET',
                 isArray: true,
@@ -21,11 +23,31 @@ angular.module('membershipManagementServices', ['ngResource'])
                     return angular.fromJson(data)._embedded.cards;
                 }
             }
-
         });
+
+        Card.create = function (card, successCallback, errorCallback) {
+            var newCard = {
+                code: card.code,
+                issueTimestamp: new Date(),
+                owner: card.owner,
+                staffMember: User.getLogged()._links.self.href
+            };
+
+            $http.post(cardsUrl, newCard).then(function (response) {
+                if (successCallback) {
+                    successCallback(response);
+                }
+            }, function (response) {
+                if (errorCallback) {
+                    errorCallback(response);
+                }
+            });
+        };
+
+        return Card;
     }])
 
-    .factory('People', ['$resource', '$http', function ($resource, $http) {
+    .factory('People', ['$resource', '$http', 'User', function ($resource, $http, User) {
         var peopleUrl = '/api/v1/people';
 
         var People = $resource(peopleUrl + '/:personId', {}, { //TODO pagination
@@ -33,6 +55,7 @@ angular.module('membershipManagementServices', ['ngResource'])
                 method: 'GET',
                 isArray: true,
                 transformResponse: function (data, headersGetter) {
+                    return angular.fromJson(data)._embedded.people;
                     return angular.fromJson(data)._embedded.people;
                 }
             },
@@ -51,7 +74,8 @@ angular.module('membershipManagementServices', ['ngResource'])
 
             var newPerson = {
                 firstName: person.firstName,
-                lastName: person.lastName
+                lastName: person.lastName,
+                staffMember: User.getLogged()._links.self.href
             };
 
             $http.post(peopleUrl, newPerson).then(function (response) {
