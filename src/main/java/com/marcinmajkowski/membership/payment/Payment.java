@@ -8,6 +8,7 @@ import com.marcinmajkowski.membership.person.Person;
 import com.marcinmajkowski.membership.user.User;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -26,20 +27,23 @@ public class Payment {
     @Column(nullable = false)
     private Date membershipStartDate;
 
-    @ManyToOne(optional = false)
-    private Membership membership;
+    @Column(nullable = false)
+    private String membershipName;
+
+    @Column(nullable = false)
+    private BigDecimal membershipPrice;
+
+    @Column(nullable = false)
+    private Integer membershipDurationInDays;
+
+    @Column(nullable = false)
+    private Integer membershipNumberOfTrainings;
 
     @ManyToOne(optional = false)
-    private Card card;
+    private Person payee;
 
     @ManyToOne(optional = false)
     private User staffMember;
-
-    @Enumerated(EnumType.STRING)
-    private CodeSource codeSource;
-
-    @Enumerated(EnumType.STRING)
-    private Channel channel;
 
     public Date getTimestamp() {
         return timestamp;
@@ -57,20 +61,44 @@ public class Payment {
         this.membershipStartDate = membershipStartDate;
     }
 
-    public Membership getMembership() {
-        return membership;
+    public String getMembershipName() {
+        return membershipName;
     }
 
-    public void setMembership(Membership membership) {
-        this.membership = membership;
+    public void setMembershipName(String membershipName) {
+        this.membershipName = membershipName;
     }
 
-    public Card getCard() {
-        return card;
+    public BigDecimal getMembershipPrice() {
+        return membershipPrice;
     }
 
-    public void setCard(Card card) {
-        this.card = card;
+    public void setMembershipPrice(BigDecimal membershipPrice) {
+        this.membershipPrice = membershipPrice;
+    }
+
+    public Integer getMembershipDurationInDays() {
+        return membershipDurationInDays;
+    }
+
+    public void setMembershipDurationInDays(Integer membershipDurationInDays) {
+        this.membershipDurationInDays = membershipDurationInDays;
+    }
+
+    public Integer getMembershipNumberOfTrainings() {
+        return membershipNumberOfTrainings;
+    }
+
+    public void setMembershipNumberOfTrainings(Integer membershipNumberOfTrainings) {
+        this.membershipNumberOfTrainings = membershipNumberOfTrainings;
+    }
+
+    public Person getPayee() {
+        return payee;
+    }
+
+    public void setPayee(Person payee) {
+        this.payee = payee;
     }
 
     public User getStaffMember() {
@@ -79,21 +107,5 @@ public class Payment {
 
     public void setStaffMember(User staffMember) {
         this.staffMember = staffMember;
-    }
-
-    public CodeSource getCodeSource() {
-        return codeSource;
-    }
-
-    public void setCodeSource(CodeSource codeSource) {
-        this.codeSource = codeSource;
-    }
-
-    public Channel getChannel() {
-        return channel;
-    }
-
-    public void setChannel(Channel channel) {
-        this.channel = channel;
     }
 }
