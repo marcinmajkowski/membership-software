@@ -25,8 +25,6 @@ public class ScannerService {
 
     private SimpMessagingTemplate template;
 
-    private CheckInRepository checkInRepository;
-
     private static SerialPort serialPort;
 
     private static SerialNativeInterface serialNativeInterface = new SerialNativeInterface();
@@ -35,9 +33,8 @@ public class ScannerService {
     private String portName;
 
     @Autowired
-    public ScannerService(SimpMessagingTemplate template, CheckInRepository checkInRepository) {
+    public ScannerService(SimpMessagingTemplate template) {
         this.template = template;
-        this.checkInRepository = checkInRepository;
     }
 
     @Scheduled(fixedRate = 10000)
