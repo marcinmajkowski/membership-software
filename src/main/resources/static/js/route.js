@@ -10,6 +10,10 @@ angular.module('membershipManagementRoute', ['ngRoute'])
                 templateUrl: 'partials/payment.html',
                 controller: 'PaymentCtrl'
             })
+            .when('/new-payment', {
+                templateUrl: 'partials/new-payment.html',
+                controller: 'NewPaymentCtrl'
+            })
             .when('/people', {
                 templateUrl: 'partials/people.html',
                 controller: 'PeopleCtrl'

@@ -231,7 +231,9 @@ angular.module('membershipManagementControllers', [])
             //TODO reload user
         };
 
-        $scope.person = People.get({personId: $routeParams.personId}, function (person) {
+        $scope.personId = $routeParams.personId;
+
+        $scope.person = People.get({personId: $scope.personId}, function (person) {
             $scope.person = person;
             if (person.birthday) {
                 $scope.person.birthday = new Date(person.birthday);
@@ -268,6 +270,29 @@ angular.module('membershipManagementControllers', [])
         };
 
         $scope.isCardInUse = false;
+
+        $scope.$on('scanEvent', function (event, code, card, owner) {
+            $scope.card.code = code;
+
+            if (owner) {
+                $scope.owner = owner;
+                $scope.cardOwnerProfileUrl = People.personProfileUrl(owner);
+                $scope.isCardInUse = true;
+            }
+        });
+    }])
+
+    .controller('NewPaymentCtrl', ['$scope', '$http', '$location', '$routeParams', 'People', 'Card', 'SidebarPeopleList', function ($scope, $http, $location, $routeParams, People, Card, SidebarPeopleList) {
+        if ($routeParams.person) {
+            $scope.personPredefined = true;
+            $scope.personId = $routeParams.person;
+        } else {
+            $scope.personPredefined = false;
+        }
+
+        $scope.addPayment = function (payment) {
+            //TODO
+        };
 
         $scope.$on('scanEvent', function (event, code, card, owner) {
             $scope.card.code = code;
