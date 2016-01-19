@@ -1,5 +1,7 @@
 package com.marcinmajkowski.membership.membership;
 
+import com.marcinmajkowski.membership.user.User;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -14,16 +16,27 @@ public class Membership {
     private long id;
 
     @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
     private BigDecimal price;
 
     @Column(nullable = false)
-    private Integer duration;
-
-    @Column
-    private Integer timesPerWeek;
+    private Integer durationInDays;
 
     @Column(nullable = false)
-    private Boolean isOpen;
+    private Integer numberOfTrainings;
+
+    @ManyToOne(optional = false)
+    private User staffMember;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public BigDecimal getPrice() {
         return price;
@@ -33,27 +46,27 @@ public class Membership {
         this.price = price;
     }
 
-    public Integer getDuration() {
-        return duration;
+    public Integer getDurationInDays() {
+        return durationInDays;
     }
 
-    public void setDuration(Integer duration) {
-        this.duration = duration;
+    public void setDurationInDays(Integer durationInDays) {
+        this.durationInDays = durationInDays;
     }
 
-    public Integer getTimesPerWeek() {
-        return timesPerWeek;
+    public Integer getNumberOfTrainings() {
+        return numberOfTrainings;
     }
 
-    public void setTimesPerWeek(Integer timesPerWeek) {
-        this.timesPerWeek = timesPerWeek;
+    public void setNumberOfTrainings(Integer numberOfTrainings) {
+        this.numberOfTrainings = numberOfTrainings;
     }
 
-    public Boolean getOpen() {
-        return isOpen;
+    public User getStaffMember() {
+        return staffMember;
     }
 
-    public void setOpen(Boolean open) {
-        isOpen = open;
+    public void setStaffMember(User staffMember) {
+        this.staffMember = staffMember;
     }
 }

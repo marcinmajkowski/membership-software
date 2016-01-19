@@ -12,6 +12,4 @@ import java.util.List;
  */
 @RepositoryRestResource
 public interface MembershipRepository extends CrudRepository<Membership, Long> {
-
-    List<Membership> findByPrice(@Param("price") BigDecimal price);
 }
