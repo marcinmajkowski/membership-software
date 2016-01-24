@@ -132,7 +132,7 @@ angular.module('membershipManagementControllers', [])
         };
     })
 
-    .controller('PaymentCtrl', function ($scope, $http) {
+    .controller('PaymentsCtrl', function ($scope, $http) {
         $http.get('api/v1/memberships').then(function (response) {
             $scope.memberships = response.data._embedded.memberships;
         }, function (error) {
@@ -251,6 +251,21 @@ angular.module('membershipManagementControllers', [])
                 });
             });
         });
+
+        //TODO code repetition. Move callback function to common place
+        $scope.$on('scanEvent', function (event, code, card) {
+            if (!card) {
+                // if card with scanned code does not exist,
+                // then redirect to a new person creation form, filled with the code
+                $location.path('/new-person').search({code: code});
+            } else {
+                // if this code is already registered,
+                // then get the owner and redirect to his profile
+                $http.get(card._links.owner.href).then(function (response) {
+                    $location.path(People.personProfileUrl(response.data));
+                });
+            }
+        });
     }])
 
     .controller('NewPersonCtrl', ['$scope', '$http', '$location', '$routeParams', 'People', 'Card', 'SidebarPeopleList', function ($scope, $http, $location, $routeParams, People, Card, SidebarPeopleList) {
@@ -282,17 +297,39 @@ angular.module('membershipManagementControllers', [])
         });
     }])
 
-    .controller('NewPaymentCtrl', ['$scope', '$http', '$location', '$routeParams', 'People', 'Card', 'SidebarPeopleList', function ($scope, $http, $location, $routeParams, People, Card, SidebarPeopleList) {
+    .controller('NewPaymentCtrl', ['$scope', '$http', '$location', '$routeParams', 'People', 'Card', 'SidebarPeopleList', 'Memberships', 'Payments', 'User', function ($scope, $http, $location, $routeParams, People, Card, SidebarPeopleList, Memberships, Payments, User) {
+        $scope.payment = {
+            membershipStartDate: new Date()
+        };
+
         if ($routeParams.person) {
             $scope.personPredefined = true;
             $scope.personId = $routeParams.person;
+            $scope.payment.payee = People.get({personId: $scope.personId});
         } else {
             $scope.personPredefined = false;
         }
 
-        $scope.addPayment = function (payment) {
-            //TODO
+        $scope.memberships = Memberships.query();
+
+        $scope.addPayment = function (payment, membership) {
+            var newPayment = {
+                timestamp: new Date(),
+                membershipStartDate: payment.membershipStartDate,
+                membershipName: membership.name,
+                membershipPrice: membership.price,
+                membershipDurationInDays: membership.durationInDays,
+                membershipNumberOfTrainings: membership.numberOfTrainings,
+                payee: payment.payee._links.self.href,
+                staffMember: User.getLogged()._links.self.href
+            };
+
+            Payments.save(newPayment, function (payment) {
+                $location.path('/payments').search({});
+            });
         };
+
+        $scope.membership = {};
 
         $scope.$on('scanEvent', function (event, code, card, owner) {
             $scope.card.code = code;

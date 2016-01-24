@@ -47,6 +47,14 @@ angular.module('membershipManagementServices', ['ngResource'])
         return Card;
     }])
 
+    .factory('Payments', ['$resource', function ($resource) {
+        var paymentsUrl = '/api/v1/payments';
+
+        var Payments = $resource(paymentsUrl + '/:paymentId');
+
+        return Payments;
+    }])
+
     .factory('People', ['$resource', '$http', 'User', function ($resource, $http, User) {
         var peopleUrl = '/api/v1/people';
 
@@ -119,6 +127,23 @@ angular.module('membershipManagementServices', ['ngResource'])
                 }
             }
         });
+    }])
+
+    .factory('Memberships', ['$resource', function ($resource) {
+        var membershipsUrl = '/api/v1/memberships';
+
+        var Memberships = $resource(membershipsUrl + '/:membershipId', {}, { //TODO pagination
+            'query': {
+                method: 'GET',
+                isArray: true,
+                transformResponse: function (data, headersGetter) {
+                    return angular.fromJson(data)._embedded.memberships;
+                    return angular.fromJson(data)._embedded.memberships;
+                }
+            }
+        });
+
+        return Memberships;
     }])
 
     .factory('Groups', ['$resource', function ($resource) {

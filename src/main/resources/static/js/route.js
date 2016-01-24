@@ -6,9 +6,9 @@ angular.module('membershipManagementRoute', ['ngRoute'])
                 templateUrl: 'partials/check-in.html',
                 controller: 'CheckInCtrl'
             })
-            .when('/payment', {
-                templateUrl: 'partials/payment.html',
-                controller: 'PaymentCtrl'
+            .when('/payments', {
+                templateUrl: 'partials/payments.html',
+                controller: 'PaymentsCtrl'
             })
             .when('/new-payment', {
                 templateUrl: 'partials/new-payment.html',
