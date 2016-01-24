@@ -17,14 +17,16 @@
             <tr>
                 <th>Imię</th>
                 <th>Nazwisko</th>
-                <th>Data i godzina</th>
+                <th>Data</th>
+                <th>Godzina</th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="checkIn in checkIns">
                 <td>{{checkIn.person.firstName}}</td>
                 <td>{{checkIn.person.lastName}}</td>
-                <td>{{checkIn.timestamp | date : 'dd.MM.yyyy - HH:mm'}}</td>
+                <td>{{checkIn.timestamp | date : 'dd.MM.yyyy'}}</td>
+                <td>{{checkIn.timestamp | date : 'HH:mm'}}</td>
             </tr>
             </tbody>
         </table>

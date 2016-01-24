@@ -132,36 +132,9 @@ angular.module('membershipManagementControllers', [])
         };
     })
 
-    .controller('PaymentsCtrl', function ($scope, $http) {
-        $http.get('api/v1/memberships').then(function (response) {
-            $scope.memberships = response.data._embedded.memberships;
-        }, function (error) {
-        });
-
-        $scope.$on('scanEvent', function (event, code) {
-            $scope.code = code;
-        });
-
-        $scope.newPayment = function () {
-            $scope.payment = {
-                channel: 'WEB',
-                codeSource: 'SCANNER',
-                membershipStartDate: Date.now(),
-                timestamp: Date.now(),
-                card: null,
-                membership: $scope.localMembership,
-                staffMember: 'people/1'
-            };
-
-            $http.get('api/v1/cards/search/findByCode?code=' + $scope.code).then(function (response) {
-                $scope.payment.card = response.data._links.self;
-                console.log($scope.payment.card);
-                console.log($scope.payment.membership);
-                $http.post('api/v1/payments', $scope.payment);
-            }, function (error) {
-            });
-        };
-    })
+    .controller('PaymentsCtrl', ['$scope', '$http', 'Payments', function ($scope, $http, Payments) {
+        $scope.payments = Payments.query({sort: 'timestamp,desc', projection: 'payeeAndMembershipPriceAndTimestamp'});
+    }])
 
     .controller('PeopleCtrl', ['$scope', 'People', '$http', function ($scope, People, $http) {
         $scope.loadPeople = function () {

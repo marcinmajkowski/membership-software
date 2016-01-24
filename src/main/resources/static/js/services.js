@@ -50,7 +50,15 @@ angular.module('membershipManagementServices', ['ngResource'])
     .factory('Payments', ['$resource', function ($resource) {
         var paymentsUrl = '/api/v1/payments';
 
-        var Payments = $resource(paymentsUrl + '/:paymentId');
+        var Payments = $resource(paymentsUrl + '/:paymentId', {}, {
+            'query': {
+                method: 'GET',
+                isArray: true,
+                transformResponse: function (data, headersGetter) {
+                    return angular.fromJson(data)._embedded.payments;
+                }
+            }
+        });
 
         return Payments;
     }])
@@ -63,7 +71,6 @@ angular.module('membershipManagementServices', ['ngResource'])
                 method: 'GET',
                 isArray: true,
                 transformResponse: function (data, headersGetter) {
-                    return angular.fromJson(data)._embedded.people;
                     return angular.fromJson(data)._embedded.people;
                 }
             },
