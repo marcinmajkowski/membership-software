@@ -36,7 +36,7 @@
 
         <div class="col-sm-6">
             <p class="form-control-static user-profile-form-control-static" ng-hide="editing">{{ person.birthday || " "
-                | date:'dd/MM/yyyy' }}</p>
+                | date:'dd.MM.yyyy' }}</p>
             <input type="date" class="form-control" id="birthday" placeholder="Data urodzenia"
                    ng-model="person.birthday" ng-show="editing">
         </div>
@@ -98,7 +98,7 @@
             </button>
         </p>
         <ul ng-repeat="checkIn in checkIns">
-            <li>{{checkIn.timestamp | date:'dd/MM/yyyy - HH:mm'}}</li>
+            <li>{{checkIn.timestamp | date:'dd.MM.yyyy - HH:mm'}}</li>
         </ul>
     </div>
     <div class="col-sm-4">
