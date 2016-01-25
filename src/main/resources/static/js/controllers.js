@@ -133,7 +133,7 @@ angular.module('membershipManagementControllers', [])
     })
 
     .controller('PaymentsCtrl', ['$scope', '$http', 'Payments', function ($scope, $http, Payments) {
-        $scope.payments = Payments.query({sort: 'timestamp,desc', projection: 'payeeAndMembershipPriceAndTimestamp'});
+        $scope.payments = Payments.query({sort: 'timestamp,desc', projection: 'payerAndMembershipPriceAndTimestamp'});
     }])
 
     .controller('PeopleCtrl', ['$scope', 'People', '$http', function ($scope, People, $http) {
@@ -160,7 +160,7 @@ angular.module('membershipManagementControllers', [])
         };
     }])
 
-    .controller('PersonCtrl', ['SidebarPeopleList', '$scope', '$routeParams', 'People', 'Card', 'CheckIn', 'Groups', '$http', '$location', function (SidebarPeopleList, $scope, $routeParams, People, Card, CheckIn, Groups, $http, $location) {
+    .controller('PersonCtrl', ['SidebarPeopleList', '$scope', '$routeParams', 'People', 'Card', 'CheckIn', 'Groups', '$http', '$location', 'Payments', function (SidebarPeopleList, $scope, $routeParams, People, Card, CheckIn, Groups, $http, $location, Payments) {
         if ($routeParams.editing) {
             $scope.editing = true;
         } else {
@@ -214,8 +214,9 @@ angular.module('membershipManagementControllers', [])
             $http.get(person._links.cards.href).then(function (response) {
                 $scope.cards = response.data._embedded.cards;
             });
-            var owner = person._links.self.href;
-            $scope.checkIns = CheckIn.byCardOwner({owner: owner});
+            $scope.checkIns = CheckIn.byCardOwner({owner: person._links.self.href});
+
+            $scope.payments = Payments.byPayer({payer: person._links.self.href});
 
             $http.get($scope.person._links.trainingGroups.href).then(function (response) {
                 $scope.person.trainingGroups = [];
@@ -278,7 +279,7 @@ angular.module('membershipManagementControllers', [])
         if ($routeParams.person) {
             $scope.personPredefined = true;
             $scope.personId = $routeParams.person;
-            $scope.payment.payee = People.get({personId: $scope.personId});
+            $scope.payment.payer = People.get({personId: $scope.personId});
         } else {
             $scope.personPredefined = false;
         }
@@ -293,7 +294,7 @@ angular.module('membershipManagementControllers', [])
                 membershipPrice: membership.price,
                 membershipDurationInDays: membership.durationInDays,
                 membershipNumberOfTrainings: membership.numberOfTrainings,
-                payee: payment.payee._links.self.href,
+                payer: payment.payer._links.self.href,
                 staffMember: User.getLogged()._links.self.href
             };
 

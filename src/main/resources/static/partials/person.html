@@ -108,6 +108,9 @@
                 <span class="glyphicon glyphicon-plus"></span>
             </a>
         </p>
+        <ul ng-repeat="payment in payments">
+            <li>{{payment.membershipName}} (<strong>{{payment.membershipPrice}}zł</strong>, zapłacone {{payment.timestamp | date:'dd.MM.yyyy o HH:mm'}}, ważne od {{payment.membershipStartDate | date:'dd.MM.yyyy'}} przez {{payment.membershipDurationInDays}} dni)</li>
+        </ul>
     </div>
     <div class="col-sm-4">
         <h2 class="sub-header">Karnety</h2>

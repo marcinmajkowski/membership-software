@@ -23,8 +23,8 @@
             </thead>
             <tbody>
             <tr ng-repeat="payment in payments">
-                <td>{{payment.payee.firstName}}</td>
-                <td>{{payment.payee.lastName}}</td>
+                <td>{{payment.payer.firstName}}</td>
+                <td>{{payment.payer.lastName}}</td>
                 <td>{{payment.membershipPrice}}zł</td>
                 <td>{{payment.timestamp | date : 'dd.MM.yyyy'}}</td>
                 <td>{{payment.timestamp | date : 'HH:mm'}}</td>

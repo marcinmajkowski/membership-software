@@ -57,6 +57,14 @@ angular.module('membershipManagementServices', ['ngResource'])
                 transformResponse: function (data, headersGetter) {
                     return angular.fromJson(data)._embedded.payments;
                 }
+            },
+            'byPayer': {
+                method: 'GET',
+                isArray: true,
+                url: paymentsUrl + '/search/findByPayerOrderByTimestampDesc',
+                transformResponse: function (data, headersGetter) {
+                    return angular.fromJson(data)._embedded.payments;
+                }
             }
         });
 

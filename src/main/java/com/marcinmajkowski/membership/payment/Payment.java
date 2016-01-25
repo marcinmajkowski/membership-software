@@ -1,9 +1,5 @@
 package com.marcinmajkowski.membership.payment;
 
-import com.marcinmajkowski.membership.card.Card;
-import com.marcinmajkowski.membership.enumeration.Channel;
-import com.marcinmajkowski.membership.enumeration.CodeSource;
-import com.marcinmajkowski.membership.membership.Membership;
 import com.marcinmajkowski.membership.person.Person;
 import com.marcinmajkowski.membership.user.User;
 
@@ -40,7 +36,7 @@ public class Payment {
     private Integer membershipNumberOfTrainings;
 
     @ManyToOne(optional = false)
-    private Person payee;
+    private Person payer;
 
     @ManyToOne(optional = false)
     private User staffMember;
@@ -93,12 +89,12 @@ public class Payment {
         this.membershipNumberOfTrainings = membershipNumberOfTrainings;
     }
 
-    public Person getPayee() {
-        return payee;
+    public Person getPayer() {
+        return payer;
     }
 
-    public void setPayee(Person payee) {
-        this.payee = payee;
+    public void setPayer(Person payer) {
+        this.payer = payer;
     }
 
     public User getStaffMember() {

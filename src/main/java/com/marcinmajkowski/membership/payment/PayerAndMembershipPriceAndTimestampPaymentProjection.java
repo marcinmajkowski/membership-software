@@ -9,10 +9,10 @@ import java.util.Date;
 /**
  * Created by Marcin on 24/01/2016.
  */
-@Projection(name = "payeeAndMembershipPriceAndTimestamp", types = Payment.class)
-public interface PayeeAndMembershipPriceAndTimestampPaymentProjection {
+@Projection(name = "payerAndMembershipPriceAndTimestamp", types = Payment.class)
+public interface PayerAndMembershipPriceAndTimestampPaymentProjection {
 
-    Person getPayee();
+    Person getPayer();
 
     BigDecimal getMembershipPrice();
 
