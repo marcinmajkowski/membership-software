@@ -36,9 +36,6 @@ angular.module('membershipManagementRoute', ['ngRoute'])
             .when('/statistics', {
                 templateUrl: 'partials/statistics.html'
             })
-            .when('/settings', {
-                templateUrl: 'partials/settings.html'
-            })
             .when('/', {
                 templateUrl: 'partials/home.html',
                 controller: 'HomeCtrl'

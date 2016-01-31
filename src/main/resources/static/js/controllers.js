@@ -58,14 +58,12 @@ angular.module('membershipManagementControllers', [])
 
         $scope.setLoggedUser = User.setLogged;
 
-        $scope.status = {
-            isopen: false
+        $scope.userDropdown = {
+            isOpen: false
         };
 
-        $scope.toggleDropdown = function($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-            $scope.status.isopen = !$scope.status.isopen;
+        $scope.settingsDropdown = {
+            isOpen: false
         };
     })
 

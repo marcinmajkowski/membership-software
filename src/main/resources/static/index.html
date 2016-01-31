@@ -48,8 +48,24 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#/check-in">Wejścia</a></li>
                 <li><a href="#/payments">Płatności</a></li>
-                <li><a href="#/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
-                <li class="dropdown" uib-dropdown is-open="status.isopen">
+                <li class="dropdown" uib-dropdown is-open="settingsDropdown.isOpen">
+                    <a href class="dropdown-toggle" uib-dropdown-toggle><span class="glyphicon glyphicon-cog"></span></a>
+                    <ul class="uib-dropdown-menu" aria-labelledby="simple-dropdown">
+                        <li>
+                            <a href="#/people">Klienci</a>
+                        </li>
+                        <li>
+                            <a href="#/training-groups">Grupy</a>
+                        </li>
+                        <li>
+                            <a href="#/membership">Oferta</a>
+                        </li>
+                        <li>
+                            <a href="#/statistics">Statystyki</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown" uib-dropdown is-open="userDropdown.isOpen">
                     <a href class="dropdown-toggle" uib-dropdown-toggle><span class="glyphicon glyphicon-user"></span> {{ getLoggedUser().firstName + ' ' + getLoggedUser().lastName }} <span class="caret"></span></a>
                     <ul class="uib-dropdown-menu" aria-labelledby="simple-dropdown">
                         <li ng-repeat="user in users" ng-hide="user === $parent.getLoggedUser()"><a href ng-bind="user.firstName + ' ' + user.lastName" ng-click="$parent.setLoggedUser(user)"></a></li>
