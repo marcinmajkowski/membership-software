@@ -3,6 +3,7 @@ package com.marcinmajkowski.membership.checkin;
 import com.marcinmajkowski.membership.card.Card;
 import com.marcinmajkowski.membership.enumeration.Channel;
 import com.marcinmajkowski.membership.enumeration.CodeSource;
+import com.marcinmajkowski.membership.group.TrainingGroup;
 import com.marcinmajkowski.membership.person.Person;
 import com.marcinmajkowski.membership.user.User;
 
@@ -36,6 +37,9 @@ public class CheckIn {
 
     @ManyToOne(optional = false)
     private User staffMember;
+
+    @ManyToOne(optional = false)
+    private TrainingGroup trainingGroup;
 
     public Date getTimestamp() {
         return timestamp;
@@ -83,5 +87,13 @@ public class CheckIn {
 
     public void setStaffMember(User staffMember) {
         this.staffMember = staffMember;
+    }
+
+    public TrainingGroup getTrainingGroup() {
+        return trainingGroup;
+    }
+
+    public void setTrainingGroup(TrainingGroup trainingGroup) {
+        this.trainingGroup = trainingGroup;
     }
 }

@@ -3,20 +3,29 @@
 <div class="row">
     <div class="panel panel-default text-center col-sm-12">
         <p class="lead home-top-bottom-margin">
-            Skanuj karnet aby zarejestrować wejście.
+            Wybierz grupę i skanuj karnet aby zarejestrować wejście.
         </p>
     </div>
 </div>
 
-<mm-card full-name="owner.firstName + ' ' + owner.lastName" code="card.code"></mm-card>
+<div class="row" style="margin-bottom: 20px;"><!-- TODO remove inline styling -->
+    <div class="col-sm-6 col-sm-offset-3 btn-group-vertical" role="group">
+        <button ng-repeat="group in groups" type="button" class="btn btn-default btn-lg btn-block" ng-model="$parent.trainingGroup" uib-btn-radio="group">{{group.name}}</button>
+    </div>
+</div>
 
 <div class="row">
-    <div class="table-responsive col-sm-6 col-sm-offset-3">
+    <mm-card full-name="owner.firstName + ' ' + owner.lastName" code="card.code"></mm-card>
+</div>
+
+<div class="row">
+    <div class="table-responsive col-sm-8 col-sm-offset-2">
         <table class="table table-striped">
             <thead>
             <tr>
                 <th>Imię</th>
                 <th>Nazwisko</th>
+                <th>Grupa</th>
                 <th>Data</th>
                 <th>Godzina</th>
             </tr>
@@ -25,6 +34,7 @@
             <tr ng-repeat="checkIn in checkIns">
                 <td>{{checkIn.person.firstName}}</td>
                 <td>{{checkIn.person.lastName}}</td>
+                <td>{{checkIn.trainingGroup.name}}</td>
                 <td>{{checkIn.timestamp | date : 'dd.MM.yyyy'}}</td>
                 <td>{{checkIn.timestamp | date : 'HH:mm'}}</td>
             </tr>

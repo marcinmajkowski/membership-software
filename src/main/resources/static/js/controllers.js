@@ -85,7 +85,7 @@ angular.module('membershipManagementControllers', [])
         $scope.getLoggedUser = User.getLogged;
     }])
 
-    .controller('CheckInCtrl', function ($scope, $http, CheckIn, Card) {
+    .controller('CheckInCtrl', ['$scope', '$http', 'CheckIn', 'Card', 'Groups', 'User', function ($scope, $http, CheckIn, Card, Groups, User) {
         $scope.card = {
             code: null
         };
@@ -95,7 +95,7 @@ angular.module('membershipManagementControllers', [])
 
             if (card) {
                 $scope.owner = owner;
-                $scope.checkIn(card, owner);
+                $scope.checkIn(card, owner, $scope.trainingGroup);
             } else {
                 $scope.owner = {
                     firstName: '',
@@ -107,19 +107,20 @@ angular.module('membershipManagementControllers', [])
 
         var updateCheckIns = function () {
             //TODO add new checkIn to array on client side
-            $scope.checkIns = CheckIn.query({sort: 'timestamp,desc', projection: 'personAndTimestamp'});
+            $scope.checkIns = CheckIn.query({sort: 'timestamp,desc', projection: 'personAndTimestampAndTrainingGroup'});
         };
 
         updateCheckIns();
 
-        $scope.checkIn = function (card, owner) {
+        $scope.checkIn = function (card, owner, trainingGroup) {
             var data = {
                 timestamp: Date.now(),
                 codeSource: 'SCANNER', //TODO
                 channel: 'WEB',
                 card: card._links.self.href,
                 person: owner._links.self.href,
-                staffMember: 'people/1' //TODO get logged user
+                staffMember: User.getLogged()._links.self.href, //TODO get logged user
+                trainingGroup: trainingGroup._links.self.href
             };
 
             console.info(data);
@@ -128,7 +129,10 @@ angular.module('membershipManagementControllers', [])
                 updateCheckIns();
             });
         };
-    })
+
+        $scope.groups = Groups.query();
+        $scope.trainingGroup = null;
+    }])
 
     .controller('PaymentsCtrl', ['$scope', '$http', 'Payments', function ($scope, $http, Payments) {
         $scope.payments = Payments.query({sort: 'timestamp,desc', projection: 'payerAndMembershipPriceAndTimestamp'});
