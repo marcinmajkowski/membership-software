@@ -98,7 +98,7 @@
             </button>
         </p>
         <ul ng-repeat="checkIn in checkIns">
-            <li>{{checkIn.timestamp | date:'dd.MM.yyyy - HH:mm'}}</li>
+            <li>{{checkIn.timestamp | date:'dd.MM.yyyy - HH:mm'}} - {{checkIn.trainingGroup.name}}</li>
         </ul>
     </div>
     <div class="col-sm-4">

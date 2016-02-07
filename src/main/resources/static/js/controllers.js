@@ -216,7 +216,7 @@ angular.module('membershipManagementControllers', [])
             $http.get(person._links.cards.href).then(function (response) {
                 $scope.cards = response.data._embedded.cards;
             });
-            $scope.checkIns = CheckIn.byCardOwner({owner: person._links.self.href});
+            $scope.checkIns = CheckIn.byCardOwner({owner: person._links.self.href, projection: "personAndTimestampAndTrainingGroup"});
 
             $scope.payments = Payments.byPayer({payer: person._links.self.href});
 
