@@ -1,4 +1,4 @@
-package com.marcinmajkowski.membership.person;
+package com.marcinmajkowski.membership.customer;
 
 import com.marcinmajkowski.membership.card.Card;
 import com.marcinmajkowski.membership.group.TrainingGroup;
@@ -12,7 +12,7 @@ import java.util.Date;
  * Created by Marcin on 08/12/2015.
  */
 @Entity
-public class Person {
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

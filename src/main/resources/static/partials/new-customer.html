@@ -1,4 +1,4 @@
-<form class="form-horizontal" ng-submit="addPerson(person)">
+<form class="form-horizontal" ng-submit="addCustomer(customer)">
     <h1 class="page-header">
         Nowy klient
         <div class="pull-right text-right">
@@ -9,13 +9,13 @@
     <div class="form-group input-text-min-height">
         <label class="col-sm-3 control-label" for="firstName">Imię</label>
         <div class="col-sm-6">
-            <input type="text" class="form-control" id="firstName" placeholder="Imię" ng-model="person.firstName">
+            <input type="text" class="form-control" id="firstName" placeholder="Imię" ng-model="customer.firstName">
         </div>
     </div>
     <div class="form-group input-text-min-height">
         <label class="col-sm-3 control-label">Nazwisko</label>
         <div class="col-sm-6">
-            <input type="text" class="form-control" id="lastName" placeholder="Nazwisko" ng-model="person.lastName">
+            <input type="text" class="form-control" id="lastName" placeholder="Nazwisko" ng-model="customer.lastName">
         </div>
     </div>
     <!-- TODO allow only digits in this input, fill with zeros from left -->

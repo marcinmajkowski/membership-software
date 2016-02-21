@@ -1,6 +1,6 @@
 <form class="form-horizontal" ng-submit="save()">
     <h1 class="page-header">
-        {{person.firstName + ' ' + person.lastName}}
+        {{customer.firstName + ' ' + customer.lastName}}
         <div class="pull-right text-right">
             <button type="button" class="btn btn-default align-with-header" ng-click="editing = !editing"
                     ng-hide="editing">Edytuj profil
@@ -16,8 +16,8 @@
 
         <div class="col-sm-6">
             <p class="form-control-static user-profile-form-control-static" ng-hide="editing"
-               ng-bind="person.firstName"></p>
-            <input type="text" class="form-control" id="firstName" placeholder="Imię" ng-model="person.firstName"
+               ng-bind="customer.firstName"></p>
+            <input type="text" class="form-control" id="firstName" placeholder="Imię" ng-model="customer.firstName"
                    ng-show="editing">
         </div>
     </div>
@@ -26,8 +26,8 @@
 
         <div class="col-sm-6">
             <p class="form-control-static user-profile-form-control-static" ng-hide="editing"
-               ng-bind="person.lastName"></p>
-            <input type="text" class="form-control" id="lastName" placeholder="Nazwisko" ng-model="person.lastName"
+               ng-bind="customer.lastName"></p>
+            <input type="text" class="form-control" id="lastName" placeholder="Nazwisko" ng-model="customer.lastName"
                    ng-show="editing">
         </div>
     </div>
@@ -35,18 +35,18 @@
         <label class="col-sm-3 control-label">Data urodzenia</label>
 
         <div class="col-sm-6">
-            <p class="form-control-static user-profile-form-control-static" ng-hide="editing">{{ person.birthday || " "
+            <p class="form-control-static user-profile-form-control-static" ng-hide="editing">{{ customer.birthday || " "
                 | date:'dd.MM.yyyy' }}</p>
             <input type="date" class="form-control" id="birthday" placeholder="Data urodzenia"
-                   ng-model="person.birthday" ng-show="editing">
+                   ng-model="customer.birthday" ng-show="editing">
         </div>
     </div>
     <div class="form-group input-text-min-height">
         <label class="col-sm-3 control-label">Email</label>
 
         <div class="col-sm-6">
-            <p class="form-control-static user-profile-form-control-static" ng-hide="editing">{{ person.email }}</p>
-            <input type="email" class="form-control" id="email" placeholder="Email" ng-model="person.email"
+            <p class="form-control-static user-profile-form-control-static" ng-hide="editing">{{ customer.email }}</p>
+            <input type="email" class="form-control" id="email" placeholder="Email" ng-model="customer.email"
                    ng-show="editing">
         </div>
     </div>
@@ -54,9 +54,9 @@
         <label class="col-sm-3 control-label">Telefon</label>
 
         <div class="col-sm-6">
-            <p class="form-control-static user-profile-form-control-static" ng-hide="editing">{{ person.phone }}</p>
+            <p class="form-control-static user-profile-form-control-static" ng-hide="editing">{{ customer.phone }}</p>
             <input type="tel" pattern="[+ \-0-9]+" class="form-control" id="phone" placeholder="Telefon"
-                   ng-model="person.phone" ng-show="editing">
+                   ng-model="customer.phone" ng-show="editing">
         </div>
     </div>
     <div class="form-group input-text-min-height">
@@ -65,7 +65,7 @@
         <div class="col-sm-6">
             <p class="form-control-static user-profile-form-control-static" ng-hide="editing" ng-bind="showGroup()"></p>
             <label class="checkbox-inline" ng-show="editing" ng-repeat="group in allGroups">
-                <input type="checkbox" checklist-model="person.trainingGroups" checklist-value="group._links.self.href">
+                <input type="checkbox" checklist-model="customer.trainingGroups" checklist-value="group._links.self.href">
                 {{ group.name }}
             </label>
         </div>
@@ -75,8 +75,8 @@
 
         <div class="col-sm-6">
             <p class="form-control-static user-profile-form-control-static preserve-white-spaces" ng-hide="editing">{{
-                person.note }}</p>
-            <textarea class="form-control" rows="5" id="note" placeholder="Notatka" ng-model="person.note"
+                customer.note }}</p>
+            <textarea class="form-control" rows="5" id="note" placeholder="Notatka" ng-model="customer.note"
                       ng-show="editing"></textarea>
         </div>
     </div>
@@ -104,7 +104,7 @@
     <div class="col-sm-4">
         <h2 class="sub-header">Płatności</h2>
         <p>
-            <a ng-href="#/new-payment?person={{personId}}" type="button" class="btn btn-default btn-sm btn-block">
+            <a ng-href="#/new-payment?customer={{customerId}}" type="button" class="btn btn-default btn-sm btn-block">
                 <span class="glyphicon glyphicon-plus"></span>
             </a>
         </p>

@@ -71,37 +71,37 @@ angular.module('membershipManagementServices', ['ngResource'])
         return Payments;
     }])
 
-    .factory('People', ['$resource', '$http', 'User', function ($resource, $http, User) {
-        var peopleUrl = '/api/v1/people';
+    .factory('Customers', ['$resource', '$http', 'User', function ($resource, $http, User) {
+        var customersUrl = '/api/v1/customers';
 
-        var People = $resource(peopleUrl + '/:personId', {}, { //TODO pagination
+        var Customers = $resource(customersUrl + '/:customerId', {}, { //TODO pagination
             'query': {
                 method: 'GET',
                 isArray: true,
                 transformResponse: function (data, headersGetter) {
-                    return angular.fromJson(data)._embedded.people;
+                    return angular.fromJson(data)._embedded.customers;
                 }
             },
             'byFirstNameAndLastName': {
                 method: 'GET',
                 isArray: true,
-                url: '/api/v1/people/search/findByFirstNameAndLastNameAllIgnoreCase',
+                url: '/api/v1/customers/search/findByFirstNameAndLastNameAllIgnoreCase',
                 transformResponse: function (data, headersGetter) {
-                    return angular.fromJson(data)._embedded.people;
+                    return angular.fromJson(data)._embedded.customers;
                 }
             }
         });
 
-        People.create = function (person, successCallback, errorCallback) {
-            //TODO use person.card to create new card
+        Customers.create = function (customer, successCallback, errorCallback) {
+            //TODO use customer.card to create new card
 
-            var newPerson = {
-                firstName: person.firstName,
-                lastName: person.lastName,
+            var newCustomer = {
+                firstName: customer.firstName,
+                lastName: customer.lastName,
                 staffMember: User.getLogged()._links.self.href
             };
 
-            $http.post(peopleUrl, newPerson).then(function (response) {
+            $http.post(customersUrl, newCustomer).then(function (response) {
                 //TODO use response to update sidemenu list
                 if (successCallback) {
                     successCallback(response);
@@ -113,15 +113,15 @@ angular.module('membershipManagementServices', ['ngResource'])
             });
         };
 
-        People.resourceUrlToProfileUrl = function (resourceUrl) {
-            return '/people/' + resourceUrl.split('/').pop();
+        Customers.resourceUrlToProfileUrl = function (resourceUrl) {
+            return '/customers/' + resourceUrl.split('/').pop();
         };
 
-        People.personProfileUrl = function (person) {
-            return People.resourceUrlToProfileUrl(person._links.self.href);
+        Customers.customerProfileUrl = function (customer) {
+            return Customers.resourceUrlToProfileUrl(customer._links.self.href);
         };
 
-        return People;
+        return Customers;
     }])
 
     .factory('CheckIn', ['$resource', function ($resource) {
@@ -201,16 +201,16 @@ angular.module('membershipManagementServices', ['ngResource'])
         };
     }])
 
-    .service('SidebarPeopleList', function (People) {
-        this.people = People.query({projection: 'firstNameAndLastNameAndCards'});
+    .service('SidebarCustomerList', function (Customers) {
+        this.customers = Customers.query({projection: 'firstNameAndLastNameAndCards'});
         var that = this;
         this.update = function () {
-            People.query({projection: 'firstNameAndLastNameAndCards'}, function (people) {
-                that.people.length = 0;
-                for (var i = 0; i < people.length; i++) {
-                    that.people.push(people[i]);
+            Customers.query({projection: 'firstNameAndLastNameAndCards'}, function (customers) {
+                that.customers.length = 0;
+                for (var i = 0; i < customers.length; i++) {
+                    that.customers.push(customers[i]);
                 }
             });
-            console.log(that.people);
+            console.log(that.customers);
         }
     });

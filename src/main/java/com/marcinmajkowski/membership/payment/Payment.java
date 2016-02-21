@@ -1,6 +1,6 @@
 package com.marcinmajkowski.membership.payment;
 
-import com.marcinmajkowski.membership.person.Person;
+import com.marcinmajkowski.membership.customer.Customer;
 import com.marcinmajkowski.membership.user.User;
 
 import javax.persistence.*;
@@ -38,7 +38,7 @@ public class Payment {
     private Integer membershipNumberOfTrainings;
 
     @ManyToOne(optional = false)
-    private Person payer;
+    private Customer payer;
 
     @ManyToOne(optional = false)
     private User staffMember;
@@ -91,11 +91,11 @@ public class Payment {
         this.membershipNumberOfTrainings = membershipNumberOfTrainings;
     }
 
-    public Person getPayer() {
+    public Customer getPayer() {
         return payer;
     }
 
-    public void setPayer(Person payer) {
+    public void setPayer(Customer payer) {
         this.payer = payer;
     }
 

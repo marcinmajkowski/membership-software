@@ -1,6 +1,6 @@
 package com.marcinmajkowski.membership.card;
 
-import com.marcinmajkowski.membership.person.Person;
+import com.marcinmajkowski.membership.customer.Customer;
 import com.marcinmajkowski.membership.user.User;
 
 import javax.persistence.*;
@@ -24,7 +24,7 @@ public class Card {
     private Date issueTimestamp;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
-    private Person owner;
+    private Customer owner;
 
     @ManyToOne(optional = false)
     private User staffMember;
@@ -45,11 +45,11 @@ public class Card {
         this.issueTimestamp = issueTimestamp;
     }
 
-    public Person getOwner() {
+    public Customer getOwner() {
         return owner;
     }
 
-    public void setOwner(Person owner) {
+    public void setOwner(Customer owner) {
         this.owner = owner;
     }
 

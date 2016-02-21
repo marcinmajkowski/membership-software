@@ -4,7 +4,7 @@ import com.marcinmajkowski.membership.card.Card;
 import com.marcinmajkowski.membership.enumeration.Channel;
 import com.marcinmajkowski.membership.enumeration.CodeSource;
 import com.marcinmajkowski.membership.group.TrainingGroup;
-import com.marcinmajkowski.membership.person.Person;
+import com.marcinmajkowski.membership.customer.Customer;
 import com.marcinmajkowski.membership.user.User;
 
 import javax.persistence.*;
@@ -28,7 +28,7 @@ public class CheckIn {
     private Card card;
 
     @ManyToOne(optional = false)
-    private Person person;
+    private Customer customer;
 
     @Enumerated(EnumType.STRING)
     private CodeSource codeSource;
@@ -54,12 +54,12 @@ public class CheckIn {
         return card;
     }
 
-    public Person getPerson() {
-        return person;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public void setCard(Card card) {

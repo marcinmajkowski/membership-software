@@ -1,10 +1,10 @@
 angular.module('membershipManagementControllers', [])
 
-    .controller('IndexCtrl', function ($scope, ngstomp, People, User, $location, $filter, SidebarPeopleList) {
+    .controller('IndexCtrl', function ($scope, ngstomp, Customers, User, $location, $filter, SidebarCustomerList) {
         $scope.stompConnectionStatus = true;
 
         $scope.performSearch = function () {
-            $scope.peopleFiltered = $filter('filter')($scope.people, function (item) {
+            $scope.customersFiltered = $filter('filter')($scope.customers, function (item) {
                 var fullName = item.firstName + ' ' + item.lastName;
 
                 // filter by full name
@@ -24,9 +24,9 @@ angular.module('membershipManagementControllers', [])
             });
 
             // load profile for first result
-            var person = $scope.peopleFiltered[0];
-            if (person) {
-                $location.path($scope.profileUrlOf(person));
+            var customer = $scope.customersFiltered[0];
+            if (customer) {
+                $location.path($scope.profileUrlOf(customer));
             }
         };
 
@@ -38,19 +38,19 @@ angular.module('membershipManagementControllers', [])
             $scope.stompConnectionStatus = status;
         });
 
-        $scope.getPersonId = function (person) {
-            return person._links.self.href.split('/').pop();
+        $scope.getCustomerId = function (customer) {
+            return customer._links.self.href.split('/').pop();
         };
 
         $scope.isActive = function (url) { //FIXME performance
             return $location.path() === url;
         };
 
-        $scope.profileUrlOf = function (person) {
-            return '/people/' + $scope.getPersonId(person);
+        $scope.profileUrlOf = function (customer) {
+            return '/customers/' + $scope.getCustomerId(customer);
         };
 
-        $scope.people = SidebarPeopleList.people;
+        $scope.customers = SidebarCustomerList.customers;
 
         $scope.users = User.getAll();
 
@@ -67,17 +67,17 @@ angular.module('membershipManagementControllers', [])
         };
     })
 
-    .controller('HomeCtrl', ['$scope', '$location', '$http', 'People', 'User', function ($scope, $location, $http, People, User) {
+    .controller('HomeCtrl', ['$scope', '$location', '$http', 'Customers', 'User', function ($scope, $location, $http, Customers, User) {
         $scope.$on('scanEvent', function (event, code, card) {
             if (!card) {
                 // if card with scanned code does not exist,
-                // then redirect to a new person creation form, filled with the code
-                $location.path('/new-person').search({code: code});
+                // then redirect to a new customer creation form, filled with the code
+                $location.path('/new-customer').search({code: code});
             } else {
                 // if this code is already registered,
                 // then get the owner and redirect to his profile
                 $http.get(card._links.owner.href).then(function (response) {
-                    $location.path(People.personProfileUrl(response.data));
+                    $location.path(Customers.customerProfileUrl(response.data));
                 });
             }
         });
@@ -107,7 +107,7 @@ angular.module('membershipManagementControllers', [])
 
         var updateCheckIns = function () {
             //TODO add new checkIn to array on client side
-            $scope.checkIns = CheckIn.query({sort: 'timestamp,desc', projection: 'personAndTimestampAndTrainingGroup'});
+            $scope.checkIns = CheckIn.query({sort: 'timestamp,desc', projection: 'customerAndTimestampAndTrainingGroup'});
         };
 
         updateCheckIns();
@@ -118,7 +118,7 @@ angular.module('membershipManagementControllers', [])
                 codeSource: 'SCANNER', //TODO
                 channel: 'WEB',
                 card: card._links.self.href,
-                person: owner._links.self.href,
+                customer: owner._links.self.href,
                 staffMember: User.getLogged()._links.self.href, //TODO get logged user
                 trainingGroup: trainingGroup._links.self.href
             };
@@ -138,31 +138,31 @@ angular.module('membershipManagementControllers', [])
         $scope.payments = Payments.query({sort: 'timestamp,desc', projection: 'payerAndMembershipPriceAndTimestamp'});
     }])
 
-    .controller('PeopleCtrl', ['$scope', 'People', '$http', function ($scope, People, $http) {
-        $scope.loadPeople = function () {
-            $scope.people = People.query();
+    .controller('CustomersCtrl', ['$scope', 'Customers', '$http', function ($scope, Customers, $http) {
+        $scope.loadCustomers = function () {
+            $scope.customers = Customers.query();
         };
 
-        $scope.getPersonId = function (person) {
-            return person._links.self.href.split('/').pop();
+        $scope.getCustomerId = function (customer) {
+            return customer._links.self.href.split('/').pop();
         };
 
-        $scope.loadPeople();
+        $scope.loadCustomers();
 
-        $scope.person = {};
+        $scope.customer = {};
 
-        $scope.add = function (person) {
-            People.save(person, $scope.loadPeople);
+        $scope.add = function (customer) {
+            Customers.save(customer, $scope.loadCustomers);
             //FIXME reload sidebar
         };
 
-        $scope.remove = function (person) {
-            $http.delete(person._links.self.href).success($scope.loadPeople);
+        $scope.remove = function (customer) {
+            $http.delete(customer._links.self.href).success($scope.loadCustomers);
             //TODO notify when 409: conflict - cannot delete
         };
     }])
 
-    .controller('PersonCtrl', ['SidebarPeopleList', '$scope', '$routeParams', 'People', 'Card', 'CheckIn', 'Groups', '$http', '$location', 'Payments', function (SidebarPeopleList, $scope, $routeParams, People, Card, CheckIn, Groups, $http, $location, Payments) {
+    .controller('CustomerCtrl', ['SidebarCustomerList', '$scope', '$routeParams', 'Customers', 'Card', 'CheckIn', 'Groups', '$http', '$location', 'Payments', function (SidebarCustomerList, $scope, $routeParams, Customers, Card, CheckIn, Groups, $http, $location, Payments) {
         if ($routeParams.editing) {
             $scope.editing = true;
         } else {
@@ -174,7 +174,7 @@ angular.module('membershipManagementControllers', [])
         $scope.showGroup = function () {
             var selected = [];
             angular.forEach($scope.allGroups, function (group) {
-                angular.forEach($scope.person.trainingGroups, function (trainingGroup) {
+                angular.forEach($scope.customer.trainingGroups, function (trainingGroup) {
                     if (trainingGroup === group._links.self.href) {
                         //TODO break loop
                         selected.push(group.name);
@@ -186,16 +186,16 @@ angular.module('membershipManagementControllers', [])
 
         $scope.save = function () {
             $scope.editing = false;
-            $http.put($scope.person._links.self.href, $scope.person).then(function (response) {
-                SidebarPeopleList.update();
-                $scope.person = response.data;
-                if ($scope.person.birthday) {
-                    $scope.person.birthday = new Date($scope.person.birthday);
+            $http.put($scope.customer._links.self.href, $scope.customer).then(function (response) {
+                SidebarCustomerList.update();
+                $scope.customer = response.data;
+                if ($scope.customer.birthday) {
+                    $scope.customer.birthday = new Date($scope.customer.birthday);
                 }
-                $http.get($scope.person._links.trainingGroups.href).then(function (response) {
-                    $scope.person.trainingGroups = [];
+                $http.get($scope.customer._links.trainingGroups.href).then(function (response) {
+                    $scope.customer.trainingGroups = [];
                     angular.forEach(response.data._embedded.trainingGroups, function (trainingGroup) {
-                        $scope.person.trainingGroups.push(trainingGroup._links.self.href);
+                        $scope.customer.trainingGroups.push(trainingGroup._links.self.href);
                     });
                 });
             });
@@ -206,24 +206,24 @@ angular.module('membershipManagementControllers', [])
             //TODO reload user
         };
 
-        $scope.personId = $routeParams.personId;
+        $scope.customerId = $routeParams.customerId;
 
-        $scope.person = People.get({personId: $scope.personId}, function (person) {
-            $scope.person = person;
-            if (person.birthday) {
-                $scope.person.birthday = new Date(person.birthday);
+        $scope.customer = Customers.get({customerId: $scope.customerId}, function (customer) {
+            $scope.customer = customer;
+            if (customer.birthday) {
+                $scope.customer.birthday = new Date(customer.birthday);
             }
-            $http.get(person._links.cards.href).then(function (response) {
+            $http.get(customer._links.cards.href).then(function (response) {
                 $scope.cards = response.data._embedded.cards;
             });
-            $scope.checkIns = CheckIn.byCardOwner({owner: person._links.self.href, projection: "personAndTimestampAndTrainingGroup"});
+            $scope.checkIns = CheckIn.byCardOwner({owner: customer._links.self.href, projection: "customerAndTimestampAndTrainingGroup"});
 
-            $scope.payments = Payments.byPayer({payer: person._links.self.href});
+            $scope.payments = Payments.byPayer({payer: customer._links.self.href});
 
-            $http.get($scope.person._links.trainingGroups.href).then(function (response) {
-                $scope.person.trainingGroups = [];
+            $http.get($scope.customer._links.trainingGroups.href).then(function (response) {
+                $scope.customer.trainingGroups = [];
                 angular.forEach(response.data._embedded.trainingGroups, function (trainingGroup) {
-                    $scope.person.trainingGroups.push(trainingGroup._links.self.href);
+                    $scope.customer.trainingGroups.push(trainingGroup._links.self.href);
                 });
             });
         });
@@ -232,31 +232,31 @@ angular.module('membershipManagementControllers', [])
         $scope.$on('scanEvent', function (event, code, card) {
             if (!card) {
                 // if card with scanned code does not exist,
-                // then redirect to a new person creation form, filled with the code
-                $location.path('/new-person').search({code: code});
+                // then redirect to a new customer creation form, filled with the code
+                $location.path('/new-customer').search({code: code});
             } else {
                 // if this code is already registered,
                 // then get the owner and redirect to his profile
                 $http.get(card._links.owner.href).then(function (response) {
-                    $location.path(People.personProfileUrl(response.data));
+                    $location.path(Customers.customerProfileUrl(response.data));
                 });
             }
         });
     }])
 
-    .controller('NewPersonCtrl', ['$scope', '$http', '$location', '$routeParams', 'People', 'Card', 'SidebarPeopleList', function ($scope, $http, $location, $routeParams, People, Card, SidebarPeopleList) {
+    .controller('NewCustomerCtrl', ['$scope', '$http', '$location', '$routeParams', 'Customers', 'Card', 'SidebarCustomerList', function ($scope, $http, $location, $routeParams, Customers, Card, SidebarCustomerList) {
         $scope.card = {
             code: $routeParams.code
         };
 
-        $scope.addPerson = function (person) {
-            People.create(person, function (response) {
+        $scope.addCustomer = function (customer) {
+            Customers.create(customer, function (response) {
                 if ($scope.card.code) {
                     $scope.card.owner = response.data._links.self.href;
                     Card.create($scope.card);
                 }
-                SidebarPeopleList.update();
-                $location.path(People.personProfileUrl(response.data)).search({editing: true});
+                SidebarCustomerList.update();
+                $location.path(Customers.customerProfileUrl(response.data)).search({editing: true});
             }); //TODO handle errors
         };
 
@@ -267,23 +267,23 @@ angular.module('membershipManagementControllers', [])
 
             if (owner) {
                 $scope.owner = owner;
-                $scope.cardOwnerProfileUrl = People.personProfileUrl(owner);
+                $scope.cardOwnerProfileUrl = Customers.customerProfileUrl(owner);
                 $scope.isCardInUse = true;
             }
         });
     }])
 
-    .controller('NewPaymentCtrl', ['$scope', '$http', '$location', '$routeParams', 'People', 'Card', 'SidebarPeopleList', 'Memberships', 'Payments', 'User', function ($scope, $http, $location, $routeParams, People, Card, SidebarPeopleList, Memberships, Payments, User) {
+    .controller('NewPaymentCtrl', ['$scope', '$http', '$location', '$routeParams', 'Customers', 'Card', 'SidebarCustomerList', 'Memberships', 'Payments', 'User', function ($scope, $http, $location, $routeParams, Customers, Card, SidebarCustomerList, Memberships, Payments, User) {
         $scope.payment = {
             membershipStartDate: new Date()
         };
 
-        if ($routeParams.person) {
-            $scope.personPredefined = true;
-            $scope.personId = $routeParams.person;
-            $scope.payment.payer = People.get({personId: $scope.personId});
+        if ($routeParams.customer) {
+            $scope.customerPredefined = true;
+            $scope.customerId = $routeParams.customer;
+            $scope.payment.payer = Customers.get({customerId: $scope.customerId});
         } else {
-            $scope.personPredefined = false;
+            $scope.customerPredefined = false;
         }
 
         $scope.memberships = Memberships.query();
@@ -312,7 +312,7 @@ angular.module('membershipManagementControllers', [])
 
             if (owner) {
                 $scope.owner = owner;
-                $scope.cardOwnerProfileUrl = People.personProfileUrl(owner);
+                $scope.cardOwnerProfileUrl = Customers.customerProfileUrl(owner);
                 $scope.isCardInUse = true;
             }
         });

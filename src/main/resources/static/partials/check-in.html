@@ -32,8 +32,8 @@
             </thead>
             <tbody>
             <tr ng-repeat="checkIn in checkIns">
-                <td>{{checkIn.person.firstName}}</td>
-                <td>{{checkIn.person.lastName}}</td>
+                <td>{{checkIn.customer.firstName}}</td>
+                <td>{{checkIn.customer.lastName}}</td>
                 <td>{{checkIn.trainingGroup.name}}</td>
                 <td>{{checkIn.timestamp | date : 'dd.MM.yyyy'}}</td>
                 <td>{{checkIn.timestamp | date : 'HH:mm'}}</td>

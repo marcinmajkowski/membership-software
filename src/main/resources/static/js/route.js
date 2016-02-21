@@ -14,17 +14,17 @@ angular.module('membershipManagementRoute', ['ngRoute'])
                 templateUrl: 'partials/new-payment.html',
                 controller: 'NewPaymentCtrl'
             })
-            .when('/people', {
-                templateUrl: 'partials/people.html',
-                controller: 'PeopleCtrl'
+            .when('/customers', {
+                templateUrl: 'partials/customers.html',
+                controller: 'CustomersCtrl'
             })
-            .when('/people/:personId', {
-                templateUrl: 'partials/person.html',
-                controller: 'PersonCtrl'
+            .when('/customers/:customerId', {
+                templateUrl: 'partials/customer.html',
+                controller: 'CustomerCtrl'
             })
-            .when('/new-person', {
-                templateUrl: 'partials/new-person.html',
-                controller: 'NewPersonCtrl'
+            .when('/new-customer', {
+                templateUrl: 'partials/new-customer.html',
+                controller: 'NewCustomerCtrl'
             })
             .when('/membership', {
                 templateUrl: 'partials/membership.html'

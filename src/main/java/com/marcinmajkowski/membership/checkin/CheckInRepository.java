@@ -1,6 +1,6 @@
 package com.marcinmajkowski.membership.checkin;
 
-import com.marcinmajkowski.membership.person.Person;
+import com.marcinmajkowski.membership.customer.Customer;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -16,5 +16,5 @@ public interface CheckInRepository extends PagingAndSortingRepository<CheckIn, L
     // finding last visit for a card
     CheckIn findFirstByCardCodeOrderByTimestampDesc(String code);
 
-    List<CheckIn> findByCardOwnerOrderByTimestampDesc(@Param("owner") Person owner);
+    List<CheckIn> findByCardOwnerOrderByTimestampDesc(@Param("owner") Customer owner);
 }
