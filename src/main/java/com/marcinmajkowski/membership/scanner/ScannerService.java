@@ -44,7 +44,7 @@ public class ScannerService {
 
         if (serialPort == null || !serialPort.isOpened()) {
             String[] ports = Optional.ofNullable(serialNativeInterface.getSerialPortNames()).orElse(new String[]{});
-            logger.info("Barcode scanner is not connected. COM ports available: " + Joiner.on(", ").join(ports));
+            logger.warn("Barcode scanner is not connected. COM ports available: " + Joiner.on(", ").join(ports));
 
             //TODO reconnection based on runtime application settings or looking for barcode scanner on every port (how?)
             for (String port : ports) {
