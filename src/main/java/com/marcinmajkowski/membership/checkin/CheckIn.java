@@ -21,6 +21,7 @@ public class CheckIn {
     private long id;
 
     @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
 
     @ManyToOne(optional = true)

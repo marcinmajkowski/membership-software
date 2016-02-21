@@ -18,9 +18,11 @@ public class Payment {
     private long id;
 
     @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
 
     @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date membershipStartDate;
 
     @Column(nullable = false)

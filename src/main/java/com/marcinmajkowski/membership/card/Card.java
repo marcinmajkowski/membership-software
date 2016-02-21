@@ -20,6 +20,7 @@ public class Card {
     private String code;
 
     @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date issueTimestamp;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL)

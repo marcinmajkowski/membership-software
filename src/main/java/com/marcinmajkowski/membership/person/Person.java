@@ -25,6 +25,7 @@ public class Person {
     private String lastName;
 
     @Column
+    @Temporal(TemporalType.DATE)
     private Date birthday;
 
     @Column
