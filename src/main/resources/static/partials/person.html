@@ -97,8 +97,8 @@
                 <span class="glyphicon glyphicon-plus"></span>
             </button>
         </p>
-        <ul ng-repeat="checkIn in checkIns">
-            <li>{{checkIn.timestamp | date:'dd.MM.yyyy - HH:mm'}} - {{checkIn.trainingGroup.name}}</li>
+        <ul>
+            <li ng-repeat="checkIn in checkIns">{{checkIn.timestamp | date:'dd.MM.yyyy - HH:mm'}} - {{checkIn.trainingGroup.name}}</li>
         </ul>
     </div>
     <div class="col-sm-4">
@@ -108,8 +108,8 @@
                 <span class="glyphicon glyphicon-plus"></span>
             </a>
         </p>
-        <ul ng-repeat="payment in payments">
-            <li>{{payment.membershipName}} (<strong>{{payment.membershipPrice}}zł</strong>, zapłacone {{payment.timestamp | date:'dd.MM.yyyy o HH:mm'}}, ważne od {{payment.membershipStartDate | date:'dd.MM.yyyy'}} przez {{payment.membershipDurationInDays}} dni)</li>
+        <ul>
+            <li ng-repeat="payment in payments">{{payment.membershipName}} (<strong>{{payment.membershipPrice}}zł</strong>, zapłacone {{payment.timestamp | date:'dd.MM.yyyy o HH:mm'}}, ważne od {{payment.membershipStartDate | date:'dd.MM.yyyy'}} przez {{payment.membershipDurationInDays}} dni)</li>
         </ul>
     </div>
     <div class="col-sm-4">
