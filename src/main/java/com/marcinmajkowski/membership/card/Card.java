@@ -23,7 +23,7 @@ public class Card {
     @Temporal(TemporalType.TIMESTAMP)
     private Date issueTimestamp;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     private Customer owner;
 
     @ManyToOne(optional = false)

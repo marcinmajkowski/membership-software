@@ -1,12 +1,14 @@
 package com.marcinmajkowski.membership.customer;
 
 import com.marcinmajkowski.membership.card.Card;
+import com.marcinmajkowski.membership.checkin.CheckIn;
 import com.marcinmajkowski.membership.group.TrainingGroup;
+import com.marcinmajkowski.membership.payment.Payment;
 import com.marcinmajkowski.membership.user.User;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by Marcin on 08/12/2015.
@@ -35,13 +37,19 @@ public class Customer {
     private String phone;
 
     @ManyToMany
-    private Collection<TrainingGroup> trainingGroups;
+    private Set<TrainingGroup> trainingGroups;
 
     @Column
     private String note;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
-    private Collection<Card> cards;
+    private Set<Card> cards;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "payer")
+    private Set<Payment> payments;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private Set<CheckIn> checkIns;
 
     @ManyToOne(optional = false)
     private User staffMember;
@@ -86,11 +94,11 @@ public class Customer {
         this.phone = phone;
     }
 
-    public Collection<TrainingGroup> getTrainingGroups() {
+    public Set<TrainingGroup> getTrainingGroups() {
         return trainingGroups;
     }
 
-    public void setTrainingGroups(Collection<TrainingGroup> trainingGroups) {
+    public void setTrainingGroups(Set<TrainingGroup> trainingGroups) {
         this.trainingGroups = trainingGroups;
     }
 
@@ -102,12 +110,28 @@ public class Customer {
         this.note = note;
     }
 
-    public Collection<Card> getCards() {
+    public Set<Card> getCards() {
         return cards;
     }
 
-    public void setCards(Collection<Card> cards) {
+    public void setCards(Set<Card> cards) {
         this.cards = cards;
+    }
+
+    public Set<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(Set<Payment> payments) {
+        this.payments = payments;
+    }
+
+    public Set<CheckIn> getCheckIns() {
+        return checkIns;
+    }
+
+    public void setCheckIns(Set<CheckIn> checkIns) {
+        this.checkIns = checkIns;
     }
 
     public User getStaffMember() {
