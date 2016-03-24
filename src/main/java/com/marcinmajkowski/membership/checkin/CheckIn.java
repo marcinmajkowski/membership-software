@@ -1,18 +1,15 @@
 package com.marcinmajkowski.membership.checkin;
 
 import com.marcinmajkowski.membership.card.Card;
+import com.marcinmajkowski.membership.customer.Customer;
 import com.marcinmajkowski.membership.enumeration.Channel;
 import com.marcinmajkowski.membership.enumeration.CodeSource;
 import com.marcinmajkowski.membership.group.TrainingGroup;
-import com.marcinmajkowski.membership.customer.Customer;
 import com.marcinmajkowski.membership.user.User;
 
 import javax.persistence.*;
 import java.util.Date;
 
-/**
- * Created by Marcin on 12/12/2015.
- */
 @Entity
 public class CheckIn {
 
