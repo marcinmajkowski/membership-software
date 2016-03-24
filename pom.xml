@@ -21,8 +21,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <guava.version>18.0</guava.version>
-        <jssc.version>2.8.0</jssc.version>
         <angularjs.version>1.4.7</angularjs.version>
         <angular-route.version>1.4.7</angular-route.version>
         <angular-animate.version>1.4.7</angular-animate.version>
@@ -74,16 +72,6 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.scream3r</groupId>
-            <artifactId>jssc</artifactId>
-            <version>${jssc.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
         </dependency>
 
         <dependency>
