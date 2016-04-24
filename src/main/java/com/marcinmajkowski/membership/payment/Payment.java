@@ -1,11 +1,13 @@
 package com.marcinmajkowski.membership.payment;
 
+import com.marcinmajkowski.membership.checkin.CheckIn;
 import com.marcinmajkowski.membership.customer.Customer;
 import com.marcinmajkowski.membership.user.User;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by Marcin on 12/12/2015.
@@ -42,6 +44,9 @@ public class Payment {
 
     @ManyToOne(optional = false)
     private User staffMember;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "payment")
+    private Set<CheckIn> checkIns;
 
     public Date getTimestamp() {
         return timestamp;
@@ -105,5 +110,13 @@ public class Payment {
 
     public void setStaffMember(User staffMember) {
         this.staffMember = staffMember;
+    }
+
+    public Set<CheckIn> getCheckIns() {
+        return checkIns;
+    }
+
+    public void setCheckIns(Set<CheckIn> checkIns) {
+        this.checkIns = checkIns;
     }
 }

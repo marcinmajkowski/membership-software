@@ -5,6 +5,7 @@ import com.marcinmajkowski.membership.customer.Customer;
 import com.marcinmajkowski.membership.enumeration.Channel;
 import com.marcinmajkowski.membership.enumeration.CodeSource;
 import com.marcinmajkowski.membership.group.TrainingGroup;
+import com.marcinmajkowski.membership.payment.Payment;
 import com.marcinmajkowski.membership.user.User;
 
 import javax.persistence.*;
@@ -38,6 +39,9 @@ public class CheckIn {
 
     @ManyToOne(optional = false)
     private TrainingGroup trainingGroup;
+
+    @ManyToOne(optional = false)
+    private Payment payment;
 
     public Date getTimestamp() {
         return timestamp;
@@ -93,5 +97,13 @@ public class CheckIn {
 
     public void setTrainingGroup(TrainingGroup trainingGroup) {
         this.trainingGroup = trainingGroup;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 }
