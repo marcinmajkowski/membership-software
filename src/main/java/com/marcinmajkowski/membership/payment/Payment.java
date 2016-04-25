@@ -28,13 +28,14 @@ public class Payment {
     private Date membershipStartDate;
 
     @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date membershipEndDate;
+
+    @Column(nullable = false)
     private String membershipName;
 
     @Column(nullable = false)
     private BigDecimal membershipPrice;
-
-    @Column(nullable = false)
-    private Integer membershipDurationInDays;
 
     @Column(nullable = false)
     private Integer membershipNumberOfTrainings;
@@ -64,6 +65,14 @@ public class Payment {
         this.membershipStartDate = membershipStartDate;
     }
 
+    public Date getMembershipEndDate() {
+        return membershipEndDate;
+    }
+
+    public void setMembershipEndDate(Date membershipEndDate) {
+        this.membershipEndDate = membershipEndDate;
+    }
+
     public String getMembershipName() {
         return membershipName;
     }
@@ -78,14 +87,6 @@ public class Payment {
 
     public void setMembershipPrice(BigDecimal membershipPrice) {
         this.membershipPrice = membershipPrice;
-    }
-
-    public Integer getMembershipDurationInDays() {
-        return membershipDurationInDays;
-    }
-
-    public void setMembershipDurationInDays(Integer membershipDurationInDays) {
-        this.membershipDurationInDays = membershipDurationInDays;
     }
 
     public Integer getMembershipNumberOfTrainings() {

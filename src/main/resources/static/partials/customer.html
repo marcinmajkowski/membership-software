@@ -109,7 +109,7 @@
             </a>
         </p>
         <ul>
-            <li ng-repeat="payment in payments">{{payment.membershipName}} (<strong>{{payment.membershipPrice}}zł</strong>, zapłacone {{payment.timestamp | date:'dd.MM.yyyy o HH:mm'}}, ważne od {{payment.membershipStartDate | date:'dd.MM.yyyy'}} przez {{payment.membershipDurationInDays}} dni)</li>
+            <li ng-repeat="payment in payments">{{payment.membershipName}} (<strong>{{payment.membershipPrice}}zł</strong>, zapłacone {{payment.timestamp | date:'dd.MM.yyyy o HH:mm'}}, ważne od {{payment.membershipStartDate | date:'dd.MM.yyyy'}} do {{payment.membershipEndDate | date:'dd.MM.yyyy'}})</li>
         </ul>
     </div>
     <div class="col-sm-4">

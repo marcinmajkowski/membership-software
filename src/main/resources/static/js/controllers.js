@@ -289,12 +289,15 @@ angular.module('membershipManagementControllers', [])
         $scope.memberships = Memberships.query();
 
         $scope.addPayment = function (payment, membership) {
+            var membershipEndDate = new Date(payment.membershipStartDate.valueOf()); //TODO refactor
+            membershipEndDate.setDate(membershipEndDate.getDate() + membership.durationInDays - 1);
+
             var newPayment = {
                 timestamp: new Date(),
                 membershipStartDate: payment.membershipStartDate,
+                membershipEndDate: membershipEndDate,
                 membershipName: membership.name,
                 membershipPrice: membership.price,
-                membershipDurationInDays: membership.durationInDays,
                 membershipNumberOfTrainings: membership.numberOfTrainings,
                 payer: payment.payer._links.self.href,
                 staffMember: User.getLogged()._links.self.href
