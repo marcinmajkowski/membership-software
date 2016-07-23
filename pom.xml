@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.marcinmajkowski.membership</groupId>
-    <artifactId>membership-management</artifactId>
+    <artifactId>membership-software</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>membership-management</name>
+    <name>membership-software</name>
     <description>Membership management desktop application.</description>
 
     <parent>
