@@ -12,6 +12,8 @@ import java.util.List;
 @RepositoryRestResource
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
+    Customer findByCardsCode(@Param("code") String code);
+
     List<Customer> findByLastName(@Param("name") String name);
 
     List<Customer> findByFirstNameAndLastNameAllIgnoreCase(
