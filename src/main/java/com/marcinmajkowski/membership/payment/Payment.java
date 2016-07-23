@@ -9,9 +9,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 
-/**
- * Created by Marcin on 12/12/2015.
- */
 @Entity
 public class Payment {
 

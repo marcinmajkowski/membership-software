@@ -2,9 +2,6 @@ package com.marcinmajkowski.membership.user;
 
 import javax.persistence.*;
 
-/**
- * Created by Marcin on 14/01/2016.
- */
 @Entity
 public class User {
 

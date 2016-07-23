@@ -6,9 +6,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
 
-/**
- * Created by Marcin on 08/12/2015.
- */
 @RepositoryRestResource
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
 

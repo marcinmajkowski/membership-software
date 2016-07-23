@@ -8,9 +8,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-/**
- * Created by Marcin on 24/04/2016.
- */
 @Component
 @RepositoryEventHandler(CheckIn.class)
 public class CheckInEventHandler {

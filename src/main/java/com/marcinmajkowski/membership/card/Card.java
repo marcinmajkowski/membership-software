@@ -6,9 +6,6 @@ import com.marcinmajkowski.membership.user.User;
 import javax.persistence.*;
 import java.util.Date;
 
-/**
- * Created by Marcin on 08/12/2015.
- */
 @Entity
 public class Card {
 
