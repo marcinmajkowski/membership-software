@@ -20,7 +20,7 @@ angular.module('membershipManagementApp', [
         var webSocketEndPoint = '/scanner/check-in';
 
         function whatToDoWhenMessageComing(message) {
-            var code = angular.fromJson(message.body);
+            var code = message.body;
             Card.byCode({code: code}, function (card) {
                 $http.get(card._links.owner.href).then(function (response) {
                     var owner = response.data;
