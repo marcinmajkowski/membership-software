@@ -2,8 +2,6 @@ package com.marcinmajkowski.membershipsoftware.checkin;
 
 import com.marcinmajkowski.membershipsoftware.card.Card;
 import com.marcinmajkowski.membershipsoftware.customer.Customer;
-import com.marcinmajkowski.membershipsoftware.enumeration.Channel;
-import com.marcinmajkowski.membershipsoftware.enumeration.CodeSource;
 import com.marcinmajkowski.membershipsoftware.group.TrainingGroup;
 import com.marcinmajkowski.membershipsoftware.payment.Payment;
 import com.marcinmajkowski.membershipsoftware.user.User;
@@ -27,12 +25,6 @@ public class CheckIn {
 
     @ManyToOne(optional = false)
     private Customer customer;
-
-    @Enumerated(EnumType.STRING)
-    private CodeSource codeSource;
-
-    @Enumerated(EnumType.STRING)
-    private Channel channel;
 
     @ManyToOne(optional = false)
     private User staffMember;
@@ -65,22 +57,6 @@ public class CheckIn {
 
     public void setCard(Card card) {
         this.card = card;
-    }
-
-    public CodeSource getCodeSource() {
-        return codeSource;
-    }
-
-    public void setCodeSource(CodeSource codeSource) {
-        this.codeSource = codeSource;
-    }
-
-    public Channel getChannel() {
-        return channel;
-    }
-
-    public void setChannel(Channel channel) {
-        this.channel = channel;
     }
 
     public User getStaffMember() {

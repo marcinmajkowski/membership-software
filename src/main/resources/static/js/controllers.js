@@ -115,8 +115,6 @@ angular.module('membershipSoftwareControllers', [])
         $scope.checkIn = function (card, owner, trainingGroup) {
             var data = {
                 timestamp: Date.now(),
-                codeSource: 'SCANNER', //TODO
-                channel: 'WEB',
                 card: card._links.self.href,
                 customer: owner._links.self.href,
                 staffMember: User.getLogged()._links.self.href, //TODO get logged user
