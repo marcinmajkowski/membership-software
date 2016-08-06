@@ -1,7 +1,6 @@
 angular.module('membershipSoftwareControllers', [])
 
-    .controller('IndexCtrl', function ($scope, ngstomp, Customers, User, $location, $filter, SidebarCustomerList) {
-        $scope.stompConnectionStatus = true;
+    .controller('IndexCtrl', function ($scope, Customers, User, $location, $filter, SidebarCustomerList) {
 
         $scope.performSearch = function () {
             $scope.customersFiltered = $filter('filter')($scope.customers, function (item) {
@@ -29,14 +28,6 @@ angular.module('membershipSoftwareControllers', [])
                 $location.path($scope.profileUrlOf(customer));
             }
         };
-
-        $scope.$on('scanEvent', function (event, code) {
-            //TODO redirect to profile or to new profile form
-        });
-
-        $scope.$on('stompConnectionStatusEvent', function (event, status) {
-            $scope.stompConnectionStatus = status;
-        });
 
         $scope.getCustomerId = function (customer) {
             return customer._links.self.href.split('/').pop();
@@ -67,21 +58,7 @@ angular.module('membershipSoftwareControllers', [])
         };
     })
 
-    .controller('HomeCtrl', ['$scope', '$location', '$http', 'Customers', 'User', function ($scope, $location, $http, Customers, User) {
-        $scope.$on('scanEvent', function (event, code, card) {
-            if (!card) {
-                // if card with scanned code does not exist,
-                // then redirect to a new customer creation form, filled with the code
-                $location.path('/new-customer').search({code: code});
-            } else {
-                // if this code is already registered,
-                // then get the owner and redirect to his profile
-                $http.get(card._links.owner.href).then(function (response) {
-                    $location.path(Customers.customerProfileUrl(response.data));
-                });
-            }
-        });
-
+    .controller('HomeCtrl', ['$scope', 'User', function ($scope, User) {
         $scope.getLoggedUser = User.getLogged;
     }])
 
@@ -89,21 +66,6 @@ angular.module('membershipSoftwareControllers', [])
         $scope.card = {
             code: null
         };
-
-        $scope.$on('scanEvent', function (event, code, card, owner) {
-            $scope.card.code = code;
-
-            if (card) {
-                $scope.owner = owner;
-                $scope.checkIn(card, owner, $scope.trainingGroup);
-            } else {
-                $scope.owner = {
-                    firstName: '',
-                    lastName: ''
-                };
-            }
-
-        });
 
         var updateCheckIns = function () {
             //TODO add new checkIn to array on client side
@@ -225,21 +187,6 @@ angular.module('membershipSoftwareControllers', [])
                 });
             });
         });
-
-        //TODO code repetition. Move callback function to common place
-        $scope.$on('scanEvent', function (event, code, card) {
-            if (!card) {
-                // if card with scanned code does not exist,
-                // then redirect to a new customer creation form, filled with the code
-                $location.path('/new-customer').search({code: code});
-            } else {
-                // if this code is already registered,
-                // then get the owner and redirect to his profile
-                $http.get(card._links.owner.href).then(function (response) {
-                    $location.path(Customers.customerProfileUrl(response.data));
-                });
-            }
-        });
     }])
 
     .controller('NewCustomerCtrl', ['$scope', '$http', '$location', '$routeParams', 'Customers', 'Card', 'SidebarCustomerList', function ($scope, $http, $location, $routeParams, Customers, Card, SidebarCustomerList) {
@@ -259,16 +206,6 @@ angular.module('membershipSoftwareControllers', [])
         };
 
         $scope.isCardInUse = false;
-
-        $scope.$on('scanEvent', function (event, code, card, owner) {
-            $scope.card.code = code;
-
-            if (owner) {
-                $scope.owner = owner;
-                $scope.cardOwnerProfileUrl = Customers.customerProfileUrl(owner);
-                $scope.isCardInUse = true;
-            }
-        });
     }])
 
     .controller('NewPaymentCtrl', ['$scope', '$http', '$location', '$routeParams', 'Customers', 'Card', 'SidebarCustomerList', 'Memberships', 'Payments', 'User', function ($scope, $http, $location, $routeParams, Customers, Card, SidebarCustomerList, Memberships, Payments, User) {
@@ -307,16 +244,6 @@ angular.module('membershipSoftwareControllers', [])
         };
 
         $scope.membership = {};
-
-        $scope.$on('scanEvent', function (event, code, card, owner) {
-            $scope.card.code = code;
-
-            if (owner) {
-                $scope.owner = owner;
-                $scope.cardOwnerProfileUrl = Customers.customerProfileUrl(owner);
-                $scope.isCardInUse = true;
-            }
-        });
     }])
 
     .controller('TrainingGroupsCtrl', ['$scope', 'Groups', function ($scope, Groups) {
