@@ -10,9 +10,6 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
-/**
- * Created by Marcin on 08/12/2015.
- */
 @Entity
 public class Customer {
 

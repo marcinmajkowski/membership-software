@@ -5,9 +5,6 @@ import com.marcinmajkowski.membershipsoftware.user.User;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-/**
- * Created by Marcin on 08/12/2015.
- */
 @Entity
 public class Membership {
 

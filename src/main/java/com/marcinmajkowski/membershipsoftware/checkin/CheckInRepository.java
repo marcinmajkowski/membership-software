@@ -7,9 +7,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
 
-/**
- * Created by Marcin on 12/12/2015.
- */
 @RepositoryRestResource
 public interface CheckInRepository extends PagingAndSortingRepository<CheckIn, Long> {
 
