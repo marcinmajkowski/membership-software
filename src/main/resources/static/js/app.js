@@ -1,13 +1,13 @@
-angular.module('membershipManagementApp', [
+angular.module('membershipSoftwareApp', [
         'ngAnimate',
         'AngularStompDK',
         'ui.bootstrap',
         'ui.bootstrap.tpls',
         'checklist-model',
-        'membershipManagementControllers',
-        'membershipManagementDirectives',
-        'membershipManagementServices',
-        'membershipManagementRoute'
+        'membershipSoftwareControllers',
+        'membershipSoftwareDirectives',
+        'membershipSoftwareServices',
+        'membershipSoftwareRoute'
     ])
 
     .config(['ngstompProvider', function (ngstompProvider) {

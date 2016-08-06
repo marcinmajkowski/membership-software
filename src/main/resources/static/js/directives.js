@@ -1,4 +1,4 @@
-angular.module('membershipManagementDirectives', [])
+angular.module('membershipSoftwareDirectives', [])
     .directive('mmCard', function () {
         return {
             restrict: 'E',

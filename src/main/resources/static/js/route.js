@@ -1,4 +1,4 @@
-angular.module('membershipManagementRoute', ['ngRoute'])
+angular.module('membershipSoftwareRoute', ['ngRoute'])
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider

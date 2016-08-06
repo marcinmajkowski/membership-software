@@ -1,4 +1,4 @@
-angular.module('membershipManagementControllers', [])
+angular.module('membershipSoftwareControllers', [])
 
     .controller('IndexCtrl', function ($scope, ngstomp, Customers, User, $location, $filter, SidebarCustomerList) {
         $scope.stompConnectionStatus = true;

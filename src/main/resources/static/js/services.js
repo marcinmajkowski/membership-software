@@ -1,4 +1,4 @@
-angular.module('membershipManagementServices', ['ngResource'])
+angular.module('membershipSoftwareServices', ['ngResource'])
 
     .factory('Card', ['$resource', '$http', 'User', function ($resource, $http, User) {
         var cardsUrl = '/api/v1/cards';
