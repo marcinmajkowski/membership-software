@@ -51,11 +51,19 @@
           <md-icon md-svg-icon="assets/svg/more_vert.svg"></md-icon>
         </md-button>
         <md-menu-content width="4" >
-          <md-menu-item ng-repeat="item in [1, 2, 3]">
-            <md-button ng-click="ctrl.announceClick($index)">
+          <md-menu-item>
+            <md-button>
               <div layout="row" flex>
-                <p flex>Option {{item}}</p>
-                <md-icon md-menu-align-target md-svg-icon="call:portable-wifi-off" style="margin: auto 3px auto 0;"></md-icon>
+                <p flex>Oferta</p>
+                <!--<md-icon md-menu-align-target md-svg-icon="assets/svg/ic_add_black_24px.svg" style="margin: auto 3px auto 0;"></md-icon>-->
+              </div>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button>
+              <div layout="row" flex>
+                <p flex>Grupy</p>
+                <!--<md-icon md-menu-align-target md-svg-icon="assets/svg/ic_add_black_24px.svg" style="margin: auto 3px auto 0;"></md-icon>-->
               </div>
             </md-button>
           </md-menu-item>
