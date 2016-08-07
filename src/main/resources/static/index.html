@@ -6,23 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Lepszy Klub</title>
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon/lepszy-klub-rounded-corners.ico"/>
-    <script type="text/javascript" src="webjars/angularjs/1.4.7/angular.min.js"></script>
-    <script type="text/javascript" src="webjars/angular-route/1.4.7/angular-route.min.js"></script>
-    <script type="text/javascript" src="webjars/angular-resource/1.4.7/angular-resource.min.js"></script>
-    <script type="text/javascript" src="webjars/angular-animate/1.4.7/angular-animate.min.js"></script>
-    <script type="text/javascript" src="webjars/angular-ui-bootstrap/0.14.3/ui-bootstrap.min.js"></script>
-    <script type="text/javascript" src="webjars/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js"></script>
-    <script type="text/javascript" src="webjars/angular-checklist-model/0.6.0/checklist-model.js"></script>
+    <script type="text/javascript" src="lib/angularjs/1.5.8/angular.js"></script>
+    <script type="text/javascript" src="lib/angularjs/1.5.8/angular-animate.js"></script>
+    <script type="text/javascript" src="lib/angularjs/1.5.8/angular-touch.js"></script>
+    <script type="text/javascript" src="lib/angularjs/1.5.8/angular-route.js"></script>
+    <script type="text/javascript" src="lib/angularjs/1.5.8/angular-resource.js"></script>
+    <script type="text/javascript" src="lib/ui-bootstrap/ui-bootstrap-tpls-0.14.3.js"></script>
+    <script type="text/javascript" src="lib/checklist-model/checklist-model.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/route.js"></script>
     <script type="text/javascript" src="js/controllers.js"></script>
     <script type="text/javascript" src="js/directives.js"></script>
     <script type="text/javascript" src="js/services.js"></script>
-    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.1.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/3.3.7/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <link rel="stylesheet" type="text/css" href="css/dashboard.css"/>
 </head>
-<body ng-controller="IndexCtrl">
+<body ng-controller="IndexCtrl" ng-cloak>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid" ng-init="navCollapsed = true">

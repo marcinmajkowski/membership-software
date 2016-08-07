@@ -81,14 +81,6 @@ angular.module('membershipSoftwareServices', ['ngResource'])
                 transformResponse: function (data, headersGetter) {
                     return angular.fromJson(data)._embedded.customers;
                 }
-            },
-            'byFirstNameAndLastName': {
-                method: 'GET',
-                isArray: true,
-                url: '/api/v1/customers/search/findByFirstNameAndLastNameAllIgnoreCase',
-                transformResponse: function (data, headersGetter) {
-                    return angular.fromJson(data)._embedded.customers;
-                }
             }
         });
 
