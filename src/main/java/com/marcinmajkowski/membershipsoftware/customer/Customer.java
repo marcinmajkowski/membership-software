@@ -4,7 +4,6 @@ import com.marcinmajkowski.membershipsoftware.card.Card;
 import com.marcinmajkowski.membershipsoftware.checkin.CheckIn;
 import com.marcinmajkowski.membershipsoftware.group.TrainingGroup;
 import com.marcinmajkowski.membershipsoftware.payment.Payment;
-import com.marcinmajkowski.membershipsoftware.user.User;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -47,9 +46,6 @@ public class Customer {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private Set<CheckIn> checkIns;
-
-    @ManyToOne(optional = false)
-    private User staffMember;
 
     public String getFirstName() {
         return firstName;
@@ -129,13 +125,5 @@ public class Customer {
 
     public void setCheckIns(Set<CheckIn> checkIns) {
         this.checkIns = checkIns;
-    }
-
-    public User getStaffMember() {
-        return staffMember;
-    }
-
-    public void setStaffMember(User staffMember) {
-        this.staffMember = staffMember;
     }
 }

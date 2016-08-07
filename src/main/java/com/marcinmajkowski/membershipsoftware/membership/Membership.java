@@ -1,7 +1,5 @@
 package com.marcinmajkowski.membershipsoftware.membership;
 
-import com.marcinmajkowski.membershipsoftware.user.User;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -23,9 +21,6 @@ public class Membership {
 
     @Column(nullable = false)
     private Integer numberOfTrainings;
-
-    @ManyToOne(optional = false)
-    private User staffMember;
 
     public String getName() {
         return name;
@@ -57,13 +52,5 @@ public class Membership {
 
     public void setNumberOfTrainings(Integer numberOfTrainings) {
         this.numberOfTrainings = numberOfTrainings;
-    }
-
-    public User getStaffMember() {
-        return staffMember;
-    }
-
-    public void setStaffMember(User staffMember) {
-        this.staffMember = staffMember;
     }
 }

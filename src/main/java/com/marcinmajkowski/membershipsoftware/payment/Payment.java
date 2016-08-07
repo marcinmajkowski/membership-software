@@ -2,7 +2,6 @@ package com.marcinmajkowski.membershipsoftware.payment;
 
 import com.marcinmajkowski.membershipsoftware.checkin.CheckIn;
 import com.marcinmajkowski.membershipsoftware.customer.Customer;
-import com.marcinmajkowski.membershipsoftware.user.User;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -39,9 +38,6 @@ public class Payment {
 
     @ManyToOne(optional = false)
     private Customer payer;
-
-    @ManyToOne(optional = false)
-    private User staffMember;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "payment")
     private Set<CheckIn> checkIns;
@@ -100,14 +96,6 @@ public class Payment {
 
     public void setPayer(Customer payer) {
         this.payer = payer;
-    }
-
-    public User getStaffMember() {
-        return staffMember;
-    }
-
-    public void setStaffMember(User staffMember) {
-        this.staffMember = staffMember;
     }
 
     public Set<CheckIn> getCheckIns() {

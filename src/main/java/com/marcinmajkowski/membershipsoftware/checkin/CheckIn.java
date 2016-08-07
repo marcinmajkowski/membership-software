@@ -4,7 +4,6 @@ import com.marcinmajkowski.membershipsoftware.card.Card;
 import com.marcinmajkowski.membershipsoftware.customer.Customer;
 import com.marcinmajkowski.membershipsoftware.group.TrainingGroup;
 import com.marcinmajkowski.membershipsoftware.payment.Payment;
-import com.marcinmajkowski.membershipsoftware.user.User;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -25,9 +24,6 @@ public class CheckIn {
 
     @ManyToOne(optional = false)
     private Customer customer;
-
-    @ManyToOne(optional = false)
-    private User staffMember;
 
     @ManyToOne(optional = false)
     private TrainingGroup trainingGroup;
@@ -57,14 +53,6 @@ public class CheckIn {
 
     public void setCard(Card card) {
         this.card = card;
-    }
-
-    public User getStaffMember() {
-        return staffMember;
-    }
-
-    public void setStaffMember(User staffMember) {
-        this.staffMember = staffMember;
     }
 
     public TrainingGroup getTrainingGroup() {

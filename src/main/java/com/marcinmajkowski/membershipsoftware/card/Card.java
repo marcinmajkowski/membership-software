@@ -1,7 +1,6 @@
 package com.marcinmajkowski.membershipsoftware.card;
 
 import com.marcinmajkowski.membershipsoftware.customer.Customer;
-import com.marcinmajkowski.membershipsoftware.user.User;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -22,9 +21,6 @@ public class Card {
 
     @ManyToOne(optional = false)
     private Customer owner;
-
-    @ManyToOne(optional = false)
-    private User staffMember;
 
     public String getCode() {
         return code;
@@ -48,13 +44,5 @@ public class Card {
 
     public void setOwner(Customer owner) {
         this.owner = owner;
-    }
-
-    public User getStaffMember() {
-        return staffMember;
-    }
-
-    public void setStaffMember(User staffMember) {
-        this.staffMember = staffMember;
     }
 }
