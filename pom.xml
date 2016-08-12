@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.marcinmajkowski.membership</groupId>
+    <groupId>com.marcinmajkowski.membershipsoftware</groupId>
     <artifactId>membership-software</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>membership-software</name>
-    <description>Membership management desktop application.</description>
+    <description>Membership software.</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -21,16 +21,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <angularjs.version>1.4.7</angularjs.version>
-        <angular-route.version>1.4.7</angular-route.version>
-        <angular-animate.version>1.4.7</angular-animate.version>
-        <angular-resource.version>1.4.7</angular-resource.version>
-        <bootstrap.version>3.1.1</bootstrap.version>
-        <angular-ui-bootstrap.version>0.14.3</angular-ui-bootstrap.version>
-        <angularstompdk.version>0.3.4</angularstompdk.version>
-        <stomp-websocket.version>2.3.4</stomp-websocket.version>
-        <sockjs-client.version>1.0.3</sockjs-client.version>
-        <angular-checklist-model.version>0.6.0</angular-checklist-model.version>
     </properties>
 
     <dependencies>
@@ -56,10 +46,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-websocket</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
@@ -68,63 +54,6 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>angularjs</artifactId>
-            <version>${angularjs.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>angular-ui-bootstrap</artifactId>
-            <version>${angular-ui-bootstrap.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>angular-route</artifactId>
-            <version>${angular-route.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>angular-animate</artifactId>
-            <version>${angular-animate.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>angular-resource</artifactId>
-            <version>${angular-resource.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>${bootstrap.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.webjars</groupId>
-                    <artifactId>jquery</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>AngularStompDK</artifactId>
-            <version>${angularstompdk.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>sockjs-client</artifactId>
-            <version>${sockjs-client.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>stomp-websocket</artifactId>
-            <version>${stomp-websocket.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>angular-checklist-model</artifactId>
-            <version>${angular-checklist-model.version}</version>
         </dependency>
     </dependencies>
 
