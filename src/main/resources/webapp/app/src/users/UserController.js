@@ -3,7 +3,7 @@
   angular
        .module('users')
        .controller('UserController', [
-          'userService', '$mdSidenav', '$mdBottomSheet', '$timeout', '$location', '$log',
+          'userService', 'customerService', '$mdSidenav', '$mdBottomSheet', '$timeout', '$location', '$log',
           UserController
        ]);
 
@@ -14,7 +14,7 @@
    * @param avatarsService
    * @constructor
    */
-  function UserController( userService, $mdSidenav, $mdBottomSheet, $timeout, $location, $log ) {
+  function UserController( userService, customerService, $mdSidenav, $mdBottomSheet, $timeout, $location, $log ) {
     var self = this;
 
     self.selected     = null;
@@ -91,6 +91,7 @@
      * This is workaround for wrongly displayed md-button with href attribute.
      */
      function go(path) {
+       console.log(customerService.all());
        $location.path(path);
      }
 

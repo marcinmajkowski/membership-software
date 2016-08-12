@@ -76,6 +76,12 @@
         <md-sidenav  ng-click="ul.toggleList()" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" class="md-whiteframe-z2" >
           <md-list>
             <md-list-item>
+              <md-button>
+                <md-icon md-svg-icon="assets/svg/ic_search_black_24px.svg" class="avatar-icon"></md-icon>
+                Szukaj klienta
+              </md-button>
+            </md-list-item>
+            <md-list-item>
                 <md-button>
                   <md-icon md-svg-icon="assets/svg/ic_add_black_24px.svg" class="avatar-icon"></md-icon>
                   Nowy klient
@@ -96,11 +102,15 @@
 
     <script src="../node_modules/angular/angular.js"></script>
     <script src="../node_modules/angular-route/angular-route.js"></script>
+    <script src="../node_modules/angular-resource/angular-resource.js"></script>
     <script src="../node_modules/angular-animate/angular-animate.js"></script>
     <script src="../node_modules/angular-aria/angular-aria.js"></script>
     <script type="text/javascript" src="../node_modules/angular-material/angular-material.js"></script>
 
     <script src="./src/route.js"></script>
+
+    <script src="./src/customers/Customers.js"></script>
+    <script src="./src/customers/CustomerService.js"></script>
 
     <script src="./src/home/Home.js"></script>
     <script src="./src/home/HomeController.js"></script>
@@ -118,7 +128,7 @@
     <script type="text/javascript">
 
           angular
-              .module('starterApp', ['ngMaterial', 'membershipSoftwareRoute', 'home', 'checkIns', 'payments', 'users'])
+              .module('starterApp', ['ngMaterial', 'ngResource', 'membershipSoftwareRoute', 'home', 'checkIns', 'payments', 'users', 'customers'])
               .config(function($mdThemingProvider, $mdIconProvider){
 
                   $mdIconProvider

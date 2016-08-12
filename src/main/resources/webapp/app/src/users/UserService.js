@@ -79,9 +79,6 @@
     // Promise-based API
     return {
       loadAllUsers : function() {
-          $http.get('/api/v1/users').then(function (response) {
-                      console.log(response);
-                  });
         // Simulate async nature of real remote calls
         return $q.when(users);
       }
