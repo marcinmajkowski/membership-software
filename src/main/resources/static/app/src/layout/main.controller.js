@@ -5,9 +5,9 @@
         .module('membershipSoftwareLayout')
         .controller('MainController', MainController);
 
-    MainController.$inject = ['customersService', '$mdSidenav', '$location', '$mdDialog'];
+    MainController.$inject = ['customersService', '$mdSidenav', '$location', '$mdDialog', '$route'];
 
-    function MainController(customersService, $mdSidenav, $location, $mdDialog) {
+    function MainController(customersService, $mdSidenav, $location, $mdDialog, $route) {
         var vm = this;
 
         vm.customersService = customersService;
@@ -28,7 +28,13 @@
         function selectCustomer(customer) {
             //TODO load complete customer info from service
             customersService.selectedCustomer = angular.isNumber(customer) ? customersService.customers[customer] : customer;
-            $location.path('/customer');
+
+            if ($location.path() != '/customer') {
+                $location.path('/customer');
+            } else {
+                // Force reload even if location didn't change so CustomerController.activate() will run
+                $route.reload();
+            }
         }
 
         /**
@@ -53,9 +59,6 @@
                 templateUrl: 'src/customers/view/new-customer-dialog.html',
                 controllerAs: 'vm'
             }).then(function (userInput) {
-                console.log('accepted');
-                console.log(userInput);
-
                 var newCustomer = {
                     firstName: userInput.firstName,
                     lastName: userInput.lastName

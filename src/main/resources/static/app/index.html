@@ -88,7 +88,7 @@
                 </md-button>
             </md-list-item>
             <md-list-item ng-repeat="it in vm.customersService.customers">
-                <md-button ng-click="vm.selectCustomer(it)" ng-class="{'selected' : it === vm.selectedCustomer }">
+                <md-button ng-click="vm.selectCustomer(it)" ng-class="{'selected' : it === vm.customersService.selectedCustomer }">
                   <md-icon md-svg-icon="svg-1" class="avatar"></md-icon>
                   {{it.firstName + " " + it.lastName}}
                 </md-button>

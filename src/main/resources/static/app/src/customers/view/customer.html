@@ -1,7 +1,28 @@
 <h1>{{ vm.customersService.selectedCustomer.firstName + " " + vm.customersService.selectedCustomer.lastName }}</h1>
+<md-input-container class="md-block">
+    <label>Imię</label>
+    <input ng-model="vm.customer.firstName">
+</md-input-container>
+<md-input-container class="md-block">
+    <label>Nazwisko</label>
+    <input ng-model="vm.customer.lastName">
+</md-input-container>
+<md-input-container class="md-block">
+    <label>Email</label>
+    <input ng-model="vm.customer.email">
+</md-input-container>
+<md-input-container class="md-block">
+    <label>Notatka</label>
+    <input ng-model="vm.customer.note">
+</md-input-container>
 <h2>Karty</h2>
 <h2>Płatności</h2>
 <h2>Wejścia</h2>
 <section layout="row" layout-align="end">
-    <md-button class="md-raised md-warn" ng-click="vm.deleteCustomer(vm.customersService.selectedCustomer)">Usuń klienta</md-button>
+    <md-button class="md-raised md-warn" ng-click="vm.deleteCustomer(vm.customersService.selectedCustomer)">
+        Usuń klienta
+    </md-button>
+    <md-button class="md-raised" ng-click="vm.updateCustomer(vm.customersService.selectedCustomer, vm.customer)">
+        Zapisz zmiany
+    </md-button>
 </section>
