@@ -10,12 +10,11 @@
     function MainController(customersService, $mdSidenav, $location, $mdDialog) {
         var vm = this;
 
-        vm.selectedCustomer = null;
-        vm.customers = [];
+        vm.customersService = customersService;
         vm.selectCustomer = selectCustomer;
         vm.toggleList = toggleCustomersList;
         vm.go = go;
-        vm.addCustomer = addCustomer;
+        vm.newCustomer = newCustomer;
 
         activate();
 
@@ -24,15 +23,11 @@
         // *********************************
 
         function activate() {
-            customersService.getCustomers().then(function (customers) {
-                vm.customers = customers;
-                vm.selectedCustomer = customers[0];
-            });
         }
 
         function selectCustomer(customer) {
             //TODO load complete customer info from service
-            vm.selectedCustomer = angular.isNumber(customer) ? vm.customers[customer] : customer;
+            customersService.selectedCustomer = angular.isNumber(customer) ? customersService.customers[customer] : customer;
             $location.path('/customer');
         }
 
@@ -51,7 +46,7 @@
             $location.path(path);
         }
 
-        function addCustomer(ev) {
+        function newCustomer(ev) {
             $mdDialog.show({
                 targetEvent: ev,
                 controller: 'NewCustomerDialogController',
@@ -59,7 +54,20 @@
                 controllerAs: 'vm'
             }).then(function (userInput) {
                 console.log('accepted');
-                console.log(userInput)
+                console.log(userInput);
+                
+                var newCustomer = {
+                    firstName: userInput.firstName,
+                    lastName: userInput.lastName
+                };
+
+                customersService.createCustomer(newCustomer).then(function (customer) {
+                    selectCustomer(customer);
+                });
+
+                //TODO report error
+
+                //TODO add card
             });
         }
     }

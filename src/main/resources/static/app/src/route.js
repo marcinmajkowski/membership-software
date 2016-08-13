@@ -17,7 +17,9 @@
                     templateUrl: 'src/customers/view/customers.html'
                 })
                 .when('/customer', {
-                    templateUrl: 'src/customers/view/customer.html'
+                    templateUrl: 'src/customers/view/customer.html',
+                    controller: 'CustomerController',
+                    controllerAs: 'vm'
                 })
                 .when('/new-customer', {
                     templateUrl: 'src/customers/view/new-customer.html'
