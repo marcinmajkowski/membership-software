@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" >
+  <head>
+    <title>Lepszy Klub</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="assets/icons/lepszy-klub-rounded-corners.ico"/>
+
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+    <link rel="stylesheet" href="../node_modules/angular-material/angular-material.css"/>
+    <link rel="stylesheet" href="assets/app.css"/>
+
+    <style type="text/css">
+        /**
+         * Hide when Angular is not yet loaded and initialized
+         */
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+          display: none !important;
+        }
+    </style>
+
+  </head>
+
+  <body ng-app="membershipSoftware" layout="column" ng-controller="MainController as vm" ng-cloak>
+
+    <md-toolbar layout="row">
+      <md-button class="menu" hide-gt-sm ng-click="vm.toggleList()" aria-label="Show User List">
+        <md-icon md-svg-icon="menu" ></md-icon>
+      </md-button>
+      <a ng-href="#/">
+        <h1 hide show-gt-sm class="brand">
+          Lepszy Klub
+        </h1>
+      </a>
+      <span flex></span>
+      <md-button ng-click="vm.go('/customers')">
+        Klienci
+      </md-button>
+      <md-button ng-click="vm.go('/check-ins')">
+        Wejścia
+      </md-button>
+      <md-button ng-click="vm.go('/payments')">
+        Płatności
+      </md-button>
+      <md-menu md-position-mode="target-right target" >
+        <md-button class="md-icon-button" aria-label="More" ng-click="$mdOpenMenu($event)">
+          <md-icon md-svg-icon="assets/svg/more_vert.svg"></md-icon>
+        </md-button>
+        <md-menu-content width="4" >
+          <md-menu-item>
+            <md-button>
+              <div layout="row" flex>
+                <p flex>Oferta</p>
+                <!--<md-icon md-menu-align-target md-svg-icon="assets/svg/ic_add_black_24px.svg" style="margin: auto 3px auto 0;"></md-icon>-->
+              </div>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button>
+              <div layout="row" flex>
+                <p flex>Grupy</p>
+                <!--<md-icon md-menu-align-target md-svg-icon="assets/svg/ic_add_black_24px.svg" style="margin: auto 3px auto 0;"></md-icon>-->
+              </div>
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </md-toolbar>
+
+    <div flex layout="row" ng-controller="MainController as vm">
+
+        <md-sidenav  ng-click="vm.toggleList()" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" class="md-whiteframe-z2">
+          <md-list>
+            <md-list-item>
+              <md-button>
+                <md-icon md-svg-icon="assets/svg/ic_search_black_24px.svg" class="avatar-icon"></md-icon>
+                Szukaj klienta
+              </md-button>
+            </md-list-item>
+            <md-list-item>
+                <md-button ng-click="vm.go('/new-customer')">
+                  <md-icon md-svg-icon="assets/svg/ic_add_black_24px.svg" class="avatar-icon"></md-icon>
+                  Nowy klient
+                </md-button>
+            </md-list-item>
+            <md-list-item ng-repeat="it in vm.customers">
+                <md-button ng-click="vm.selectCustomer(it)" ng-class="{'selected' : it === vm.selectedCustomer }">
+                  <md-icon md-svg-icon="svg-1" class="avatar"></md-icon>
+                  {{it.firstName + " " + it.lastName}}
+                </md-button>
+            </md-list-item>
+          </md-list>
+        </md-sidenav>
+
+        <md-content flex id="content" ng-view></md-content>
+
+    </div>
+
+    <script src="../node_modules/angular/angular.js"></script>
+    <script src="../node_modules/angular-route/angular-route.js"></script>
+    <script src="../node_modules/angular-resource/angular-resource.js"></script>
+    <script src="../node_modules/angular-animate/angular-animate.js"></script>
+    <script src="../node_modules/angular-aria/angular-aria.js"></script>
+    <script type="text/javascript" src="../node_modules/angular-material/angular-material.js"></script>
+
+    <script src="./src/constants.js"></script>
+    <script src="./src/route.js"></script>
+
+    <script src="./src/layout/layout.js"></script>
+    <script src="./src/layout/main.controller.js"></script>
+
+    <script src="./src/customers/Customers.js"></script>
+    <script src="./src/customers/CustomerService.js"></script>
+
+    <script src="./src/home/Home.js"></script>
+    <script src="./src/home/HomeController.js"></script>
+
+    <script src="./src/check-ins/CheckIns.js"></script>
+    <script src="./src/check-ins/CheckInController.js"></script>
+
+    <script src="./src/payments/Payments.js"></script>
+    <script src="./src/payments/PaymentController.js"></script>
+
+    <script src="./src/users/Users.js"></script>
+    <script src="./src/users/UserController.js"></script>
+    <script src="./src/users/UserService.js"></script>
+
+    <script type="text/javascript">
+
+          angular
+              .module('membershipSoftware', [
+                'ngMaterial',
+                'ngResource',
+                'membershipSoftwareRoute',
+                'membershipSoftwareConstants',
+                'membershipSoftwareLayout',
+                'home',
+                'checkIns',
+                'payments',
+                'users',
+                'customers'
+              ])
+              .config(function($mdThemingProvider, $mdIconProvider){
+
+                  $mdIconProvider
+                      .defaultIconSet("./assets/svg/avatars.svg", 128)
+                      .icon("menu"       , "./assets/svg/menu.svg"        , 24)
+                      .icon("share"      , "./assets/svg/share.svg"       , 24)
+                      .icon("google_plus", "./assets/svg/google_plus.svg" , 512)
+                      .icon("hangouts"   , "./assets/svg/hangouts.svg"    , 512)
+                      .icon("twitter"    , "./assets/svg/twitter.svg"     , 512)
+                      .icon("phone"      , "./assets/svg/phone.svg"       , 512);
+
+                      $mdThemingProvider.definePalette('mcgpalette', {
+                        '50': '#858585',
+                        '100': '#5e5e5e',
+                        '200': '#424242',
+                        '300': '#1f1f1f',
+                        '400': '#0f0f0f',
+                        '500': '#000000',
+                        '600': '#000000',
+                        '700': '#000000',
+                        '800': '#000000',
+                        '900': '#000000',
+                        'A100': '#858585',
+                        'A200': '#5e5e5e',
+                        'A400': '#0f0f0f',
+                        'A700': '#000000',
+                        'contrastDefaultColor': 'light',
+                        'contrastDarkColors': '50 A100'
+                      });
+
+                      $mdThemingProvider.theme('default')
+                          .primaryPalette('mcgpalette');
+
+              });
+
+    </script>
+
+  </body>
+</html>
