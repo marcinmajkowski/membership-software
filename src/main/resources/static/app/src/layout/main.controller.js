@@ -5,9 +5,9 @@
         .module('membershipSoftwareLayout')
         .controller('MainController', MainController);
 
-    MainController.$inject = ['customerService', '$mdSidenav', '$location', '$mdDialog'];
+    MainController.$inject = ['customersService', '$mdSidenav', '$location', '$mdDialog'];
 
-    function MainController(customerService, $mdSidenav, $location, $mdDialog) {
+    function MainController(customersService, $mdSidenav, $location, $mdDialog) {
         var vm = this;
 
         vm.selectedCustomer = null;
@@ -24,7 +24,7 @@
         // *********************************
 
         function activate() {
-            customerService.getCustomers().then(function (customers) {
+            customersService.getCustomers().then(function (customers) {
                 vm.customers = customers;
                 vm.selectedCustomer = customers[0];
             });

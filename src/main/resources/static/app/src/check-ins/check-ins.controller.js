@@ -2,8 +2,8 @@
 
   angular
        .module('checkIns')
-       .controller('CheckInController', [
-          CheckInController
+       .controller('CheckInsController', [
+          CheckInsController
        ]);
 
   /**
@@ -13,7 +13,7 @@
    * @param avatarsService
    * @constructor
    */
-  function CheckInController() {
+  function CheckInsController() {
     var self = this;
 
   }

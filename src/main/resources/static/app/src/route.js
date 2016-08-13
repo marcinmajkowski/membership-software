@@ -7,11 +7,11 @@
             $routeProvider
                 .when('/payments', {
                     templateUrl: 'src/payments/view/payments.html',
-                    controller: 'PaymentController'
+                    controller: 'PaymentsController'
                 })
                 .when('/check-ins', {
                     templateUrl: 'src/check-ins/view/check-ins.html',
-                    controller: 'CheckInController'
+                    controller: 'CheckInsController'
                 })
                 .when('/customers', {
                     templateUrl: 'src/customers/view/customers.html'

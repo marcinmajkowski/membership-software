@@ -3,11 +3,11 @@
 
     angular
         .module('customers')
-        .factory('customerService', CustomerService);
+        .factory('customersService', CustomersService);
 
-    CustomerService.$inject = ['$http', 'apiUrl'];
+    CustomersService.$inject = ['$http', 'apiUrl'];
 
-    function CustomerService($http, apiUrl) {
+    function CustomersService($http, apiUrl) {
         var customersUrl = apiUrl + '/customers';
 
         var service = {

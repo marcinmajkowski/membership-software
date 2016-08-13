@@ -2,8 +2,8 @@
 
     angular
         .module('payments')
-        .controller('PaymentController', [
-            PaymentController
+        .controller('PaymentsController', [
+            PaymentsController
         ]);
 
     /**
@@ -13,7 +13,7 @@
      * @param avatarsService
      * @constructor
      */
-    function PaymentController() {
+    function PaymentsController() {
         var self = this;
     }
 
