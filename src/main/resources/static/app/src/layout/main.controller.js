@@ -55,7 +55,7 @@
             }).then(function (userInput) {
                 console.log('accepted');
                 console.log(userInput);
-                
+
                 var newCustomer = {
                     firstName: userInput.firstName,
                     lastName: userInput.lastName

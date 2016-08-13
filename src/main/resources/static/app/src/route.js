@@ -23,7 +23,7 @@
                 })
                 .when('/new-customer', {
                     templateUrl: 'src/customers/view/new-customer.html'
-                })                
+                })
                 .when('/', {
                     templateUrl: 'src/home/view/home.html',
                     controller: 'HomeController'

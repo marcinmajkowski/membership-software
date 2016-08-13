@@ -13,9 +13,18 @@
         vm.customersService = customersService;
         vm.deleteCustomer = deleteCustomer;
 
+        activate();
+
         // *********************************
         // Internal methods
         // *********************************
+
+        function activate() {
+            // Shouldn't' be accessed when no customer selected
+            if (customersService.selectedCustomer === null) {
+                $location.path('/');
+            }
+        }
 
         function deleteCustomer(customer) {
             customersService.deleteCustomer(customer).then(function () {
