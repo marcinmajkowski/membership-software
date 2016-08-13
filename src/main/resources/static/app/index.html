@@ -82,7 +82,7 @@
               </md-button>
             </md-list-item>
             <md-list-item>
-                <md-button ng-click="vm.go('/new-customer')">
+                <md-button ng-click="vm.addCustomer($event)">
                   <md-icon md-svg-icon="assets/svg/ic_add_black_24px.svg" class="avatar-icon"></md-icon>
                   Nowy klient
                 </md-button>
@@ -114,6 +114,7 @@
     <script src="./src/layout/main.controller.js"></script>
 
     <script src="./src/customers/Customers.js"></script>
+    <script src="./src/customers/NewCustomerDialog.controller.js"></script>
     <script src="./src/customers/CustomerService.js"></script>
 
     <script src="./src/home/Home.js"></script>

@@ -1,0 +1,25 @@
+<md-dialog layout-padding>
+    <md-dialog-content>
+        <h2>Nowy klient</h2>
+        <md-input-container class="md-block">
+            <label>Imię</label>
+            <input ng-model="vm.userInput.firstName">
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Nazwisko</label>
+            <input ng-model="vm.userInput.lastName">
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Kod karty</label>
+            <input ng-model="vm.userInput.code">
+        </md-input-container>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button ng-click="vm.cancel()" class="md-primary">
+            Anuluj
+        </md-button>
+        <md-button ng-click="vm.save(vm.userInput)" class="md-primary">
+            Zapisz
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

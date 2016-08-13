@@ -5,9 +5,9 @@
         .module('membershipSoftwareLayout')
         .controller('MainController', MainController);
 
-    MainController.$inject = ['customerService', '$mdSidenav', '$location'];
+    MainController.$inject = ['customerService', '$mdSidenav', '$location', '$mdDialog'];
 
-    function MainController(customerService, $mdSidenav, $location) {
+    function MainController(customerService, $mdSidenav, $location, $mdDialog) {
         var vm = this;
 
         vm.selectedCustomer = null;
@@ -15,6 +15,7 @@
         vm.selectCustomer = selectCustomer;
         vm.toggleList = toggleCustomersList;
         vm.go = go;
+        vm.addCustomer = addCustomer;
 
         activate();
 
@@ -48,6 +49,18 @@
          */
         function go(path) {
             $location.path(path);
+        }
+
+        function addCustomer(ev) {
+            $mdDialog.show({
+                targetEvent: ev,
+                controller: 'NewCustomerDialogController',
+                templateUrl: 'src/customers/view/new-customer-dialog.html',
+                controllerAs: 'vm'
+            }).then(function (userInput) {
+                console.log('accepted');
+                console.log(userInput)
+            });
         }
     }
 
