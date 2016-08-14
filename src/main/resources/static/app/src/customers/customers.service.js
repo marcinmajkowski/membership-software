@@ -18,6 +18,7 @@
             readCustomerDetails: readCustomerDetails,
             updateCustomer: updateCustomer,
             deleteCustomer: deleteCustomer,
+            deleteCardForCustomer: deleteCardForCustomer, //TODO seems like it doesn't fit here
             customers: customers,
             selectedCustomer: selectedCustomer
         };
@@ -97,6 +98,22 @@
                 var index = service.customers.indexOf(customer);
                 if (index > -1) {
                     service.customers.splice(index, 1);
+                }
+            });
+        }
+
+        function deleteCardForCustomer(customer, card) {
+            return cardsService.deleteCard(card).then(function () {
+                // Remove card from local customers list, no need to load whole list again
+                var index = service.customers.indexOf(customer);
+                if (index > -1) {
+                    var cards = service.customers[index].cards;
+                    for (var i = 0, len = cards.length; i < len; i++) {
+                        if (cards[i].code == card.code) {
+                            cards.splice(i, 1);
+                            break;
+                        }
+                    }
                 }
             });
         }

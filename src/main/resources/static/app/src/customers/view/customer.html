@@ -13,12 +13,30 @@
 </md-input-container>
 <md-input-container class="md-block">
     <label>Notatka</label>
-    <input ng-model="vm.customer.note">
+    <textarea ng-model="vm.customer.note" md-maxlength="150" rows="5"></textarea>
 </md-input-container>
+<section layout="row" layout-align="end">
+    <md-button class="md-raised md-warn" ng-click="vm.deleteCustomer(vm.customersService.selectedCustomer)">
+        Usuń klienta
+    </md-button>
+    <md-button class="md-raised" ng-click="vm.updateCustomer(vm.customersService.selectedCustomer, vm.customer)">
+        Zapisz zmiany
+    </md-button>
+</section>
 <h2>Karty</h2>
 <md-list>
     <md-list-item ng-repeat="card in vm.cards">
-        {{card.code}} (wydana {{card.issueTimestamp | date}})
+        <div layout="row" flex>
+            <p flex>
+                {{card.code}} (wydana {{card.issueTimestamp | date}})
+            </p>
+            <md-button class="md-icon-button" ng-click="vm.deleteCard(vm.customersService.selectedCustomer, card)" aria-label="Usuń">
+                <md-icon md-svg-icon="assets/svg/ic_delete_forever_black_24px.svg"></md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="vm.editCard(card)" aria-label="Edytuj">
+                <md-icon md-svg-icon="assets/svg/ic_mode_edit_black_24px.svg"></md-icon>
+            </md-button>
+        </div>
     </md-list-item>
 </md-list>
 <section layout="row" layout-align="end">
@@ -28,11 +46,3 @@
 </section>
 <h2>Płatności</h2>
 <h2>Wejścia</h2>
-<section layout="row" layout-align="end">
-    <md-button class="md-raised md-warn" ng-click="vm.deleteCustomer(vm.customersService.selectedCustomer)">
-        Usuń klienta
-    </md-button>
-    <md-button class="md-raised" ng-click="vm.updateCustomer(vm.customersService.selectedCustomer, vm.customer)">
-        Zapisz zmiany
-    </md-button>
-</section>

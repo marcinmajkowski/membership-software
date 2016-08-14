@@ -16,6 +16,8 @@
         vm.customer = null;
         vm.cards = [];
         vm.newCard = newCard;
+        vm.deleteCard = deleteCard;
+        vm.editCard = editCard;
 
         activate();
 
@@ -71,6 +73,20 @@
                     console.log('TODO report card not created error');
                 });
             });
+        }
+
+        function deleteCard(customer, card) {
+            customersService.deleteCardForCustomer(customer, card).then(function () {
+                var index = vm.cards.indexOf(card);
+                if (index > -1) {
+                    vm.cards.splice(index, 1);
+                }
+            });
+        }
+
+        function editCard(card) {
+            console.log(card);
+            console.log('TODO edit card');
         }
     }
 
