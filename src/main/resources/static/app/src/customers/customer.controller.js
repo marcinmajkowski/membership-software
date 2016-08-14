@@ -5,15 +5,17 @@
         .module('customers')
         .controller('CustomerController', CustomerController);
 
-    CustomerController.$inject = ['customersService', '$location'];
+    CustomerController.$inject = ['customersService', 'cardsService', '$location', '$mdDialog'];
 
-    function CustomerController(customersService, $location) {
+    function CustomerController(customersService, cardsService, $location, $mdDialog) {
         var vm = this;
 
         vm.customersService = customersService;
         vm.updateCustomer = updateCustomer;
         vm.deleteCustomer = deleteCustomer;
         vm.customer = null;
+        vm.cards = [];
+        vm.newCard = newCard;
 
         activate();
 
@@ -32,6 +34,11 @@
             customersService.readCustomerDetails(customersService.selectedCustomer).then(function (customer) {
                 vm.customer = customer;
             });
+
+            // Load customer cards
+            cardsService.readCardsByCustomer(customersService.selectedCustomer).then(function (cards) {
+                vm.cards = cards;
+            });
         }
 
         function updateCustomer(oldCustomer, newCustomer) {
@@ -44,6 +51,25 @@
             customersService.deleteCustomer(customer).then(function () {
                 customersService.selectedCustomer = null;
                 $location.path('/');
+            });
+        }
+
+        function newCard(ev, owner) {
+            var prompt = $mdDialog.prompt()
+                .title('Nowa karta')
+                .textContent('Wpisz numer znajdujący się pod kodem kreskowym na karcie.')
+                .placeholder('0000000000000')
+                .ariaLabel('Numer karty')
+                .targetEvent(ev)
+                .ok('Zapisz')
+                .cancel('Anuluj');
+
+            $mdDialog.show(prompt).then(function (code) {
+                //TODO report errors
+                customersService.createCardForCustomerByCode(owner, code).then(function (newCard) {
+                    vm.cards.push(newCard);
+                    console.log(customersService.customers);
+                });
             });
         }
     }

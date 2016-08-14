@@ -16,6 +16,16 @@
     <input ng-model="vm.customer.note">
 </md-input-container>
 <h2>Karty</h2>
+<md-list>
+    <md-list-item ng-repeat="card in vm.cards">
+        {{card.code}} (wydana {{card.issueTimestamp | date}})
+    </md-list-item>
+</md-list>
+<section layout="row" layout-align="end">
+    <md-button class="md-raised" ng-click="vm.newCard($event, vm.customersService.selectedCustomer)">
+        Nowa karta
+    </md-button>
+</section>
 <h2>Płatności</h2>
 <h2>Wejścia</h2>
 <section layout="row" layout-align="end">

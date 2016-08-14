@@ -3,17 +3,18 @@
 
     angular
         .module('customers')
-        .factory('customersService', CustomersService);
+        .factory('customersService', customersService);
 
-    CustomersService.$inject = ['$http', 'apiUrl'];
+    customersService.$inject = ['$http', 'apiUrl', 'cardsService'];
 
-    function CustomersService($http, apiUrl) {
+    function customersService($http, apiUrl, cardsService) {
         var customersUrl = apiUrl + '/customers';
         var customers = [];
         var selectedCustomer = null;
 
         var service = {
             createCustomer: createCustomer,
+            createCardForCustomerByCode: createCardForCustomerByCode,
             readCustomerDetails: readCustomerDetails,
             updateCustomer: updateCustomer,
             deleteCustomer: deleteCustomer,
@@ -48,6 +49,27 @@
             });
         }
 
+        function createCardForCustomerByCode(customer, code) {
+            var cardToCreate = {
+                code: code,
+                issueTimestamp: new Date(),
+                owner: customer._links.self.href
+            };
+
+            return cardsService.createCard(cardToCreate).then(function (createdCard) {
+                // Update customer in local list, no need to load whole list again
+                var index = service.customers.indexOf(customer);
+                if (index > -1) {
+                    service.customers[index].cards.push({
+                        code: createdCard.code,
+                        issueTimestamp: createdCard.issueTimestamp
+                    });
+                }
+
+                return createdCard;
+            });
+        }
+
         function readCustomerDetails(customer) {
             return $http.get(customer._links.self.href).then(function (response) {
                 var detailedCustomer = response.data;
@@ -59,7 +81,7 @@
             return $http.patch(oldCustomer._links.self.href, newCustomer).then(function (response) {
                 // Update customer in local list, no need to load whole list again
                 var updatedCustomer = response.data;
-                var index = service.customers.indexOf(oldCustomer)
+                var index = service.customers.indexOf(oldCustomer);
                 if (index > -1) {
                     service.customers[index].firstName = updatedCustomer.firstName;
                     service.customers[index].lastName = updatedCustomer.lastName;
