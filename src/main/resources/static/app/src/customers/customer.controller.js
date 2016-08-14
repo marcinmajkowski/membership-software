@@ -65,10 +65,10 @@
                 .cancel('Anuluj');
 
             $mdDialog.show(prompt).then(function (code) {
-                //TODO report errors
                 customersService.createCardForCustomerByCode(owner, code).then(function (newCard) {
                     vm.cards.push(newCard);
-                    console.log(customersService.customers);
+                }, function () {
+                    console.log('TODO report card not created error');
                 });
             });
         }
