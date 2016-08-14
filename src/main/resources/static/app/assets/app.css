@@ -46,10 +46,6 @@ md-list-item > button {
 
 
 /* Primary content area */
-
-#content {
-}
-
 #content  {
   padding-left: 40px;
   padding-right: 40px;
@@ -105,7 +101,7 @@ md-button.menuBtn > md-icon {
 /* Typography support coming in 0.8.0 */
 
 md-toolbar h1 {
-  font-size: 1.250em;
+  font-size: 1.25em;
   font-weight: normal;
   font-family: 'Capture Smallz Regular', sans-serif;
   color: #ffffff;

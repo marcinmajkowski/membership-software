@@ -1,4 +1,9 @@
-<h1>{{ vm.customersService.selectedCustomer.firstName + " " + vm.customersService.selectedCustomer.lastName }}</h1>
+<div layout="row" layout-align="start center" flex>
+    <h1 flex>{{ vm.customersService.selectedCustomer.firstName + " " + vm.customersService.selectedCustomer.lastName }}</h1>
+    <md-button class="md-icon-button" ng-click="vm.toggleEditMode()" aria-label="Edytuj">
+        <md-icon md-svg-icon="mode_edit"></md-icon>
+    </md-button>
+</div>
 <md-input-container class="md-block">
     <label>Imię</label>
     <input ng-model="vm.customer.firstName">
@@ -16,10 +21,10 @@
     <textarea ng-model="vm.customer.note" md-maxlength="150" rows="5"></textarea>
 </md-input-container>
 <section layout="row" layout-align="end">
-    <md-button class="md-raised md-warn" ng-click="vm.deleteCustomer(vm.customersService.selectedCustomer)">
+    <md-button class="md-warn" ng-click="vm.deleteCustomer($event, vm.customersService.selectedCustomer)">
         Usuń klienta
     </md-button>
-    <md-button class="md-raised" ng-click="vm.updateCustomer(vm.customersService.selectedCustomer, vm.customer)">
+    <md-button ng-click="vm.updateCustomer(vm.customersService.selectedCustomer, vm.customer)">
         Zapisz zmiany
     </md-button>
 </section>
@@ -30,17 +35,17 @@
             <p flex>
                 {{card.code}} (wydana {{card.issueTimestamp | date}})
             </p>
-            <md-button class="md-icon-button" ng-click="vm.deleteCard(vm.customersService.selectedCustomer, card)" aria-label="Usuń">
-                <md-icon md-svg-icon="assets/svg/ic_delete_forever_black_24px.svg"></md-icon>
+            <md-button class="md-icon-button" ng-click="vm.deleteCard($event, vm.customersService.selectedCustomer, card)" aria-label="Usuń">
+                <md-icon md-svg-icon="delete_forever"></md-icon>
             </md-button>
             <md-button class="md-icon-button" ng-click="vm.editCard(card)" aria-label="Edytuj">
-                <md-icon md-svg-icon="assets/svg/ic_mode_edit_black_24px.svg"></md-icon>
+                <md-icon md-svg-icon="mode_edit"></md-icon>
             </md-button>
         </div>
     </md-list-item>
 </md-list>
 <section layout="row" layout-align="end">
-    <md-button class="md-raised" ng-click="vm.newCard($event, vm.customersService.selectedCustomer)">
+    <md-button ng-click="vm.newCard($event, vm.customersService.selectedCustomer)">
         Nowa karta
     </md-button>
 </section>

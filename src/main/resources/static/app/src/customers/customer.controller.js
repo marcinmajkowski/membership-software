@@ -11,6 +11,7 @@
         var vm = this;
 
         vm.customersService = customersService;
+        vm.toggleEditMode = toggleEditMode;
         vm.updateCustomer = updateCustomer;
         vm.deleteCustomer = deleteCustomer;
         vm.customer = null;
@@ -43,16 +44,30 @@
             });
         }
 
+        function toggleEditMode() {
+            console.log('TODO toggle edit mode');
+        }
+
         function updateCustomer(oldCustomer, newCustomer) {
             customersService.updateCustomer(oldCustomer, newCustomer).then(function () {
                 console.log('TODO report update success');
             });
         }
 
-        function deleteCustomer(customer) {
-            customersService.deleteCustomer(customer).then(function () {
-                customersService.selectedCustomer = null;
-                $location.path('/');
+        function deleteCustomer(ev, customer) {
+            // TODO delete button should go on the left
+            var confirm = $mdDialog.confirm()
+                .title('Czy na pewno chcesz usunąć tego klienta?')
+                .textContent('Operacji nie będzie się dało odwrócić.')
+                .targetEvent(ev)
+                .ok('Usuń')
+                .cancel('Anuluj');
+
+            $mdDialog.show(confirm).then(function () {
+                customersService.deleteCustomer(customer).then(function () {
+                    customersService.selectedCustomer = null;
+                    $location.path('/');
+                });
             });
         }
 
@@ -75,12 +90,22 @@
             });
         }
 
-        function deleteCard(customer, card) {
-            customersService.deleteCardForCustomer(customer, card).then(function () {
-                var index = vm.cards.indexOf(card);
-                if (index > -1) {
-                    vm.cards.splice(index, 1);
-                }
+        function deleteCard(ev, customer, card) {
+            // TODO delete button should go on the left
+            var confirm = $mdDialog.confirm()
+                .title('Czy na pewno chcesz usunąć tę kartę?')
+                .textContent('Operacji nie będzie się dało odwrócić.')
+                .targetEvent(ev)
+                .ok('Usuń')
+                .cancel('Anuluj');
+
+            $mdDialog.show(confirm).then(function () {
+                customersService.deleteCardForCustomer(customer, card).then(function () {
+                    var index = vm.cards.indexOf(card);
+                    if (index > -1) {
+                        vm.cards.splice(index, 1);
+                    }
+                });
             });
         }
 

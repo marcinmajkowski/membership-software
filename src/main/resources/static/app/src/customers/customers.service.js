@@ -45,6 +45,10 @@
         function createCustomer(customer) {
             return $http.post(customersUrl, customer).then(function (response) {
                 var newCustomer = response.data;
+                
+                // Workaround since service.customers has cards embdedded (unlike regular customer response)
+                newCustomer.cards = [];
+                
                 service.customers.push(newCustomer);
                 return newCustomer;
             });

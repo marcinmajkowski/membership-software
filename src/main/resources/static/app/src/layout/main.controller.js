@@ -65,7 +65,14 @@
                 };
 
                 customersService.createCustomer(newCustomer).then(function (customer) {
-                    selectCustomer(customer);
+                    var code = userInput.code;
+                    if (code && 0 !== code.length) {
+                        customersService.createCardForCustomerByCode(customer, code).then(function () {
+                            selectCustomer(customer);
+                        });
+                    } else {
+                        selectCustomer(customer);
+                    }
                 });
 
                 //TODO report error
