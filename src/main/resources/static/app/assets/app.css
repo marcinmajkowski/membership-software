@@ -104,7 +104,7 @@ md-toolbar h1 {
   font-size: 1.25em;
   font-weight: normal;
   font-family: 'Capture Smallz Regular', sans-serif;
-  color: #ffffff;
+  color: rgba(255,255,255,0.87);
 }
 
 .avatar {
