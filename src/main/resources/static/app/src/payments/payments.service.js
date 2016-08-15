@@ -14,6 +14,7 @@
             getPayments: getPayments,
             getPaymentsByCustomer: getPaymentsByCustomer,
             createPayment: createPayment,
+            createPaymentForCustomer: createPaymentForCustomer,
             deletePayment: deletePayment
         };
 
@@ -39,6 +40,10 @@
             return $http.post(paymentsUrl, payment).then(function (response) {
                 return response.data;
             });
+        }
+
+        function createPaymentForCustomer(payment, customer) {
+            console.log('TODO create payment for customer');
         }
 
         function deletePayment(payment) {

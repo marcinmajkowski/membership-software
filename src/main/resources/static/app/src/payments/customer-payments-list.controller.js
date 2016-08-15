@@ -5,12 +5,13 @@
         .module('payments')
         .controller('CustomerPaymentsListController', CustomerPaymentsListController);
 
-    CustomerPaymentsListController.$inject = ['paymentsService'];
+    CustomerPaymentsListController.$inject = ['paymentsService', '$mdDialog'];
 
-    function CustomerPaymentsListController(paymentsService) {
+    function CustomerPaymentsListController(paymentsService, $mdDialog) {
         var vm = this;
 
         vm.payments = [];
+        vm.newPayment = newPayment;
 
         activate();
 
@@ -21,6 +22,25 @@
         function activate() {
             paymentsService.getPaymentsByCustomer(vm.customer).then(function (payments) {
                 vm.payments = [].concat(payments);
+            });
+        }
+
+        function newPayment(ev) {
+            $mdDialog.show({
+                targetEvent: ev,
+                controller: 'CustomerNewPaymentDialogController',
+                templateUrl: 'src/payments/view/customer-new-payment-dialog.html',
+                controllerAs: 'vm'
+            }).then(function (userInput) {
+                var newPayment = {
+                    //TODO
+                };
+
+                paymentsService.createPaymentForCustomer(newPayment, vm.customer).then(function (payment) {
+                    vm.payments.push(payment);
+                });
+
+                //TODO report error
             });
         }
 
