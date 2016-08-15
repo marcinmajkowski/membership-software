@@ -54,11 +54,21 @@
         }
 
         function deleteMembership(ev, membership) {
-            membershipsService.deleteMembership(membership).then(function () {
-                var index = vm.memberships.indexOf(membership);
-                if (index > -1) {
-                    vm.memberships.splice(index, 1);
-                }
+            // TODO delete button should go on the left
+            var confirm = $mdDialog.confirm()
+                .title('Czy na pewno chcesz usunąć ten karnet?')
+                .textContent('Operacji nie będzie się dało odwrócić.')
+                .targetEvent(ev)
+                .ok('Usuń')
+                .cancel('Anuluj');
+
+            $mdDialog.show(confirm).then(function () {
+                membershipsService.deleteMembership(membership).then(function () {
+                    var index = vm.memberships.indexOf(membership);
+                    if (index > -1) {
+                        vm.memberships.splice(index, 1);
+                    }
+                });
             });
         }
 
