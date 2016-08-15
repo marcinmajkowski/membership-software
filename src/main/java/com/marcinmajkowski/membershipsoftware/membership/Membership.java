@@ -10,7 +10,7 @@ public class Membership {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String name;
 
     @Column(nullable = false)
