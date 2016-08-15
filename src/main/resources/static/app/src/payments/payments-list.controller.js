@@ -3,12 +3,11 @@
 
     angular
         .module('payments')
-        .controller('PaymentsController', PaymentsController);
+        .controller('PaymentsListController', PaymentsListController);
 
-    PaymentsController.$inject = ['paymentsService'];
+    PaymentsListController.$inject = ['paymentsService'];
 
-    //TODO pagination
-    function PaymentsController(paymentsService) {
+    function PaymentsListController(paymentsService) {
         var vm = this;
 
         vm.payments = [];
@@ -24,6 +23,7 @@
                 vm.payments = [].concat(payments);
             });
         }
+
     }
 
 })();

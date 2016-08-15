@@ -15,7 +15,7 @@
         vm.updateCustomer = updateCustomer;
         vm.deleteCustomer = deleteCustomer;
         vm.customer = null;
-        vm.cards = [];
+        vm.cards = []; //TODO move cards stuff to directive (just as payments)
         vm.newCard = newCard;
         vm.deleteCard = deleteCard;
         vm.editCard = editCard;
@@ -27,6 +27,7 @@
         // *********************************
 
         function activate() {
+            //FIXME move this to router
             // Shouldn't' be accessed when no customer selected
             if (customersService.selectedCustomer === null) {
                 $location.path('/');

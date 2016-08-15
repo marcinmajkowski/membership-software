@@ -3,12 +3,11 @@
 
     angular
         .module('payments')
-        .controller('PaymentsController', PaymentsController);
+        .controller('CustomerPaymentsListController', CustomerPaymentsListController);
 
-    PaymentsController.$inject = ['paymentsService'];
+    CustomerPaymentsListController.$inject = ['paymentsService'];
 
-    //TODO pagination
-    function PaymentsController(paymentsService) {
+    function CustomerPaymentsListController(paymentsService) {
         var vm = this;
 
         vm.payments = [];
@@ -20,10 +19,11 @@
         // *********************************
 
         function activate() {
-            paymentsService.getPayments().then(function (payments) {
+            paymentsService.getPaymentsByCustomer(vm.customer).then(function (payments) {
                 vm.payments = [].concat(payments);
             });
         }
+
     }
 
 })();
