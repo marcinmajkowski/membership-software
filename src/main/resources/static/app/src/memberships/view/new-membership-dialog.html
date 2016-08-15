@@ -1,0 +1,33 @@
+<md-dialog layout-padding>
+    <md-dialog-content>
+        <h2>Nowy karnet</h2>
+        <md-input-container class="md-block">
+            <label>Nazwa</label>
+            <input ng-model="vm.userInput.name">
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Cena (PLN)</label>
+            <input required type="number" step="any" ng-model="vm.userInput.price">
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Liczba dnia ważności</label>
+            <input required type="number" step="1" ng-model="vm.userInput.durationInDays">
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Liczba treningów</label>
+            <input required type="number" step="1" ng-disabled="vm.userInput.isUnlimitedNumberOfTrainings" ng-required="!vm.userInput.isUnlimitedNumberOfTrainings"
+                ng-model="vm.userInput.numberOfTrainings">
+        </md-input-container>
+        <md-switch ng-model="vm.userInput.isUnlimitedNumberOfTrainings">
+            Nielimitowana liczba treningów
+        </md-switch>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button ng-click="vm.cancel()" class="md-primary">
+            Anuluj
+        </md-button>
+        <md-button ng-click="vm.save(vm.userInput)" class="md-primary">
+            Zapisz
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

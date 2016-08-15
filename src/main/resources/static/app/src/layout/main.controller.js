@@ -77,7 +77,6 @@
 
                 //TODO report error
 
-                //TODO add card
             });
         }
     }

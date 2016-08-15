@@ -53,7 +53,7 @@
             </md-button>
             <md-menu-content width="4">
                 <md-menu-item>
-                    <md-button>
+                    <md-button ng-click="vm.go('/memberships')">
                         <div layout="row" flex>
                             <p flex>Oferta</p>
                             <!--<md-icon md-menu-align-target md-svg-icon="assets/svg/ic_add_black_24px.svg" style="margin: auto 3px auto 0;"></md-icon>-->
@@ -122,6 +122,11 @@
     <script src="./src/cards/cards.js"></script>
     <script src="./src/cards/cards.service.js"></script>
 
+    <script src="./src/memberships/memberships.js"></script>
+    <script src="./src/memberships/memberships.service.js"></script>
+    <script src="./src/memberships/memberships.controller.js"></script>
+    <script src="./src/memberships/new-membership-dialog.controller.js"></script>
+
     <script src="./src/home/home.js"></script>
     <script src="./src/home/home.controller.js"></script>
 
@@ -148,7 +153,8 @@
                 'checkIns',
                 'payments',
                 'users',
-                'customers'
+                'customers',
+                'memberships'
             ])
             .config(function ($mdThemingProvider, $mdIconProvider) {
 

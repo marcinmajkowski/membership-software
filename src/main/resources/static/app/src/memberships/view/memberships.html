@@ -1,0 +1,24 @@
+<h1>Oferta</h1>
+<p>
+    Poniższe karnety są dostępne jako możliwe opcje do wyboru podczas rejestrowania nowej płatności.
+</p>
+<md-list>
+    <md-list-item ng-repeat="membership in vm.memberships | orderBy:'-price'">
+        <div layout="row" flex>
+            <p flex>
+                {{membership.name}} ({{membership.durationInDays}} dni, {{membership.numberOfTrainings}} treningów) - {{membership.price}} PLN
+            </p>
+            <md-button class="md-icon-button" ng-click="vm.deleteMembership($event, membership)" aria-label="Usuń">
+                <md-icon md-svg-icon="delete_forever"></md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="vm.editMembership(membership)" aria-label="Edytuj">
+                <md-icon md-svg-icon="mode_edit"></md-icon>
+            </md-button>
+        </div>
+    </md-list-item>
+</md-list>
+<section layout="row" layout-align="end">
+    <md-button ng-click="vm.newMembership($event)">
+        Nowy karnet
+    </md-button>
+</section>

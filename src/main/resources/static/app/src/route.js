@@ -24,6 +24,11 @@
                 .when('/new-customer', {
                     templateUrl: 'src/customers/view/new-customer.html'
                 })
+                .when('/memberships', {
+                    templateUrl: 'src/memberships/view/memberships.html',
+                    controller: 'MembershipsController',
+                    controllerAs: 'vm'
+                })
                 .when('/', {
                     templateUrl: 'src/home/view/home.html',
                     controller: 'HomeController'
