@@ -48,9 +48,16 @@
             console.log('TODO toggle edit mode');
         }
 
-        function updateCustomer(oldCustomer, newCustomer) {
+        function updateCustomer(ev, oldCustomer, newCustomer) {
+            //TODO report error
             customersService.updateCustomer(oldCustomer, newCustomer).then(function () {
-                console.log('TODO report update success');
+                var alert = $mdDialog.alert()
+                    .clickOutsideToClose(true)
+                    .title('Zmiany zostały pomyślnie zapisane')
+                    .ok('Ok')
+                    .targetEvent(ev);
+
+                $mdDialog.show(alert);
             });
         }
 

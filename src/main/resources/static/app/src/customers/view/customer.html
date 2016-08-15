@@ -24,7 +24,7 @@
     <md-button class="md-warn" ng-click="vm.deleteCustomer($event, vm.customersService.selectedCustomer)">
         Usuń klienta
     </md-button>
-    <md-button ng-click="vm.updateCustomer(vm.customersService.selectedCustomer, vm.customer)">
+    <md-button ng-click="vm.updateCustomer($event, vm.customersService.selectedCustomer, vm.customer)">
         Zapisz zmiany
     </md-button>
 </section>
