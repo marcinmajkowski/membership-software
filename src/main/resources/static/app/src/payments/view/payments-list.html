@@ -1,5 +1,5 @@
 <md-list>
-    <md-list-item ng-repeat="payment in vm.payments">
+    <md-list-item ng-repeat="payment in vm.payments | orderBy:'-timestamp'">
         <div layout="row" flex>
             <p flex>
                 {{payment.payer.firstName + ' ' + payment.payer.lastName + ' zapłacił ' + payment.membershipPrice + ' PLN, w dniu ' + (payment.timestamp | date)}}

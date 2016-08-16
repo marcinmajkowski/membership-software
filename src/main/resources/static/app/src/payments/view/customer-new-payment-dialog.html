@@ -1,8 +1,18 @@
-<md-dialog layout-padding>
+<md-dialog layout-padding flex="50">
     <md-dialog-content>
         <h2>Nowa płatność</h2>
-        <!-- TODO select membership -->
-        <!-- TODO select start date -->
+        <md-input-container class="md-block">
+            <label>Karnet</label>
+            <md-select ng-model="vm.userInput.membership" required>
+                <md-option ng-repeat="membership in vm.memberships" ng-value="membership">
+                    {{membership.price}} PLN - {{membership.name}} ({{membership.numberOfTrainings}} treningów)
+                </md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Początek obowiązywania</label>
+            <md-datepicker ng-model="vm.userInput.membershipStartDate" required></md-datepicker>
+        </md-input-container>
     </md-dialog-content>
     <md-dialog-actions>
         <md-button ng-click="vm.cancel()" class="md-primary">

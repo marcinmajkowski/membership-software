@@ -14,7 +14,7 @@
             getPayments: getPayments,
             getPaymentsByCustomer: getPaymentsByCustomer,
             createPayment: createPayment,
-            createPaymentForCustomer: createPaymentForCustomer,
+            createPaymentFromMembershipForCustomer: createPaymentFromMembershipForCustomer,
             deletePayment: deletePayment
         };
 
@@ -42,12 +42,32 @@
             });
         }
 
-        function createPaymentForCustomer(payment, customer) {
-            console.log('TODO create payment for customer');
+        function createPaymentFromMembershipForCustomer(payment, membership, customer) {
+            //TODO need better api
+            var newPayment = {
+                timestamp: new Date(),
+                membershipStartDate: payment.membershipStartDate,
+                membershipEndDate: addDays(payment.membershipStartDate, membership.durationInDays),
+                membershipName: membership.name,
+                membershipPrice: membership.price,
+                membershipNumberOfTrainings: membership.numberOfTrainings,
+                payer: customer._links.self.href
+            };
+
+            return $http.post(paymentsUrl, newPayment).then(function (response) {
+                return response.data;
+            });
         }
 
         function deletePayment(payment) {
             return $http.delete(payment._links.self.href);
+        }
+
+        //TODO where should I put stuff like this
+        function addDays(date, days) {
+            var result = new Date(date);
+            result.setDate(result.getDate() + days);
+            return result;
         }
 
     }

@@ -19,6 +19,7 @@ public class Payment {
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
 
+    //TODO API should be able to create Payment from Membership
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date membershipStartDate;
@@ -27,7 +28,7 @@ public class Payment {
     @Temporal(TemporalType.DATE)
     private Date membershipEndDate;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String membershipName;
 
     @Column(nullable = false)
@@ -36,6 +37,7 @@ public class Payment {
     @Column(nullable = false)
     private Integer membershipNumberOfTrainings;
 
+    //FIXME consider what should happen if payer gets deleted
     @ManyToOne(optional = false)
     private Customer payer;
 

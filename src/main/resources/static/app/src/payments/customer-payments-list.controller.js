@@ -33,10 +33,10 @@
                 controllerAs: 'vm'
             }).then(function (userInput) {
                 var newPayment = {
-                    //TODO
+                    membershipStartDate: userInput.membershipStartDate
                 };
 
-                paymentsService.createPaymentForCustomer(newPayment, vm.customer).then(function (payment) {
+                paymentsService.createPaymentFromMembershipForCustomer(newPayment, userInput.membership, vm.customer).then(function (payment) {
                     vm.payments.push(payment);
                 });
 
