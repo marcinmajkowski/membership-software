@@ -22,11 +22,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="membership-software-backend" />
+        <module name="membership-software" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="membership-software-backend" target="1.8" />
+      <module name="membership-software" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.marcinmajkowski</groupId>
-    <artifactId>membership-software-backend</artifactId>
+    <artifactId>membership-software</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>membership-software-backend</name>
-    <description>Membership software REST API built with Spring Boot.</description>
+    <name>membership-software</name>
+    <description>Membership software REST API backend and SPA frontend built with Spring and AngularJS.</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -59,28 +59,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.0.1</version>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${basedir}/target/classes/static</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${frontend.directory}</directory>
-                                    <filtering>false</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
