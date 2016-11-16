@@ -3,6 +3,6 @@
 
     angular
         .module('membershipSoftwareConstants', [])
-        .constant('apiUrl', 'http://localhost:8080/api/v1');
+        .constant('apiUrl', 'api/v1');
 
 })();
