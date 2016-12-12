@@ -14,10 +14,4 @@
 # API Entry Point
 [localhost:8080/api/v1](localhost:8080/api/v1)
 
-# Front-end development
-
-* npm install
-* npm update
-* npm install -g live-server
-* live-server --port=9000
 
