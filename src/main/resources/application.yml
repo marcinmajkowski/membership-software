@@ -1,6 +1,12 @@
 security:
   user:
     password: ${USER_PASSWORD}
+zuul:
+  ignored-patterns: /api/**
+  routes:
+    webapp:
+      path: /**
+      url: ${MEMBERSHIP_SOFTWARE_WEBAPP_URL}
 spring:
   datasource:
     url: ${JDBC_DATABASE_URL}
