@@ -12,6 +12,8 @@ import java.util.Collection;
 @Projection(name = "firstNameAndLastNameAndCards", types = Customer.class)
 interface FirstNameAndLastNameAndCardsCustomerProjection {
 
+    long getId();
+
     String getFirstName();
 
     String getLastName();
