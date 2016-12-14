@@ -22,6 +22,9 @@ public class Card {
     @ManyToOne(optional = false)
     private Customer owner;
 
+    protected Card() {
+    }
+
     public String getCode() {
         return code;
     }

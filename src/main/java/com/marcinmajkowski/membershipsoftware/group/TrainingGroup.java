@@ -12,6 +12,9 @@ public class TrainingGroup {
     @Column(nullable = false)
     private String name;
 
+    protected TrainingGroup() {
+    }
+
     public String getName() {
         return name;
     }

@@ -47,6 +47,9 @@ public class Customer {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private Set<CheckIn> checkIns;
 
+    protected Customer() {
+    }
+
     public long getId() {
         return id;
     }

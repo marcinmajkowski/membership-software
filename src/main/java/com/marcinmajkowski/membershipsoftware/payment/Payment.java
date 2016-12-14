@@ -1,14 +1,18 @@
 package com.marcinmajkowski.membershipsoftware.payment;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.marcinmajkowski.membershipsoftware.checkin.CheckIn;
 import com.marcinmajkowski.membershipsoftware.customer.Customer;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Payment {
 
     @Id
@@ -34,6 +38,9 @@ public class Payment {
     @Column(nullable = false)
     private BigDecimal membershipPrice;
 
+    /**
+     * This is checkIns max size.
+     */
     @Column(nullable = false)
     private Integer membershipNumberOfTrainings;
 
@@ -41,8 +48,16 @@ public class Payment {
     @ManyToOne(optional = false)
     private Customer payer;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "payment")
-    private Set<CheckIn> checkIns;
+    //TODO cascade?
+    @OneToMany(mappedBy = "payment")
+    private Collection<CheckIn> checkIns;
+
+    protected Payment() {
+    }
+
+    public long getId() {
+        return id;
+    }
 
     public Date getTimestamp() {
         return timestamp;
@@ -100,7 +115,7 @@ public class Payment {
         this.payer = payer;
     }
 
-    public Set<CheckIn> getCheckIns() {
+    public Collection<CheckIn> getCheckIns() {
         return checkIns;
     }
 

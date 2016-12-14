@@ -1,5 +1,7 @@
 package com.marcinmajkowski.membershipsoftware.checkin;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.marcinmajkowski.membershipsoftware.card.Card;
 import com.marcinmajkowski.membershipsoftware.customer.Customer;
 import com.marcinmajkowski.membershipsoftware.group.TrainingGroup;
@@ -9,6 +11,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class CheckIn {
 
     @Id
@@ -30,6 +33,13 @@ public class CheckIn {
 
     @ManyToOne(optional = false)
     private Payment payment;
+
+    protected CheckIn() {
+    }
+
+    public long getId() {
+        return id;
+    }
 
     public Date getTimestamp() {
         return timestamp;

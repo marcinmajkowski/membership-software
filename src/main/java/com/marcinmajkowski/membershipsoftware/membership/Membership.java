@@ -22,6 +22,9 @@ public class Membership {
     @Column(nullable = false)
     private Integer numberOfTrainings;
 
+    protected Membership() {
+    }
+
     public String getName() {
         return name;
     }
