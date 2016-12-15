@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.marcinmajkowski.membershipsoftware.checkin.CheckIn;
 import com.marcinmajkowski.membershipsoftware.customer.Customer;
+import com.marcinmajkowski.membershipsoftware.membership.Membership;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -22,6 +23,13 @@ public class Payment {
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
+
+    /**
+     * This is used to initialize membershipStartDate, membershipEndDate, membershipName and membershipPrice.
+     * I copy them because membership is not immutable.
+     */
+    @ManyToOne
+    private Membership membership;
 
     //TODO API should be able to create Payment from Membership
     @Column(nullable = false)

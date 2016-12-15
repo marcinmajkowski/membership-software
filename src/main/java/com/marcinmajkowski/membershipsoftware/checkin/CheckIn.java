@@ -22,16 +22,16 @@ public class CheckIn {
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
 
-    @ManyToOne(optional = true)
+    @ManyToOne
     private Card card;
 
     @ManyToOne(optional = false)
     private Customer customer;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     private TrainingGroup trainingGroup;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Payment payment;
 
     protected CheckIn() {

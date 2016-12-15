@@ -3,6 +3,7 @@ package com.marcinmajkowski.membershipsoftware.membership;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+//TODO soft delete
 @Entity
 public class Membership {
 
