@@ -31,11 +31,15 @@ public class Payment {
     @ManyToOne
     private Membership membership;
 
+    @Column(nullable = false)
+    private Integer membershipDurationInDays;
+
     //TODO API should be able to create Payment from Membership
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date membershipStartDate;
 
+    //TODO could be value generated from start date and duration
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date membershipEndDate;
@@ -73,6 +77,22 @@ public class Payment {
 
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public Membership getMembership() {
+        return membership;
+    }
+
+    public void setMembership(Membership membership) {
+        this.membership = membership;
+    }
+
+    public Integer getMembershipDurationInDays() {
+        return membershipDurationInDays;
+    }
+
+    public void setMembershipDurationInDays(Integer membershipDurationInDays) {
+        this.membershipDurationInDays = membershipDurationInDays;
     }
 
     public Date getMembershipStartDate() {
