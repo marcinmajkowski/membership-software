@@ -21,3 +21,6 @@ spring:
   h2:
     console:
       enabled: true
+  mvc:
+    favicon:
+      enabled: false
