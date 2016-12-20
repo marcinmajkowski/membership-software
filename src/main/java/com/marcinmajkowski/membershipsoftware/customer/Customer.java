@@ -1,5 +1,7 @@
 package com.marcinmajkowski.membershipsoftware.customer;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.marcinmajkowski.membershipsoftware.card.Card;
 import com.marcinmajkowski.membershipsoftware.checkin.CheckIn;
 import com.marcinmajkowski.membershipsoftware.group.TrainingGroup;
@@ -10,6 +12,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Customer {
 
     @Id

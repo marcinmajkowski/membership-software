@@ -80,4 +80,9 @@ public class CheckIn {
     public void setPayment(Payment payment) {
         this.payment = payment;
     }
+
+    @Transient
+    public boolean isPaid() {
+        return this.payment != null;
+    }
 }

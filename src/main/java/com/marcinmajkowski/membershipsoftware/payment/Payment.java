@@ -10,7 +10,6 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
@@ -147,7 +146,13 @@ public class Payment {
         return checkIns;
     }
 
-    public void setCheckIns(Set<CheckIn> checkIns) {
+    public void setCheckIns(Collection<CheckIn> checkIns) {
         this.checkIns = checkIns;
+    }
+
+    //TODO cover this with tests
+    public int getCheckInsSize() {
+        // handling null like that because of problems during serialization to json just after creating new payment
+        return this.checkIns == null ? 0 : this.checkIns.size();
     }
 }
