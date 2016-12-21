@@ -17,7 +17,9 @@ public class CheckInValidator implements Validator {
         CheckIn checkIn = (CheckIn) o;
         Payment payment = checkIn.getPayment();
 
-        if (payment != null && payment.getCheckIns().size() >= payment.getMembershipNumberOfTrainings()) {
+        if (payment != null
+                && payment.getMembershipNumberOfTrainings() >= 0
+                && payment.getCheckIns().size() >= payment.getMembershipNumberOfTrainings()) {
             errors.rejectValue("payment", "paymentNumberOfTrainingsReached");
         }
 
