@@ -4,7 +4,6 @@ import com.marcinmajkowski.membershipsoftware.payment.Payment;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-//FIXME when value is rejected, http response contains whole payment with payer, his cards e.t.c.
 public class CheckInValidator implements Validator {
 
     @Override
@@ -20,7 +19,12 @@ public class CheckInValidator implements Validator {
         if (payment != null
                 && payment.getMembershipNumberOfTrainings() >= 0
                 && payment.getCheckIns().size() >= payment.getMembershipNumberOfTrainings()) {
-            errors.rejectValue("payment", "paymentNumberOfTrainingsReached");
+
+            //TODO currently, spring-data-rest exception handler will not show the message in the response
+            // Using reject instead of rejectValue because otherwise payment will be included in the response as
+            // "invalidValue" property. Since that serialization would not be aware of spring-data-rest, it would
+            // contain circular references leading to stack overflow.
+            errors.reject("paymentNumberOfTrainingsReached");
         }
 
         //TODO check checkIn date with payment range

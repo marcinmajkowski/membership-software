@@ -16,8 +16,8 @@ public class CheckInEventHandler {
 
     @HandleBeforeCreate
     public void handleCheckInBeforeCreate(CheckIn checkIn) {
-        checkIn.setTimestamp(new Date()); //TODO auditing
-        //TODO set payment using custom algorithm
-        logger.info("CheckIn before create");
+        //TODO probably should inform client if he tried to set timestamp and we are going to overwrite it
+        //TODO auditing
+        checkIn.setTimestamp(new Date());
     }
 }

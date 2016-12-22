@@ -9,7 +9,7 @@ public class CheckInRepositoryRestConfigurerAdapter extends RepositoryRestConfig
 
     @Override
     public void configureValidatingRepositoryEventListener(ValidatingRepositoryEventListener validatingListener) {
-        //FIXME validate also on updates
         validatingListener.addValidator("beforeCreate", new CheckInValidator());
+        validatingListener.addValidator("beforeSave", new CheckInValidator());
     }
 }
