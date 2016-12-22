@@ -3,6 +3,8 @@ package com.marcinmajkowski.membershipsoftware.card;
 import com.marcinmajkowski.membershipsoftware.customer.Customer;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -10,12 +12,14 @@ public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
-    @Column(unique = true, nullable = false)
+    @NotNull
+    @Column(unique = true, length = 12)
+    @Size(min = 12, max = 12)
     private String code;
 
-    @Column(nullable = false)
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     private Date issueTimestamp;
 

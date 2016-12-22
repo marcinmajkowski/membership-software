@@ -1,6 +1,10 @@
 package com.marcinmajkowski.membershipsoftware.membership;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 //TODO soft delete
@@ -9,18 +13,17 @@ public class Membership {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
-    @Column(nullable = true)
     private String name;
 
-    @Column(nullable = false)
+    @NotNull
     private BigDecimal price;
 
-    @Column(nullable = false)
+    @NotNull
     private Integer durationInDays;
 
-    @Column(nullable = false)
+    @NotNull
     private Integer numberOfTrainings;
 
     protected Membership() {

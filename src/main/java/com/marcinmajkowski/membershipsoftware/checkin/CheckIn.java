@@ -4,8 +4,10 @@ import com.marcinmajkowski.membershipsoftware.card.Card;
 import com.marcinmajkowski.membershipsoftware.customer.Customer;
 import com.marcinmajkowski.membershipsoftware.group.TrainingGroup;
 import com.marcinmajkowski.membershipsoftware.payment.Payment;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -13,9 +15,9 @@ public class CheckIn {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
-    @Column(nullable = false)
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
 
@@ -31,10 +33,13 @@ public class CheckIn {
     @ManyToOne
     private Payment payment;
 
+    @Formula("payment_id is not null")
+    private boolean paid;
+
     protected CheckIn() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -78,8 +83,7 @@ public class CheckIn {
         this.payment = payment;
     }
 
-    @Transient
     public boolean isPaid() {
-        return this.payment != null;
+        return paid;
     }
 }

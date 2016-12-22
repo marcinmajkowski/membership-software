@@ -3,7 +3,7 @@ package com.marcinmajkowski.membershipsoftware.customer;
 import com.marcinmajkowski.membershipsoftware.card.Card;
 import org.springframework.data.rest.core.config.Projection;
 
-import java.util.Collection;
+import java.util.Set;
 
 /*
  * Projection used to produce collection of all customers first name, last name and numbers of all their cards.
@@ -18,5 +18,5 @@ interface FirstNameAndLastNameAndCardsCustomerProjection {
 
     String getLastName();
 
-    Collection<Card> getCards();
+    Set<Card> getCards();
 }

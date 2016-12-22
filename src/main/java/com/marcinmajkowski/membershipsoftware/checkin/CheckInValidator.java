@@ -21,10 +21,11 @@ public class CheckInValidator implements Validator {
                 && payment.getCheckIns().size() >= payment.getMembershipNumberOfTrainings()) {
 
             //TODO currently, spring-data-rest exception handler will not show the message in the response
+            //TODO https://jira.spring.io/browse/DATAREST-832?filter=-3
             // Using reject instead of rejectValue because otherwise payment will be included in the response as
             // "invalidValue" property. Since that serialization would not be aware of spring-data-rest, it would
             // contain circular references leading to stack overflow.
-            errors.reject("paymentNumberOfTrainingsReached");
+            errors.reject("payment NumberOfTrainingsReached");
         }
 
         //TODO check checkIn date with payment range

@@ -6,6 +6,7 @@ import com.marcinmajkowski.membershipsoftware.group.TrainingGroup;
 import com.marcinmajkowski.membershipsoftware.payment.Payment;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Set;
 
@@ -14,28 +15,24 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
-    @Column(nullable = false)
+    @NotNull
     private String firstName;
 
-    @Column(nullable = false)
+    @NotNull
     private String lastName;
 
-    @Column
     @Temporal(TemporalType.DATE)
     private Date birthday;
 
-    @Column
     private String email;
 
-    @Column
     private String phone;
 
     @ManyToMany
     private Set<TrainingGroup> trainingGroups;
 
-    @Column
     private String note;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
@@ -50,7 +47,7 @@ public class Customer {
     protected Customer() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

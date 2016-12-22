@@ -3,20 +3,22 @@ package com.marcinmajkowski.membershipsoftware.payment;
 import com.marcinmajkowski.membershipsoftware.checkin.CheckIn;
 import com.marcinmajkowski.membershipsoftware.customer.Customer;
 import com.marcinmajkowski.membershipsoftware.membership.Membership;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
-    @Column(nullable = false)
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
 
@@ -27,29 +29,28 @@ public class Payment {
     @ManyToOne
     private Membership membership;
 
-    @Column(nullable = false)
+    @NotNull
     private Integer membershipDurationInDays;
 
     //TODO API should be able to create Payment from Membership
-    @Column(nullable = false)
+    @NotNull
     @Temporal(TemporalType.DATE)
     private Date membershipStartDate;
 
     //TODO could be value generated from start date and duration
-    @Column(nullable = false)
+    @NotNull
     @Temporal(TemporalType.DATE)
     private Date membershipEndDate;
 
-    @Column(nullable = true)
     private String membershipName;
 
-    @Column(nullable = false)
+    @NotNull
     private BigDecimal membershipPrice;
 
     /**
      * This is checkIns max size.
      */
-    @Column(nullable = false)
+    @NotNull
     private Integer membershipNumberOfTrainings;
 
     //FIXME consider what should happen if payer gets deleted
@@ -58,12 +59,15 @@ public class Payment {
 
     //TODO cascade?
     @OneToMany(mappedBy = "payment")
-    private Collection<CheckIn> checkIns;
+    private Set<CheckIn> checkIns;
+
+    @Formula("(select count(*) from check_in c where c.payment_id = id)")
+    private Integer checkInsSize;
 
     protected Payment() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -139,17 +143,15 @@ public class Payment {
         this.payer = payer;
     }
 
-    public Collection<CheckIn> getCheckIns() {
+    public Set<CheckIn> getCheckIns() {
         return checkIns;
     }
 
-    public void setCheckIns(Collection<CheckIn> checkIns) {
+    public void setCheckIns(Set<CheckIn> checkIns) {
         this.checkIns = checkIns;
     }
 
-    //TODO cover this with tests
-    public int getCheckInsSize() {
-        // handling null like that because of problems during serialization to json just after creating new payment
-        return this.checkIns == null ? 0 : this.checkIns.size();
+    public Integer getCheckInsSize() {
+        return checkInsSize;
     }
 }
