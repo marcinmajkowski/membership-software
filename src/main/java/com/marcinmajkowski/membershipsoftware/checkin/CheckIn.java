@@ -4,7 +4,6 @@ import com.marcinmajkowski.membershipsoftware.card.Card;
 import com.marcinmajkowski.membershipsoftware.customer.Customer;
 import com.marcinmajkowski.membershipsoftware.group.TrainingGroup;
 import com.marcinmajkowski.membershipsoftware.payment.Payment;
-import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -32,9 +31,6 @@ public class CheckIn {
 
     @ManyToOne
     private Payment payment;
-
-    @Formula("payment_id is not null")
-    private boolean paid;
 
     protected CheckIn() {
     }
@@ -83,7 +79,13 @@ public class CheckIn {
         this.payment = payment;
     }
 
+    /**
+     * Returns true if there is payment for this checkIn.
+     *
+     * I tried using @Formula("payment_id is not null") on private boolean paid field but false was returned when
+     * new checkIn with payment had been created. It seemed like it does not work well on insert.
+     */
     public boolean isPaid() {
-        return paid;
+        return payment != null;
     }
 }
