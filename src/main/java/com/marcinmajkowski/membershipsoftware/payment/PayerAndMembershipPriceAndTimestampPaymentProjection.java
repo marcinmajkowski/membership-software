@@ -9,6 +9,8 @@ import java.util.Date;
 @Projection(name = "payerAndMembershipPriceAndTimestamp", types = Payment.class)
 public interface PayerAndMembershipPriceAndTimestampPaymentProjection {
 
+    Long getId();
+
     Customer getPayer();
 
     BigDecimal getMembershipPrice();
