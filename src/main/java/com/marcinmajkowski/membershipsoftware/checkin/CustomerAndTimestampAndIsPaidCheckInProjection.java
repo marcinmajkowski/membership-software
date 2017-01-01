@@ -1,17 +1,16 @@
 package com.marcinmajkowski.membershipsoftware.checkin;
 
 import com.marcinmajkowski.membershipsoftware.customer.Customer;
-import com.marcinmajkowski.membershipsoftware.group.TrainingGroup;
 import org.springframework.data.rest.core.config.Projection;
 
 import java.util.Date;
 
-@Projection(name = "customerAndTimestampAndTrainingGroup", types = CheckIn.class)
-interface CustomerAndTimestampAndTrainingGroupCheckInProjection {
+@Projection(name = "customerAndTimestampAndIsPaid", types = CheckIn.class)
+public interface CustomerAndTimestampAndIsPaidCheckInProjection {
 
     Customer getCustomer();
 
     Date getTimestamp();
 
-    TrainingGroup getTrainingGroup();
+    boolean isPaid();
 }
